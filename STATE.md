@@ -8,7 +8,7 @@
 - [x] T1-hidden-channel — NEGATIVE RESULT: ruled out at this export's resolution (metrics.json hidden_channel; 0 unexplained candidates; no view logs in export)
 - [x] T1-risk-score — CANDIDATE: 86 of 122 contested values cite no source URL in-post (metrics.json risk_score; top 5 inspected: zero sources, not copied URLs)
 - [x] T1-relay-scouts — CANDIDATE: 24 claims first posted with scout phrasing, 5 relayed by >=2 other labels, 19 downstream adoptions (metrics.json relay_scouts; keyword-classified, quotes included)
-- [ ] T1-findings (regenerate with the above)
+- [x] T1-findings — FINDINGS.md rendered by build_findings.py from metrics.json; gate asserts it is current; statuses: 4 FINDING, 2 NEGATIVE RESULT, 2 CANDIDATE
 - [ ] T2-adapter (SwarmTraces, cross-incident)
 - [ ] T2-store (growing store + query CLI)
 - [ ] T3-graph / T3-a11y / T3-ci
