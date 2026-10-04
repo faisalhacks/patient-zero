@@ -11,5 +11,5 @@
 - [x] T1-findings — FINDINGS.md rendered by build_findings.py from metrics.json; gate asserts it is current; statuses: 4 FINDING, 2 NEGATIVE RESULT, 2 CANDIDATE
 - [x] T2-adapter — SwarmTraces adapter emits 363 claims (counts only: no timestamps, ids redacted); blob-host bypass does NOT recur, NO_PROXY=* in 3 records (FINDINGS §9)
 - [x] T2-store — outputs/store.jsonl grows per run; `python patient_zero.py query <value>` prints a claim's spread (tests/test_tier2.py)
-- [ ] T3-graph / T3-a11y / T3-ci
+- [x] T3-graph (inferred who-copied-whom SVG per slot) / T3-a11y (keyboard tabs, focus, reduced motion; Lighthouse a11y 1.00) / T3-ci (.github/workflows/gate.yml)
 - [ ] T-FINALIZE (refresh outputs -> rebuild page -> gate green)
