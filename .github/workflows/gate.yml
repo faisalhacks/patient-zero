@@ -1,0 +1,30 @@
+name: gate
+# The reproducibility gate: every finding must come back out of the public export.
+on:
+  push:
+  pull_request:
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch the public redacted exports and verify checksums
+        run: python download_data.py --swarmtraces
+      - name: Gate (findings reproduce from the raw export)
+        run: python tests/test_reproduces.py
+      - name: Tier 2 (SwarmTraces adapter, append-only store + query)
+        run: python tests/test_tier2.py
+      - name: Cross-incident run emits claims
+        run: python -m swarmtrace --source swarmtraces --no-store
+      - name: Page is self-contained (no external scripts) and embeds the current page data
+        run: python build_page.py --check
+      - name: FINDINGS.md is current relative to the outputs
+        run: python build_findings.py --check
+      - name: Open-check the page in headless Chromium (console errors, keyboard tabs, graph, results)
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+          python tests/check_page.py
