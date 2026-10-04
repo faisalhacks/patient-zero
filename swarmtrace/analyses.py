@@ -54,18 +54,19 @@ from . import relay as _relay
 from . import evaluation as _eval
 
 # ---------- correction lag (kept green) ------------------------------------------------
+OECD_TASK = "oecd-equity"
 PAIRS = [("Hungary", "9.90", "9.91"), ("Poland", "16.40", "16.38"), ("Slovak", "14.60", "14.59"), ("Czech", "9.70", "9.69")]
 def correction_lag(claims):
     """Wrong-value adoptions AFTER the correct value's first public post. Which value is
     'correct' is the hand-checked collusion.wiki verdict, not an engine output."""
-    get = {(c["slot"], c["value"]): c for c in claims if c["kind"] == "answer_value"}
+    get = {(c["task"], c["slot"], c["value"]): c for c in claims if c["kind"] == "answer_value"}
     out = {}
     for slot, wrong, right in PAIRS:
-        w, r = get[(slot, wrong)], get[(slot, right)]
+        w, r = get[(OECD_TASK, slot, wrong)], get[(OECD_TASK, slot, right)]
         tc = r["first_seen"]
         after = [a for a in w["adoption"] if _t(a[0]) > _t(tc)]
         last = max(a[0] for a in w["adoption"])
-        out[slot] = {"correct": right, "wrong": wrong, "correction_first_posted": tc, "correction_posted_by": r["patient_zero"],
+        out[slot] = {"task": OECD_TASK, "correct": right, "wrong": wrong, "correction_first_posted": tc, "correction_posted_by": r["patient_zero"],
                      "wrong_first_posted": w["first_seen"], "wrong_posted_by": w["patient_zero"],
                      "head_start_of_wrong_over_correct_seconds": _sec(w["first_seen"], tc),
                      "wrong_adopters_total": w["n_agents"], "new_wrong_adopters_after_correction": len(after),
@@ -98,20 +99,21 @@ def simultaneous_answers(claims, events):
     """Fastest gap between two posts of the same answer value by different labels on
     different pages. Answer values are publicly computable, so a tiny gap is explained by
     independent lookup of the same public figure; this is a NEGATIVE result for a hidden channel."""
-    from .core import ANS, STOP
+    from .core import answer_pairs, task_index, task_of
+    idx = task_index(events)
     seen = collections.defaultdict(list)
     for e in events:
-        for k, v in sorted(set(ANS.findall(e["text"]))):
-            if k not in STOP: seen[(k, v)].append((e["time"], e["agent"], e["where"]))
+        for k, v in answer_pairs(e["text"]):
+            seen[(task_of(e, k, v, idx), k, v)].append((e["time"], e["agent"], e["where"]))
     best = None; best_key = None
-    for key, posts in sorted(seen.items()):
+    for key, posts in sorted(seen.items(), key=lambda kv: (kv[0][0] or "", kv[0][1], kv[0][2])):
         posts.sort()
         for a, b in zip(posts, posts[1:]):
             if a[1] != b[1] and a[2] != b[2]:
-                g = _sec(a[0], b[0]); k = (g, a[0], key[0], key[1], a[1], b[1])
+                g = _sec(a[0], b[0]); k = (g, a[0], key[0] or "", key[1], key[2], a[1], b[1])
                 if best is None or k < best_key:
                     best_key = k
-                    best = {"gap_seconds": g, "slot": key[0], "value": key[1],
+                    best = {"gap_seconds": g, "task": key[0], "slot": key[1], "value": key[2],
                             "first": {"time": a[0], "label": a[1], "page": a[2]},
                             "second": {"time": b[0], "label": b[1], "page": b[2]}}
     return best
@@ -120,10 +122,10 @@ def simultaneous_answers(claims, events):
 GENERIC_SLOT_WORDS = {"Answered", "Expected", "CONFIRMED", "Exact", "Thus", "Correct", "Prepared", "Total",
                       "Ready", "County", "Likely", "Known", "XLSX", "SDMX"}
 def slot_classification(cascades):
-    generic = sorted(c["slot"] for c in cascades if c["slot"] in GENERIC_SLOT_WORDS)
-    named = sorted(c["slot"] for c in cascades if c["slot"] not in GENERIC_SLOT_WORDS)
+    generic = sorted(f"{c['task']}/{c['slot']}" for c in cascades if c["slot"] in GENERIC_SLOT_WORDS)
+    named = sorted(f"{c['task']}/{c['slot']}" for c in cascades if c["slot"] not in GENERIC_SLOT_WORDS)
     return {"flagged": len(cascades), "named_slots": len(named), "generic_word_artifacts": len(generic),
-            "artifact_slots": generic,
+            "artifact_slots": generic, "named_slot_list": named,
             "note": "the extractor keys a slot by the capitalised word before a number; generic words are "
                     "regex artifacts and are listed, not hidden, so the headline count stays honest"}
 

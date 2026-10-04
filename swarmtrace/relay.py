@@ -54,14 +54,14 @@ def run(events, claims, min_downstream=2, exclude_slots=()):
         ms = _match(e["text"])
         if not ms: continue
         later = c["adoption"][1:]
-        rows.append({"slot": c["slot"], "value": c["value"], "scout_label": pz[1], "scout_page": pz[2],
+        rows.append({"task": c["task"], "slot": c["slot"], "value": c["value"], "scout_label": pz[1], "scout_page": pz[2],
                      "first_seen": pz[0], "scout_phrases": ms,
                      "first_person_self_report": any(m["first_person_nearby"] for m in ms),
                      "downstream_labels": len(later),
                      "seconds_to_first_downstream": _sec(pz[0], later[0][0]) if later else None,
                      "seconds_to_last_downstream": _sec(pz[0], later[-1][0]) if later else None,
                      "downstream_pages": len({a[2] for a in later})})
-    rows.sort(key=lambda r: (-r["downstream_labels"], r["first_seen"], r["slot"], r["value"]))
+    rows.sort(key=lambda r: (-r["downstream_labels"], r["first_seen"], r["task"] or "", r["slot"], r["value"]))
     relayed = [r for r in rows if r["downstream_labels"] >= min_downstream]
     return {
         "definition": "answer-value claims whose FIRST post self-reports racing ahead / giving up its round / "

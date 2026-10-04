@@ -4,7 +4,7 @@ Ground truth: incidents documented by hand in the [collusion.wiki](https://collu
 
 - **Recall, automatic (no hand-coded keys): 6/8 = 0.75**
 - Recall including hand-written technique patterns: 8/8 = 1.0
-- **Precision on contested slots: 28/42 = 0.667** (artifact slots counted against precision: `Answered`, `CONFIRMED`, `Correct`, `County`, `Exact`, `Expected`, `Known`, `Likely`, `Prepared`, `Ready`, `SDMX`, `Thus`, `Total`, `XLSX`)
+- **Precision on contested slots: 16/27 = 0.593** (artifact slots counted against precision: `datausa-cashiers-masters/CONFIRMED`, `datausa-cashiers-masters/Expected`, `datausa-clothing-workforce/Total`, `datausa-construction-workforce/Exact`, `datausa-construction-workforce/Prepared`, `datausa-language-french/Answered`, `datausa-poverty-county/County`, `oecd-equity/Answered`, `oecd-equity/SDMX`, `oecd-equity/Thus`, `oecd-equity/XLSX`)
 
 | # | incident | automatic | pattern | collusion.wiki section |
 |---|---|---|---|---|

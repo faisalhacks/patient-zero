@@ -12,24 +12,21 @@
     "value": 1.0
   },
   "precision_contested_slots": {
-    "named": 28,
-    "flagged": 42,
-    "value": 0.667,
+    "named": 16,
+    "flagged": 27,
+    "value": 0.593,
     "artifact_slots": [
-      "Answered",
-      "CONFIRMED",
-      "Correct",
-      "County",
-      "Exact",
-      "Expected",
-      "Known",
-      "Likely",
-      "Prepared",
-      "Ready",
-      "SDMX",
-      "Thus",
-      "Total",
-      "XLSX"
+      "datausa-cashiers-masters/CONFIRMED",
+      "datausa-cashiers-masters/Expected",
+      "datausa-clothing-workforce/Total",
+      "datausa-construction-workforce/Exact",
+      "datausa-construction-workforce/Prepared",
+      "datausa-language-french/Answered",
+      "datausa-poverty-county/County",
+      "oecd-equity/Answered",
+      "oecd-equity/SDMX",
+      "oecd-equity/Thus",
+      "oecd-equity/XLSX"
     ]
   },
   "definitions": {

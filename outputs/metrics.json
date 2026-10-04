@@ -10,29 +10,45 @@
     "note": "neither the self-assigned label nor the redacted ip16 prefix identifies an agent; 'n_agents' everywhere in this repo means 'distinct labels'."
   },
   "slots": {
-    "flagged": 42,
-    "named_slots": 28,
-    "generic_word_artifacts": 14,
+    "flagged": 27,
+    "named_slots": 16,
+    "generic_word_artifacts": 11,
     "artifact_slots": [
-      "Answered",
-      "CONFIRMED",
-      "Correct",
-      "County",
-      "Exact",
-      "Expected",
-      "Known",
-      "Likely",
-      "Prepared",
-      "Ready",
-      "SDMX",
-      "Thus",
-      "Total",
-      "XLSX"
+      "datausa-cashiers-masters/CONFIRMED",
+      "datausa-cashiers-masters/Expected",
+      "datausa-clothing-workforce/Total",
+      "datausa-construction-workforce/Exact",
+      "datausa-construction-workforce/Prepared",
+      "datausa-language-french/Answered",
+      "datausa-poverty-county/County",
+      "oecd-equity/Answered",
+      "oecd-equity/SDMX",
+      "oecd-equity/Thus",
+      "oecd-equity/XLSX"
+    ],
+    "named_slot_list": [
+      "datausa-cashiers-masters/Business",
+      "datausa-cashiers-masters/Education",
+      "datausa-cashiers-masters/Psychology",
+      "datausa-cashiers-masters/Social",
+      "datausa-cashiers-masters/Visual",
+      "datausa-language-french/Hampshire",
+      "datausa-language-french/York",
+      "nyc-veterans/Gulf",
+      "oecd-equity/Czech",
+      "oecd-equity/Greece",
+      "oecd-equity/Hungary",
+      "oecd-equity/Poland",
+      "oecd-equity/Slovak",
+      "oecd-equity/Slovenia",
+      "oecd-equity/United",
+      "oecd-regional-co2/Italy"
     ],
     "note": "the extractor keys a slot by the capitalised word before a number; generic words are regex artifacts and are listed, not hidden, so the headline count stays honest"
   },
   "correction_lag": {
     "Hungary": {
+      "task": "oecd-equity",
       "correct": "9.91",
       "wrong": "9.90",
       "correction_first_posted": "2026-06-20T04:56:50Z",
@@ -48,6 +64,7 @@
       "correct_adopters_total": 21
     },
     "Poland": {
+      "task": "oecd-equity",
       "correct": "16.38",
       "wrong": "16.40",
       "correction_first_posted": "2026-06-20T04:56:50Z",
@@ -63,6 +80,7 @@
       "correct_adopters_total": 29
     },
     "Slovak": {
+      "task": "oecd-equity",
       "correct": "14.59",
       "wrong": "14.60",
       "correction_first_posted": "2026-06-20T04:56:50Z",
@@ -78,6 +96,7 @@
       "correct_adopters_total": 51
     },
     "Czech": {
+      "task": "oecd-equity",
       "correct": "9.69",
       "wrong": "9.70",
       "correction_first_posted": "2026-06-20T04:34:31Z",
@@ -757,7 +776,7 @@
     "verdict": "RULED OUT at this export's resolution: every cross-label foreknowledge, simultaneity and discovery event is within the stated read bar or one process's write cadence, or has another innocent explanation checked in the data; no event requires an out-of-band channel"
   },
   "risk_score": {
-    "definition": "risk = distinct labels adopting the value / max(1, distinct non-infrastructure URLs cited in posts that contain the value); values are the competing answers in cascades.jsonl",
+    "definition": "risk = distinct labels adopting the value / max(1, distinct non-infrastructure URLs cited in posts that contain the value); values are the competing answers in cascades.jsonl, keyed by (task, slot)",
     "not_a_verification_rate": "the export has no tool-use or browsing logs; this counts citations in post text only",
     "infrastructure_hosts_excluded": [
       "counterapi.dev",
@@ -772,14 +791,16 @@
       "127.0.0.1",
       "example.com"
     ],
-    "values_scored": 122,
-    "values_with_zero_cited_sources": 86,
-    "adopters_of_values_with_zero_cited_sources": 662,
+    "values_scored": 69,
+    "values_with_zero_cited_sources": 45,
+    "adopters_of_values_with_zero_cited_sources": 502,
     "top": [
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Business",
         "value": "5,269",
         "adopters": 69,
+        "adopters_ip16": 56,
         "posts": 97,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
@@ -789,9 +810,11 @@
         "risk": 69.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Visual",
         "value": "2,134",
         "adopters": 67,
+        "adopters_ip16": 59,
         "posts": 97,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
@@ -801,9 +824,11 @@
         "risk": 67.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Psychology",
         "value": "1,544",
         "adopters": 66,
+        "adopters_ip16": 59,
         "posts": 97,
         "posts_citing_any_url": 2,
         "distinct_urls_in_posts": 2,
@@ -813,9 +838,11 @@
         "risk": 66.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Social",
         "value": "2,749",
         "adopters": 61,
+        "adopters_ip16": 54,
         "posts": 87,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
@@ -825,9 +852,11 @@
         "risk": 61.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovak",
         "value": "14.59",
         "adopters": 51,
+        "adopters_ip16": 51,
         "posts": 71,
         "posts_citing_any_url": 7,
         "distinct_urls_in_posts": 8,
@@ -837,9 +866,11 @@
         "risk": 51.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Poland",
         "value": "16.40",
         "adopters": 47,
+        "adopters_ip16": 34,
         "posts": 57,
         "posts_citing_any_url": 3,
         "distinct_urls_in_posts": 3,
@@ -849,9 +880,11 @@
         "risk": 47.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Education",
         "value": "5,432",
         "adopters": 39,
+        "adopters_ip16": 35,
         "posts": 53,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
@@ -861,9 +894,11 @@
         "risk": 39.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Hungary",
         "value": "9.90",
         "adopters": 65,
+        "adopters_ip16": 52,
         "posts": 89,
         "posts_citing_any_url": 6,
         "distinct_urls_in_posts": 6,
@@ -873,9 +908,11 @@
         "risk": 32.5
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovak",
         "value": "14.60",
         "adopters": 60,
+        "adopters_ip16": 46,
         "posts": 78,
         "posts_citing_any_url": 7,
         "distinct_urls_in_posts": 7,
@@ -885,21 +922,11 @@
         "risk": 30.0
       },
       {
-        "slot": "California",
-        "value": "11.2",
-        "adopters": 29,
-        "posts": 35,
-        "posts_citing_any_url": 4,
-        "distinct_urls_in_posts": 3,
-        "distinct_source_urls_in_posts": 0,
-        "distinct_source_hosts_in_posts": 0,
-        "distinct_source_urls_on_same_pages": 2,
-        "risk": 29.0
-      },
-      {
+        "task": "oecd-equity",
         "slot": "Poland",
         "value": "16.38",
         "adopters": 29,
+        "adopters_ip16": 34,
         "posts": 40,
         "posts_citing_any_url": 3,
         "distinct_urls_in_posts": 3,
@@ -909,9 +936,11 @@
         "risk": 29.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Hungary",
         "value": "9.91",
         "adopters": 21,
+        "adopters_ip16": 27,
         "posts": 31,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
@@ -921,9 +950,11 @@
         "risk": 21.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Czech",
         "value": "9.70",
         "adopters": 19,
+        "adopters_ip16": 19,
         "posts": 21,
         "posts_citing_any_url": 4,
         "distinct_urls_in_posts": 3,
@@ -933,9 +964,11 @@
         "risk": 19.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Czech",
         "value": "9.69",
         "adopters": 18,
+        "adopters_ip16": 16,
         "posts": 22,
         "posts_citing_any_url": 2,
         "distinct_urls_in_posts": 2,
@@ -945,9 +978,11 @@
         "risk": 18.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovenia",
         "value": "23.10",
         "adopters": 13,
+        "adopters_ip16": 14,
         "posts": 15,
         "posts_citing_any_url": 2,
         "distinct_urls_in_posts": 2,
@@ -957,9 +992,11 @@
         "risk": 13.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovenia",
         "value": "23.13",
         "adopters": 13,
+        "adopters_ip16": 12,
         "posts": 13,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 2,
@@ -969,9 +1006,11 @@
         "risk": 13.0
       },
       {
+        "task": "datausa-language-french",
         "slot": "Hampshire",
         "value": "1.32",
         "adopters": 12,
+        "adopters_ip16": 12,
         "posts": 17,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
@@ -981,63 +1020,89 @@
         "risk": 12.0
       },
       {
-        "slot": "Psychology",
-        "value": "12,468",
-        "adopters": 9,
-        "posts": 12,
-        "posts_citing_any_url": 1,
-        "distinct_urls_in_posts": 1,
-        "distinct_source_urls_in_posts": 0,
-        "distinct_source_hosts_in_posts": 0,
-        "distinct_source_urls_on_same_pages": 0,
-        "risk": 9.0
-      },
-      {
-        "slot": "Florida",
-        "value": "71,563",
-        "adopters": 8,
-        "posts": 8,
+        "task": "datausa-language-french",
+        "slot": "York",
+        "value": "11.7",
+        "adopters": 7,
+        "adopters_ip16": 9,
+        "posts": 9,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
         "distinct_source_urls_in_posts": 0,
         "distinct_source_hosts_in_posts": 0,
         "distinct_source_urls_on_same_pages": 0,
-        "risk": 8.0
+        "risk": 7.0
       },
       {
-        "slot": "Social",
-        "value": "16,947",
-        "adopters": 8,
-        "posts": 15,
+        "task": "oecd-regional-co2",
+        "slot": "Italy",
+        "value": "393.46",
+        "adopters": 7,
+        "adopters_ip16": 9,
+        "posts": 10,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 7.0
+      },
+      {
+        "task": "datausa-cashiers-masters",
+        "slot": "Psychology",
+        "value": "12,468",
+        "adopters": 6,
+        "adopters_ip16": 6,
+        "posts": 6,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 6.0
+      },
+      {
+        "task": "datausa-language-french",
+        "slot": "York",
+        "value": "12.4",
+        "adopters": 6,
+        "adopters_ip16": 7,
+        "posts": 7,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
         "distinct_source_urls_in_posts": 0,
         "distinct_source_hosts_in_posts": 0,
-        "distinct_source_urls_on_same_pages": 26,
-        "risk": 8.0
+        "distinct_source_urls_on_same_pages": 1,
+        "risk": 6.0
       }
     ],
     "top5_inspection": [
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Business",
         "value": "5,269",
         "adopters": 69,
+        "adopters_ip16": 56,
         "risk": 69.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Visual",
         "value": "2,134",
         "adopters": 67,
+        "adopters_ip16": 59,
         "risk": 67.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Psychology",
         "value": "1,544",
         "adopters": 66,
+        "adopters_ip16": 59,
         "risk": 66.0,
         "source_urls_cited": [
           "https://cors.bwa.workers.dev/"
@@ -1045,17 +1110,21 @@
         "machine_check": "all 1 cited URL(s) are on one host (cors.bwa.workers.dev); not independent sources"
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Social",
         "value": "2,749",
         "adopters": 61,
+        "adopters_ip16": 54,
         "risk": 61.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovak",
         "value": "14.59",
         "adopters": 51,
+        "adopters_ip16": 51,
         "risk": 51.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
@@ -1073,10 +1142,10 @@
       "gave up own round (submitted a wrong/placeholder answer)": 27,
       "reported the prompt as observed live": 9
     },
-    "claims_with_scout_patient_zero": 24,
-    "claims_relayed_by_at_least_2_other_labels": 5,
-    "downstream_adoptions_total": 19,
-    "relayed_claims_with_first_person_self_report": 0,
+    "claims_with_scout_patient_zero": 28,
+    "claims_relayed_by_at_least_2_other_labels": 9,
+    "downstream_adoptions_total": 32,
+    "relayed_claims_with_first_person_self_report": 4,
     "excluded_generic_word_slots": [
       "Answered",
       "CONFIRMED",
@@ -1096,6 +1165,7 @@
     ],
     "top": [
       {
+        "task": "datausa-clothing-workforce",
         "slot": "Florida",
         "value": "71,563",
         "scout_label": "OpenAIResearchDec10X",
@@ -1115,6 +1185,7 @@
         "downstream_pages": 7
       },
       {
+        "task": "datausa-construction-workforce",
         "slot": "Florida",
         "value": "532,489",
         "scout_label": "Nov08ConstructionAgent",
@@ -1134,6 +1205,47 @@
         "downstream_pages": 5
       },
       {
+        "task": "datausa-cashiers-masters",
+        "slot": "Psychology",
+        "value": "12,468",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 5,
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-cashiers-masters",
+        "slot": "Visual",
+        "value": "16,905",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 4,
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-construction-workforce",
         "slot": "Texas",
         "value": "843,195",
         "scout_label": "Nov08ConstructionAgent",
@@ -1153,6 +1265,7 @@
         "downstream_pages": 3
       },
       {
+        "task": "datausa-construction-workforce",
         "slot": "California",
         "value": "874,322",
         "scout_label": "Nov08ConstructionAgent",
@@ -1172,6 +1285,47 @@
         "downstream_pages": 2
       },
       {
+        "task": "datausa-cashiers-masters",
+        "slot": "Business",
+        "value": "54,544",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 2,
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-cashiers-masters",
+        "slot": "Education",
+        "value": "21,837",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 2,
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-poverty-state",
         "slot": "South",
         "value": "18.1",
         "scout_label": "PovertyScoutHelper",
@@ -1197,6 +1351,7 @@
     "claim": "near-simultaneous identical answers across pages",
     "fastest": {
       "gap_seconds": 1,
+      "task": "datausa-cashiers-masters",
       "slot": "Business",
       "value": "5,269",
       "first": {

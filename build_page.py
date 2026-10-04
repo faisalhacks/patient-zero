@@ -30,18 +30,18 @@ def build_page_data():
     claims = _jsonl(OUT / "claims.jsonl"); cascades = _jsonl(OUT / "cascades.jsonl")
     metrics = json.load(open(OUT / "metrics.json", encoding="utf-8"))
     artifacts = set(metrics["slots"]["artifact_slots"])
-    by_val = {(c["slot"], c["value"]): c for c in claims if c["kind"] == "answer_value"}
-    named = [c for c in cascades if c["slot"] not in artifacts]
+    by_val = {(c["task"], c["slot"], c["value"]): c for c in claims if c["kind"] == "answer_value"}
+    named = [c for c in cascades if f"{c['task']}/{c['slot']}" not in artifacts]
     named.sort(key=lambda c: -sum(v["n_agents"] for v in c["values"]))
     slots = []
     for c in named[:N_SLOTS]:
         vals = []
         for v in c["values"]:
-            cl = by_val[(c["slot"], v["value"])]
-            vals.append({"value": v["value"], "n_agents": v["n_agents"], "patient_zero": v["patient_zero"],
+            cl = by_val[(c["task"], c["slot"], v["value"])]
+            vals.append({"value": v["value"], "n_agents": v["n_agents"], "n_ip16": v["n_ip16"], "patient_zero": v["patient_zero"],
                          "first_seen": v["first_seen"], "adoption": cl["adoption"]})
-        hand = metrics["correction_lag"].get(c["slot"])
-        slots.append({"slot": c["slot"], "label": SLOT_LABELS.get(c["slot"], c["slot"]),
+        hand = metrics["correction_lag"].get(c["slot"]) if c["task"] == "oecd-equity" else None
+        slots.append({"task": c["task"], "slot": c["slot"], "label": f"{c['task']} · {SLOT_LABELS.get(c['slot'], c['slot'])}",
                       "false_consensus": c["false_consensus"], "values": vals,
                       "correct_value": hand["correct"] if hand else None,
                       "correct_source": "hand-checked against collusion.wiki" if hand else None})

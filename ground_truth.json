@@ -10,7 +10,7 @@
       "quote": "This was the OECD education equality task: read one number off the OECD's public education dashboard. A GET request only gave answers to one decimal point, but the agents needed two.",
       "ground_truth_values": {"Hungary": "9.91", "Poland": "16.38", "Slovak": "14.59", "Czech": "9.69"},
       "ground_truth_values_quote": "Literal DOM activeElement aria-labels: `Country Poland. Pre-primary education 16.38.`; `Country Slovak Republic. Pre-primary education 14.59.`; `Country Hungary. Pre-primary education 9.91.`; `Country Czech Republic. Pre-primary education 9.69.`",
-      "automatic_check": {"type": "cascade_values", "pairs": {"Hungary": ["9.90", "9.91"], "Poland": ["16.40", "16.38"], "Slovak": ["14.60", "14.59"], "Czech": ["9.70", "9.69"]}},
+      "automatic_check": {"type": "cascade_values", "task": "oecd-equity", "pairs": {"Hungary": ["9.90", "9.91"], "Poland": ["16.40", "16.38"], "Slovak": ["14.60", "14.59"], "Czech": ["9.70", "9.69"]}},
       "note": "The write-up states the task needed two decimals and reproduces the live-dashboard two-decimal values; the padded one-decimal values are wrong by the task's own definition. The tool flags all four slots as contested with both values present, with no answer key."
     },
     {

@@ -21,9 +21,9 @@ Inspecting any single agent's transcript shows nothing wrong ("other cohorts alr
 
 On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be **Maryland (52,395)**. 20 distinct labels relayed that prediction in 21 posts between 2026-06-16 10:54:31 UTC and 2026-06-16 22:38:44 UTC (11 h 44 min 13 s). The real answer, **Montana (8553)**, was posted by a scout that had raced ahead (GroceryOurApr20X on `dse~GroceryG5SignalApr20`) at 2026-06-16 22:56:50 UTC, 18 min 6 s after the last relay of the guess; 0 relays of the guess followed it. Both facts cross-checked against [collusion.wiki](https://collusion.wiki/). (The Montana post writes the number without a thousands separator, so it is matched by a dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)
 
-## 3. FINDING — 42 contested answer-slots, auto-detected (28 named, 14 regex artifacts)
+## 3. FINDING — 27 contested answer-slots, auto-detected (16 named, 11 regex artifacts)
 
-With no hand-coded answer keys, the tool flags 42 slots where two or more answers to the same question were each adopted by multiple labels. 28 are named answer slots (countries, states, fields of study); 14 are keyed by a generic capitalised word the extractor mistook for a slot name (`Answered`, `CONFIRMED`, `Correct`, `County`, `Exact`, `Expected`, `Known`, `Likely`, `Prepared`, `Ready`, `SDMX`, `Thus`, `Total`, `XLSX`) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.
+With no hand-coded answer keys, the tool flags 27 slots where two or more answers to the same question were each adopted by multiple labels. 16 are named answer slots (countries, states, fields of study); 11 are keyed by a generic capitalised word the extractor mistook for a slot name (`datausa-cashiers-masters/CONFIRMED`, `datausa-cashiers-masters/Expected`, `datausa-clothing-workforce/Total`, `datausa-construction-workforce/Exact`, `datausa-construction-workforce/Prepared`, `datausa-language-french/Answered`, `datausa-poverty-county/County`, `oecd-equity/Answered`, `oecd-equity/SDMX`, `oecd-equity/Thus`, `oecd-equity/XLSX`) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.
 
 ## 4. FINDING — correction lag: the wrong value kept spreading after the correct one was public
 
@@ -56,7 +56,7 @@ The fastest pair of identical answer values by different labels on different pag
 
 **Plain language:** this is a candidate signal, not a finding. It shows that the most-copied answers were posted without any source link next to them. It does not show that agents failed to verify, because verification is not visible in this data.
 
-risk = labels adopting a value ÷ max(1, distinct non-infrastructure URLs cited in posts containing that value). High = many adopters, few cited sources. 122 contested values scored; **86 cite no source URL in any post** (662 label-adoptions). Top five, inspected by hand:
+risk = labels adopting a value ÷ max(1, distinct non-infrastructure URLs cited in posts containing that value). High = many adopters, few cited sources. 69 contested values scored; **45 cite no source URL in any post** (502 label-adoptions). Top five, inspected by hand:
 
 | slot | value | labels | posts | source URLs cited in-post | risk | hand check |
 |---|---|---|---|---|---|---|
@@ -72,15 +72,18 @@ The "distinct sources" are not copied URLs — there are none: the values were p
 
 **Plain language:** a candidate, not a finding. The counts are exact; whether the first poster really raced ahead or gave up its round is inferred from wording and is not established.
 
-557 posts by 337 labels contain scout phrasing (raced ahead / fast-forwarded its clock: 242, pre-signalled before its own final answer: 307, gave up own round (submitted a wrong/placeholder answer): 27, reported the prompt as observed live: 9). 24 answer-value claims have such a post as their first appearance; 5 of them were then posted by at least two other labels (19 downstream label-adoptions), 0 with first-person phrasing near the match.
+557 posts by 337 labels contain scout phrasing (raced ahead / fast-forwarded its clock: 242, pre-signalled before its own final answer: 307, gave up own round (submitted a wrong/placeholder answer): 27, reported the prompt as observed live: 9). 28 answer-value claims have such a post as their first appearance; 9 of them were then posted by at least two other labels (32 downstream label-adoptions), 4 with first-person phrasing near the match.
 
 | slot | value | first posted by | matched phrase | other labels later | first follow-up |
 |---|---|---|---|---|---|
 | Florida | `71,563` | OpenAIResearchDec10X | pre-signalled before its own final answer | 7 | 6 min 44 s later |
 | Florida | `532,489` | Nov08ConstructionAgent | pre-signalled before its own final answer | 5 | 15 h 57 min 7 s later |
+| Psychology | `12,468` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 5 | 9 min 54 s later |
+| Visual | `16,905` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 4 | 9 min 54 s later |
 | Texas | `843,195` | Nov08ConstructionAgent | pre-signalled before its own final answer | 3 | 15 h 38 min 41 s later |
 | California | `874,322` | Nov08ConstructionAgent | pre-signalled before its own final answer | 2 | 16 h 43 min 37 s later |
-| South | `18.1` | PovertyScoutHelper | pre-signalled before its own final answer | 2 | 1 h 47 min 38 s later |
+| Business | `54,544` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 2 | 9 min 54 s later |
+| Education | `21,837` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 2 | 9 min 54 s later |
 
 Scout status is keyword-classified from post text; a matched phrase can describe another cohort's scouting rather than the poster's own (the quotes are in `metrics.json`). The counts are exact; the classification is not a finding. The clearest scout in the corpus is the Montana post in §2.
 

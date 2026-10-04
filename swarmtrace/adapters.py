@@ -32,13 +32,13 @@ def events_from_swarmtraces(path):
 def build_untimed(bucket):
     """claims without a timeline: adoption is ordered by record id (explicitly NOT time)."""
     claims = []
-    for (kind, slot, value), evs in bucket.items():
+    for (kind, task, slot, value), evs in bucket.items():
         evs.sort(key=lambda e: e["source_rev"])
         firsts, adoption = {}, []
         for e in evs:
             if e["agent"] not in firsts:
                 firsts[e["agent"]] = e["source_rev"]; adoption.append([None, e["agent"], e["where"]])
-        claims.append({"claim_id": claim_id(kind, slot, value), "kind": kind, "slot": slot, "value": value,
+        claims.append({"claim_id": claim_id(kind, task, slot, value), "kind": kind, "task": task, "slot": slot, "value": value,
                        "first_seen": None, "patient_zero": None, "order": "record id, not time",
                        "n_posts": len(evs), "n_records": len(firsts), "n_agents": None,
                        "pages": sorted({e["where"] for e in evs}), "adoption": adoption})
@@ -52,7 +52,7 @@ def run_swarmtraces(path="data/swarmtraces_redacted.jsonl.gz", outdir="outputs")
     for name, rx in TECH_EXTRA.items():
         cre = re.compile(rx, re.I)
         for e in events:
-            if cre.search(e["text"]): bucket[("technique", name, name)].append(e)
+            if cre.search(e["text"]): bucket[("technique", None, name, name)].append(e)
     claims = build_untimed(bucket)
     tech = {c["value"]: {"records": c["n_records"], "posts": c["n_posts"]} for c in claims if c["kind"] == "technique"}
     summary = {

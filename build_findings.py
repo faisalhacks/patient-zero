@@ -22,7 +22,7 @@ def ts(t): return t.replace("T", " ").replace("Z", " UTC")
 
 def render():
     m = json.load(open(OUT / "metrics.json", encoding="utf-8"))
-    cas = {c["slot"]: c for c in _jsonl(OUT / "cascades.jsonl")}
+    cas = {(c["task"], c["slot"]): c for c in _jsonl(OUT / "cascades.jsonl")}
     st = OUT / "swarmtraces_summary.json"
     st = json.load(open(st, encoding="utf-8")) if st.exists() else None
     L = []
@@ -54,7 +54,7 @@ def render():
     od = []
     for slot, v in m["correction_lag"].items():
         one = v["wrong"].rstrip("0")
-        n = next((x["n_agents"] for x in cas[slot]["values"] if x["value"] == one), None)
+        n = next((x["n_agents"] for x in cas[(v["task"], slot)]["values"] if x["value"] == one), None)
         if n is not None: od.append(f"`{one}`: {n}")
     w("Inspecting any single agent's transcript shows nothing wrong (\"other cohorts already confirmed it\"), yet in aggregate "
       "the swarm converged on the wrong value because one early figure was copied faster than it was checked. The one-decimal "
