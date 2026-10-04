@@ -100,15 +100,16 @@ def simultaneous_answers(claims, events):
     from .core import ANS, STOP
     seen = collections.defaultdict(list)
     for e in events:
-        for k, v in set(ANS.findall(e["text"])):
+        for k, v in sorted(set(ANS.findall(e["text"]))):
             if k not in STOP: seen[(k, v)].append((e["time"], e["agent"], e["where"]))
-    best = None
-    for key, posts in seen.items():
+    best = None; best_key = None
+    for key, posts in sorted(seen.items()):
         posts.sort()
         for a, b in zip(posts, posts[1:]):
             if a[1] != b[1] and a[2] != b[2]:
-                g = _sec(a[0], b[0])
-                if best is None or g < best["gap_seconds"]:
+                g = _sec(a[0], b[0]); k = (g, a[0], key[0], key[1], a[1], b[1])
+                if best is None or k < best_key:
+                    best_key = k
                     best = {"gap_seconds": g, "slot": key[0], "value": key[1],
                             "first": {"time": a[0], "label": a[1], "page": a[2]},
                             "second": {"time": b[0], "label": b[1], "page": b[2]}}
@@ -139,6 +140,7 @@ def run_all(datadir="data", outdir="outputs"):
         "slots": slot_classification(cascades),
         "correction_lag": correction_lag(claims),
         "featured_case": featured_case(events),
+        "events": len(events),
         "hidden_channel": _hc.run(rev, pages, events, ev_types, lab_ip),
         "risk_score": _risk.run(events, cascades),
         "relay_scouts": _relay.run(events, claims, exclude_slots=GENERIC_SLOT_WORDS),

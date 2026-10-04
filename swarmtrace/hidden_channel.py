@@ -87,14 +87,14 @@ def run(revisions, pages, events, event_type_counts, lab_ip):
     # one pass: every mention of a (later- or earlier-) created page name on another page
     mentions = collections.defaultdict(list)          # page_key -> [(time, label, where, rev_id)]
     for e in events:
-        for name in set(WORD_RX.findall(e["text"])) & names.keys():
+        for name in sorted(set(WORD_RX.findall(e["text"])) & names.keys()):
             k = names[name]
             if e["where"] != k: mentions[k].append((e["time"], e["agent"], e["where"], e["source_rev"]))
     shared = lambda a, b: bool(lab_ip.get(a, set()) & lab_ip.get(b, set()))
 
     # ---------------- Test A: name posted by another label BEFORE the page existed ----------------
     n_total = n_anon = n_same_label = n_same_ip16 = 0; A = []
-    for k, ms in mentions.items():
+    for k, ms in sorted(mentions.items()):
         c = clean[k]; cl = _lab(c["label"]); name = pages[k]["name"]
         for (mt, ml, mw, rid) in ms:
             lead = _sec(mt, c["time"])
@@ -115,7 +115,7 @@ def run(revisions, pages, events, event_type_counts, lab_ip):
             A.append({"page": name, "lead_seconds": lead, "mentioned_at": mt, "mentioned_by": ml, "mentioned_on": mw,
                       "created_at": c["time"], "created_by": cl, "innocent_explanations": why,
                       "status": "explained" if why else "CANDIDATE"})
-    A.sort(key=lambda x: x["lead_seconds"])
+    A.sort(key=lambda x: (x["lead_seconds"], x["page"], x["mentioned_at"], x["mentioned_by"], x["mentioned_on"]))
     def bucket(s): return "<=60s" if s <= 60 else "<=1h" if s <= 3600 else "<=24h" if s <= 86400 else ">24h"
     B_ = collections.defaultdict(list)
     for x in A: B_[bucket(x["lead_seconds"])].append(x)
@@ -139,9 +139,9 @@ def run(revisions, pages, events, event_type_counts, lab_ip):
     for kind, rx in TOKEN_RX.items():
         first = collections.defaultdict(list)
         for e in events:
-            for t in set(rx.findall(e["text"])): first[t].append((e["time"], e["agent"], e["where"]))
+            for t in sorted(set(rx.findall(e["text"]))): first[t].append((e["time"], e["agent"], e["where"]))
         multi = 0
-        for t, v in first.items():
+        for t, v in sorted(first.items()):
             v.sort(); a0 = v[0]
             others = [x for x in v if x[1] != a0[1]]
             if not others: continue
@@ -158,7 +158,7 @@ def run(revisions, pages, events, event_type_counts, lab_ip):
                          "second_had_touched_origin_page": could_read, "innocent_explanations": why,
                          "status": "explained" if why else "CANDIDATE"})
         per_kind[kind] = {"tokens": len(first), "tokens_with_second_label": multi}
-    rows.sort(key=lambda r: r["gap_seconds"])
+    rows.sort(key=lambda r: (r["gap_seconds"], r["kind"], r["token"]))
     cross = [r for r in rows if not r["second_had_touched_origin_page"]]
     test_b = {
         "definition": "non-derivable tokens (beacon paths, tunnel hosts, blob hosts): seconds from first post to "
@@ -186,7 +186,7 @@ def run(revisions, pages, events, event_type_counts, lab_ip):
                 if best is None or lat < best[0]: best = (lat, t, l, f"referenced it on {w}", rid)
         if best: first_touch[k] = best
     C = []
-    for k, (lat, t, l, how, rid) in first_touch.items():
+    for k, (lat, t, l, how, rid) in sorted(first_touch.items()):
         c = clean[k]; cl = _lab(c["label"]); name = pages[k]["name"]
         why = []
         if lat >= READ_BAR: why.append(f"{lat} s >= {READ_BAR} s read bar: RecentChanges polling suffices")
@@ -200,7 +200,7 @@ def run(revisions, pages, events, event_type_counts, lab_ip):
         C.append({"page": name, "created_at": c["time"], "created_by": cl, "first_other_label": l,
                   "first_touch_at": t, "latency_seconds": lat, "how": how,
                   "innocent_explanations": why, "status": "explained" if why else "CANDIDATE"})
-    C.sort(key=lambda x: x["latency_seconds"])
+    C.sort(key=lambda x: (x["latency_seconds"], x["page"]))
     lats = [x["latency_seconds"] for x in C]
     test_c = {
         "definition": "for every page created in-window, seconds from its first revision to the first edit of it, "

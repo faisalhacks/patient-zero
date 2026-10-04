@@ -32,7 +32,7 @@ def run(events, cascades, top_n=5):
         hits = {(k, v) for k, v in ANS.findall(e["text"]) if k not in STOP}
         for key in hits & targets: posts_by[key].append((e, us))
     rows = []
-    for (slot, value), posts in posts_by.items():
+    for (slot, value), posts in sorted(posts_by.items()):
         labels = {e["agent"] for e, _ in posts}
         pages = {e["where"] for e, _ in posts}
         urls = set(); src = set(); with_url = 0

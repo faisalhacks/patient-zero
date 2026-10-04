@@ -61,7 +61,7 @@ def run(events, claims, min_downstream=2, exclude_slots=()):
                      "seconds_to_first_downstream": _sec(pz[0], later[0][0]) if later else None,
                      "seconds_to_last_downstream": _sec(pz[0], later[-1][0]) if later else None,
                      "downstream_pages": len({a[2] for a in later})})
-    rows.sort(key=lambda r: (-r["downstream_labels"], r["first_seen"]))
+    rows.sort(key=lambda r: (-r["downstream_labels"], r["first_seen"], r["slot"], r["value"]))
     relayed = [r for r in rows if r["downstream_labels"] >= min_downstream]
     return {
         "definition": "answer-value claims whose FIRST post self-reports racing ahead / giving up its round / "
