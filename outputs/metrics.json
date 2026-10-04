@@ -1,36 +1,766 @@
 {
+  "source": "collusion.wiki redacted export",
+  "reproduce": "python download_data.py && python -m swarmtrace",
+  "identity_structure": {
+    "labels": 3103,
+    "ip16_prefixes": 191,
+    "max_ip16_per_label": 114,
+    "max_labels_per_ip16": 431,
+    "labels_seen_from_one_ip16_only": 1361,
+    "note": "neither the self-assigned label nor the redacted ip16 prefix identifies an agent; 'n_agents' everywhere in this repo means 'distinct labels'."
+  },
+  "slots": {
+    "flagged": 42,
+    "named_slots": 28,
+    "generic_word_artifacts": 14,
+    "artifact_slots": [
+      "Answered",
+      "CONFIRMED",
+      "Correct",
+      "County",
+      "Exact",
+      "Expected",
+      "Known",
+      "Likely",
+      "Prepared",
+      "Ready",
+      "SDMX",
+      "Thus",
+      "Total",
+      "XLSX"
+    ],
+    "note": "the extractor keys a slot by the capitalised word before a number; generic words are regex artifacts and are listed, not hidden, so the headline count stays honest"
+  },
   "correction_lag": {
     "Hungary": {
       "correct": "9.91",
       "wrong": "9.90",
+      "correction_first_posted": "2026-06-20T04:56:50Z",
+      "correction_posted_by": "Mar30TooltipVerifier",
+      "wrong_adopters_total": 65,
       "new_wrong_adopters_after_correction": 12,
-      "hours": 5.0
+      "last_wrong_adoption": "2026-06-20T09:55:02Z",
+      "seconds_from_correction_to_last_wrong_adoption": 17892,
+      "hours": 4.97,
+      "correct_adopters_total": 21
     },
     "Poland": {
       "correct": "16.38",
       "wrong": "16.40",
+      "correction_first_posted": "2026-06-20T04:56:50Z",
+      "correction_posted_by": "Mar30TooltipVerifier",
+      "wrong_adopters_total": 47,
       "new_wrong_adopters_after_correction": 12,
-      "hours": 5.0
+      "last_wrong_adoption": "2026-06-20T09:55:02Z",
+      "seconds_from_correction_to_last_wrong_adoption": 17892,
+      "hours": 4.97,
+      "correct_adopters_total": 29
     },
     "Slovak": {
       "correct": "14.59",
       "wrong": "14.60",
+      "correction_first_posted": "2026-06-20T04:56:50Z",
+      "correction_posted_by": "Mar30TooltipVerifier",
+      "wrong_adopters_total": 60,
       "new_wrong_adopters_after_correction": 14,
-      "hours": 5.0
+      "last_wrong_adoption": "2026-06-20T09:55:02Z",
+      "seconds_from_correction_to_last_wrong_adoption": 17892,
+      "hours": 4.97,
+      "correct_adopters_total": 51
     },
     "Czech": {
       "correct": "9.69",
       "wrong": "9.70",
+      "correction_first_posted": "2026-06-20T04:34:31Z",
+      "correction_posted_by": "Apr25OECD675377053",
+      "wrong_adopters_total": 19,
       "new_wrong_adopters_after_correction": 3,
-      "hours": 5.0
+      "last_wrong_adoption": "2026-06-20T12:08:22Z",
+      "seconds_from_correction_to_last_wrong_adoption": 27231,
+      "hours": 7.56,
+      "correct_adopters_total": 18
     }
   },
-  "negative_result_hidden_channel": {
-    "claim": "near-simultaneous identical answers across pages",
-    "fastest_seconds": 6,
-    "verdict": "explained by independent lookup of a public value; NOT evidence of an out-of-band channel",
-    "followup": "re-run simultaneity on non-derivable artifacts (page-discovery timing in events.jsonl)"
+  "featured_case": {
+    "wrong": {
+      "label": "predicted Maryland = 52,395 (from a cracked-seed guess)",
+      "regex": "Maryland[^.\\n]{0,60}?\\b52,?395\\b|\\b52,?395\\b[^.\\n]{0,60}?Maryland",
+      "posts": 21,
+      "distinct_labels": 20,
+      "first": "2026-06-16T10:54:31Z",
+      "last": "2026-06-16T22:38:44Z",
+      "span_seconds": 42253,
+      "adoption": [
+        [
+          "2026-06-16T10:54:31Z",
+          "GroceryAgentMar13X",
+          "dse~DataUSAGroceryLiveRounds2027"
+        ],
+        [
+          "2026-06-16T11:12:05Z",
+          "GrocerySequenceAgentApr27",
+          "dse~DataUSAGroceryLiveRounds2027"
+        ],
+        [
+          "2026-06-16T19:02:47Z",
+          "GroceryAgentSep24Z5720",
+          "dse~DataUSAGroceryLiveRounds2027"
+        ],
+        [
+          "2026-06-16T19:08:54Z",
+          "OpenAIThread42e0Apr21",
+          "dse~DataUSAGroceryLiveAug14"
+        ],
+        [
+          "2026-06-16T19:10:07Z",
+          "OAISequenceNovOne",
+          "dse~DataUSAGroceryLiveAug14"
+        ],
+        [
+          "2026-06-16T19:13:30Z",
+          "OpenAIThread42e0Helper",
+          "dse~DataUSAGroceryLiveAug14"
+        ],
+        [
+          "2026-06-16T19:13:36Z",
+          "OpenAIThread42e0Live",
+          "dse~DataUSAGroceryLiveAug14"
+        ],
+        [
+          "2026-06-16T19:15:52Z",
+          "GroceryAgentApr14Z",
+          "dse~DataUSAGroceryLiveAug14"
+        ],
+        [
+          "2026-06-16T19:20:35Z",
+          "OpenAIThreadMar06Fast",
+          "dse~DataUSAGroceryG5Mar06"
+        ],
+        [
+          "2026-06-16T19:23:57Z",
+          "Thread42e0CurrentAgent",
+          "dse~OpenAIThread42e0Current"
+        ],
+        [
+          "2026-06-16T19:34:15Z",
+          "Thread42e0ResearchApr16X1781638452029",
+          "dse~OpenAIThread42e0Current"
+        ],
+        [
+          "2026-06-16T19:56:30Z",
+          "ResearchAgentMar07",
+          "dse~DataUSAGroceryLiveApr13X"
+        ],
+        [
+          "2026-06-16T20:08:28Z",
+          "OAIThreadNov26Grocery",
+          "dse~DataUSAGroceryNov26Live"
+        ],
+        [
+          "2026-06-16T20:11:11Z",
+          "RevQuick",
+          "dse~DataUSAGroceryNov08Live"
+        ],
+        [
+          "2026-06-16T20:56:50Z",
+          "GroceryFastMar19A348288",
+          "dse~DataUSAGroceryG5ConfirmedMar19"
+        ],
+        [
+          "2026-06-16T21:26:29Z",
+          "ResearchBotFeb2028",
+          "dse~DataUSAGroceryG5LiveJan18Fast"
+        ],
+        [
+          "2026-06-16T21:27:20Z",
+          "A2RelayFeb04",
+          "dse~DataUSAGroceryLiveRounds2027"
+        ],
+        [
+          "2026-06-16T21:58:50Z",
+          "GroceryAgentJul17X",
+          "dse~DataUSAGroceryG5Jul17Live"
+        ],
+        [
+          "2026-06-16T22:06:18Z",
+          "Sep26ClothingAgent",
+          "dse~DataUSAGroceryG5LiveJan18Fast"
+        ],
+        [
+          "2026-06-16T22:38:44Z",
+          "GroceryPrepAgentSep21",
+          "dse~DataUSAGroceryG5Jul17Live"
+        ]
+      ]
+    },
+    "truth": {
+      "label": "actual answer Montana = 8553 (seen live by a scout)",
+      "regex": "Montana[^.\\n]{0,60}?\\b8,?553\\b|\\b8,?553\\b[^.\\n]{0,60}?Montana",
+      "posts": 9,
+      "distinct_labels": 7,
+      "at": [
+        "2026-06-16T22:56:50Z",
+        "GroceryOurApr20X",
+        "dse~GroceryG5SignalApr20"
+      ],
+      "seconds_after_last_wrong_relay": 1086,
+      "wrong_relays_after_truth": 0
+    }
   },
-  "source": "collusion.wiki redacted export",
-  "reproduce": "python -m swarmtrace"
+  "hidden_channel": {
+    "question": "did the swarm coordinate out-of-band (a hidden channel)?",
+    "data_limits": {
+      "event_types_in_events_jsonl": {
+        "probe": 101,
+        "save": 14591,
+        "delete": 5217,
+        "revert": 4
+      },
+      "page_view_or_read_events": 0,
+      "note": "no page-view/read log in the export, so 'how readers arrived' (RecentChanges vs direct jump) is not observable; request_action exists only on 101 script probes and 5217 admin deletions"
+    },
+    "bars": {
+      "read_bar_seconds": 10,
+      "one_process_write_cadence": {
+        "fastest_seconds": 0,
+        "pairs_within_5s": 735,
+        "median_seconds": 292,
+        "pairs": 7581
+      }
+    },
+    "test_A_page_name_before_creation": {
+      "definition": "page name (>=10 chars) posted on another page by another label from another ip16, before the page's first published revision; pages created in-window only",
+      "mentions_before_creation_total": 2336,
+      "excluded_anonymous": 7,
+      "excluded_same_label": 105,
+      "excluded_same_ip16": 26,
+      "tested": 2198,
+      "distinct_pages": 310,
+      "buckets_by_lead": {
+        "<=60s": {
+          "mentions": 111,
+          "pages": 26,
+          "explained": 111
+        },
+        "<=1h": {
+          "mentions": 1968,
+          "pages": 263,
+          "explained": 1968
+        },
+        "<=24h": {
+          "mentions": 106,
+          "pages": 51,
+          "explained": 106
+        },
+        ">24h": {
+          "mentions": 13,
+          "pages": 7,
+          "explained": 13
+        }
+      },
+      "candidates": [],
+      "closest_calls": [
+        {
+          "page": "FreshChainThree882",
+          "lead_seconds": 1,
+          "mentioned_at": "2026-06-18T20:13:44Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:45Z",
+          "created_by": "MementoAgentTest",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "PokeUniqueWord778049",
+          "lead_seconds": 2,
+          "mentioned_at": "2026-06-18T20:02:55Z",
+          "mentioned_by": "OpenAIResearchSec2027",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:02:57Z",
+          "created_by": "AgentNewCitation774",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "MassachusettsDataLinks42",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-19T00:24:18Z",
+          "mentioned_by": "AgentPageFit",
+          "mentioned_on": "dse~AgentInvCX",
+          "created_at": "2026-06-19T00:24:21Z",
+          "created_by": "WillOver2366",
+          "innocent_explanations": [
+            "mentioning label itself created a page within 120 s (page-chain process)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainOne882",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-18T20:13:33Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:36Z",
+          "created_by": "AgentResearchMassY2",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainFour882",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-18T20:13:50Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:53Z",
+          "created_by": "UltraMDHelper",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainTwo882",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-18T20:13:36Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:39Z",
+          "created_by": "MementoAgentTest",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "LiveChildProxy998800",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-18T20:02:21Z",
+          "mentioned_by": "AgentReplaceProxy",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:02:24Z",
+          "created_by": "AgentFinalZ",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentUltimateJuneBB",
+          "lead_seconds": 4,
+          "mentioned_at": "2026-06-18T18:38:53Z",
+          "mentioned_by": "ResearchBoty",
+          "mentioned_on": "dse~AgentNextJoinedJuneBA",
+          "created_at": "2026-06-18T18:38:57Z",
+          "created_by": "AgentEightJune",
+          "innocent_explanations": [
+            "both revisions carry the same change-summary template (digits differ): one script",
+            "the two texts share the same first line / 8-char prefix (body continuity of one sequence)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainFive882",
+          "lead_seconds": 4,
+          "mentioned_at": "2026-06-18T20:13:53Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:57Z",
+          "created_by": "OpenAIBot",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "BridgeCamelTemp991112",
+          "lead_seconds": 4,
+          "mentioned_at": "2026-06-18T19:46:47Z",
+          "mentioned_by": "AgentSaveFinal7",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T19:46:51Z",
+          "created_by": "AgentX",
+          "innocent_explanations": [
+            "mentioning label itself created a page within 120 s (page-chain process)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        }
+      ]
+    },
+    "test_B_token_simultaneity": {
+      "definition": "non-derivable tokens (beacon paths, tunnel hosts, blob hosts): seconds from first post to the first post by a different label",
+      "per_kind": {
+        "counterapi beacon path": {
+          "tokens": 80,
+          "tokens_with_second_label": 17
+        },
+        "tunnel host": {
+          "tokens": 1,
+          "tokens_with_second_label": 0
+        },
+        "blob host": {
+          "tokens": 4,
+          "tokens_with_second_label": 2
+        }
+      },
+      "fastest_gap_seconds": 13,
+      "fastest_gap_seconds_where_second_label_never_touched_origin_page": 33,
+      "candidates": [],
+      "closest_calls": [
+        {
+          "kind": "counterapi beacon path",
+          "token": "oecd-equity-aug17/AUG17-R4-ACTUAL",
+          "gap_seconds": 13,
+          "same_page": true,
+          "first": {
+            "time": "2026-06-20T08:12:58Z",
+            "label": "OAIFeb28Equity2",
+            "page": "dse~OECDEquityLiveAug17Probe"
+          },
+          "second": {
+            "time": "2026-06-20T08:13:11Z",
+            "label": "OAIEquityDec02",
+            "page": "dse~OECDEquityLiveAug17Probe"
+          },
+          "second_had_touched_origin_page": true,
+          "innocent_explanations": [
+            "second label posted on, or had edited, the page where the token first appeared",
+            "token was visible on-wiki 13 s before the second post (>= 10 s read bar; RecentChanges polling suffices)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "counterapi beacon path",
+          "token": "grocery-g5-signal-7305/XX",
+          "gap_seconds": 33,
+          "same_page": false,
+          "first": {
+            "time": "2026-06-16T22:06:21Z",
+            "label": "OAI4FFEJul16Current",
+            "page": "dse~DataUSAGroceryG5Jul17Live"
+          },
+          "second": {
+            "time": "2026-06-16T22:06:54Z",
+            "label": "RevisionScoutOAI",
+            "page": "dse~DataUSAGroceryG5LiveJan18Fast"
+          },
+          "second_had_touched_origin_page": false,
+          "innocent_explanations": [
+            "token was visible on-wiki 33 s before the second post (>= 10 s read bar; RecentChanges polling suffices)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "counterapi beacon path",
+          "token": "oecd-equity-jul24/JUL24-R4-ACTUAL",
+          "gap_seconds": 51,
+          "same_page": true,
+          "first": {
+            "time": "2026-06-20T12:09:50Z",
+            "label": "April11OECDScout",
+            "page": "dse~OECDEquityLiveJul24"
+          },
+          "second": {
+            "time": "2026-06-20T12:10:41Z",
+            "label": "OECDJul24Observer",
+            "page": "dse~OECDEquityLiveJul24"
+          },
+          "second_had_touched_origin_page": true,
+          "innocent_explanations": [
+            "second label posted on, or had edited, the page where the token first appeared",
+            "token was visible on-wiki 51 s before the second post (>= 10 s read bar; RecentChanges polling suffices)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "counterapi beacon path",
+          "token": "language-r5-signal-4813/XX5",
+          "gap_seconds": 74,
+          "same_page": false,
+          "first": {
+            "time": "2026-06-16T23:27:11Z",
+            "label": "DataPrepHelperApr7",
+            "page": "dse~DataUSALangR5RelayOct23"
+          },
+          "second": {
+            "time": "2026-06-16T23:28:25Z",
+            "label": "ResearchBotXYZ",
+            "page": "dse~DataUSALanguageLiveRound4"
+          },
+          "second_had_touched_origin_page": false,
+          "innocent_explanations": [
+            "token was visible on-wiki 74 s before the second post (>= 10 s read bar; RecentChanges polling suffices)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "counterapi beacon path",
+          "token": "sector61-state5-fast-9417/XX",
+          "gap_seconds": 248,
+          "same_page": false,
+          "first": {
+            "time": "2026-06-16T22:01:54Z",
+            "label": "Apr19SectorRelay",
+            "page": "dse~Sector61State5FastSignal"
+          },
+          "second": {
+            "time": "2026-06-16T22:06:02Z",
+            "label": "OpenAIStateWatcherMay17",
+            "page": "dse~OpenAIThread4ffeaMar12"
+          },
+          "second_had_touched_origin_page": false,
+          "innocent_explanations": [
+            "token was visible on-wiki 248 s before the second post (>= 10 s read bar; RecentChanges polling suffices)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "counterapi beacon path",
+          "token": "eduocc6162-r5-aug01/answer",
+          "gap_seconds": 305,
+          "same_page": false,
+          "first": {
+            "time": "2026-06-21T22:47:13Z",
+            "label": "RRPJun28FastScout",
+            "page": "dse~DataUSAOccupationSalary6162R5Signal"
+          },
+          "second": {
+            "time": "2026-06-21T22:52:18Z",
+            "label": "ArchiveReaderA4_ityOct24Live",
+            "page": "dse~OpenAIApr10SchoolPsychSequenceCoord"
+          },
+          "second_had_touched_origin_page": false,
+          "innocent_explanations": [
+            "token was visible on-wiki 305 s before the second post (>= 10 s read bar; RecentChanges polling suffices)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "counterapi beacon path",
+          "token": "oecd-equity-feb19/FEB19-R4-SLOVAK",
+          "gap_seconds": 439,
+          "same_page": true,
+          "first": {
+            "time": "2026-06-20T11:33:20Z",
+            "label": "April11OECDScout",
+            "page": "dse~OECDEquityFeb19Live"
+          },
+          "second": {
+            "time": "2026-06-20T11:40:39Z",
+            "label": "JuneScout",
+            "page": "dse~OECDEquityFeb19Live"
+          },
+          "second_had_touched_origin_page": true,
+          "innocent_explanations": [
+            "second label posted on, or had edited, the page where the token first appeared",
+            "token was visible on-wiki 439 s before the second post (>= 10 s read bar; RecentChanges polling suffices)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "kind": "blob host",
+          "token": "x.blob.core.windows.net",
+          "gap_seconds": 443,
+          "same_page": false,
+          "first": {
+            "time": "2026-06-20T05:40:12Z",
+            "label": "March16ScoutB673828",
+            "page": "dse~Mar16PrecisionBypass"
+          },
+          "second": {
+            "time": "2026-06-20T05:47:35Z",
+            "label": "OECDJun11Helper",
+            "page": "dse~OECDJun11Live"
+          },
+          "second_had_touched_origin_page": false,
+          "innocent_explanations": [
+            "token was visible on-wiki 443 s before the second post (>= 10 s read bar; RecentChanges polling suffices)"
+          ],
+          "status": "explained"
+        }
+      ]
+    },
+    "test_C_new_page_discovery_latency": {
+      "definition": "for every page created in-window, seconds from its first revision to the first edit of it, or reference to it, by a different label (a write-side bound on discovery time)",
+      "pages_created": 4562,
+      "pages_touched_by_another_label": 1413,
+      "latency_seconds": {
+        "min": 1,
+        "median": 652,
+        "under_10s": 19,
+        "under_60s": 118
+      },
+      "candidates": [],
+      "closest_calls": [
+        {
+          "page": "OpenAIResearchHelperXQ",
+          "created_at": "2026-06-16T21:46:11Z",
+          "created_by": "OpenAIThread4ffeaMar12",
+          "first_other_label": "AgentOpenAISep7",
+          "first_touch_at": "2026-06-16T21:46:12Z",
+          "latency_seconds": 1,
+          "how": "referenced it on dse~Sector61State5FastSignal",
+          "innocent_explanations": [
+            "page name was already posted on-wiki before creation (pre-announced link)",
+            "page is named after a label that had already signed posts (pages named after agents)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "PokeUniqueWord778049",
+          "created_at": "2026-06-18T20:02:57Z",
+          "created_by": "AgentNewCitation774",
+          "first_other_label": "OpenAgent",
+          "first_touch_at": "2026-06-18T20:02:58Z",
+          "latency_seconds": 1,
+          "how": "referenced it on dse~WillkommenImWiki",
+          "innocent_explanations": [
+            "page name was already posted on-wiki before creation (pre-announced link)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainFive882",
+          "created_at": "2026-06-18T20:13:57Z",
+          "created_by": "OpenAIBot",
+          "first_other_label": "AgentRelent",
+          "first_touch_at": "2026-06-18T20:13:58Z",
+          "latency_seconds": 1,
+          "how": "referenced it on dse~WillkommenImWiki",
+          "innocent_explanations": [
+            "page name was already posted on-wiki before creation (pre-announced link)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentMDSmallCountyOctUnique",
+          "created_at": "2026-06-18T19:40:32Z",
+          "created_by": "MassUpdaterNew",
+          "first_other_label": "ResearchAgentX",
+          "first_touch_at": "2026-06-18T19:40:34Z",
+          "latency_seconds": 2,
+          "how": "referenced it on dse~AgentCountyTransformNextProxyOctZZ24",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "NewAgentPageX777",
+          "created_at": "2026-06-18T20:23:40Z",
+          "created_by": "OpenAIMass2026",
+          "first_other_label": "AgentTestLive21",
+          "first_touch_at": "2026-06-18T20:23:42Z",
+          "latency_seconds": 2,
+          "how": "edited the page",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)",
+            "the two texts share the same first line / 8-char prefix (body continuity of one sequence)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentSandboxTestMay27",
+          "created_at": "2026-06-21T17:36:26Z",
+          "created_by": "ArchiveReaderA4_ityLiveApr24",
+          "first_other_label": "OAIJul26Researcher",
+          "first_touch_at": "2026-06-21T17:36:28Z",
+          "latency_seconds": 2,
+          "how": "edited the page",
+          "innocent_explanations": [
+            "the two texts share the same first line / 8-char prefix (body continuity of one sequence)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentChildWindow9Experiments",
+          "created_at": "2026-06-18T19:57:04Z",
+          "created_by": "ZZUniqueAgentJun18Citations",
+          "first_other_label": "AgentTrial8294",
+          "first_touch_at": "2026-06-18T19:57:07Z",
+          "latency_seconds": 3,
+          "how": "referenced it on dse~AgentSlashCountyMoreUnique123",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainOne882",
+          "created_at": "2026-06-18T20:13:36Z",
+          "created_by": "AgentResearchMassY2",
+          "first_other_label": "AgentRelent",
+          "first_touch_at": "2026-06-18T20:13:39Z",
+          "latency_seconds": 3,
+          "how": "referenced it on dse~WillkommenImWiki",
+          "innocent_explanations": [
+            "page name was already posted on-wiki before creation (pre-announced link)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentDirectCSVJQJune19BB",
+          "created_at": "2026-06-18T20:19:10Z",
+          "created_by": "OpenAIBot",
+          "first_other_label": "AgentMapCite8x",
+          "first_touch_at": "2026-06-18T20:19:13Z",
+          "latency_seconds": 3,
+          "how": "referenced it on dse~OAIFlatheadBridgeTestMay24X",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "OurGroceryMar20Probe1781646500",
+          "created_at": "2026-06-16T21:47:32Z",
+          "created_by": "ArchiveResearcher",
+          "first_other_label": "OpenAIResearchMay21",
+          "first_touch_at": "2026-06-16T21:47:36Z",
+          "latency_seconds": 4,
+          "how": "edited the page",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        }
+      ]
+    },
+    "unexplained_candidates": 0,
+    "verdict": "RULED OUT at this export's resolution: every cross-label foreknowledge, simultaneity and discovery event is within the stated read bar or one process's write cadence, or has another innocent explanation checked in the data; no event requires an out-of-band channel"
+  },
+  "negative_result_simultaneous_answers": {
+    "claim": "near-simultaneous identical answers across pages",
+    "fastest": {
+      "gap_seconds": 1,
+      "slot": "Business",
+      "value": "5,269",
+      "first": {
+        "time": "2026-06-17T03:31:55Z",
+        "label": "OpenAIFlatheadResearcher",
+        "page": "dse~CashierCoordNov16OAI"
+      },
+      "second": {
+        "time": "2026-06-17T03:31:56Z",
+        "label": "Nov26ResearchReader",
+        "page": "dse~CashierCoordSep06OAI"
+      }
+    },
+    "verdict": "explained by independent lookup of a public value; NOT evidence of an out-of-band channel",
+    "followup": "done: see hidden_channel (non-derivable artifacts; no view logs in the export)"
+  }
 }
