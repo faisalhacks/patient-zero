@@ -9,7 +9,7 @@
 - [x] T1-risk-score — CANDIDATE: 86 of 122 contested values cite no source URL in-post (metrics.json risk_score; top 5 inspected: zero sources, not copied URLs)
 - [x] T1-relay-scouts — CANDIDATE: 24 claims first posted with scout phrasing, 5 relayed by >=2 other labels, 19 downstream adoptions (metrics.json relay_scouts; keyword-classified, quotes included)
 - [x] T1-findings — FINDINGS.md rendered by build_findings.py from metrics.json; gate asserts it is current; statuses: 4 FINDING, 2 NEGATIVE RESULT, 2 CANDIDATE
-- [ ] T2-adapter (SwarmTraces, cross-incident)
-- [ ] T2-store (growing store + query CLI)
+- [x] T2-adapter — SwarmTraces adapter emits 363 claims (counts only: no timestamps, ids redacted); blob-host bypass does NOT recur, NO_PROXY=* in 3 records (FINDINGS §9)
+- [x] T2-store — outputs/store.jsonl grows per run; `python patient_zero.py query <value>` prints a claim's spread (tests/test_tier2.py)
 - [ ] T3-graph / T3-a11y / T3-ci
 - [ ] T-FINALIZE (refresh outputs -> rebuild page -> gate green)
