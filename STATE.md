@@ -7,7 +7,7 @@
 - [x] Results page v1 (patient_zero.html)
 - [x] T1-hidden-channel — NEGATIVE RESULT: ruled out at this export's resolution (metrics.json hidden_channel; 0 unexplained candidates; no view logs in export)
 - [x] T1-risk-score — CANDIDATE: 86 of 122 contested values cite no source URL in-post (metrics.json risk_score; top 5 inspected: zero sources, not copied URLs)
-- [ ] T1-relay-scouts (sacrificial scouts + beneficiaries)
+- [x] T1-relay-scouts — CANDIDATE: 24 claims first posted with scout phrasing, 5 relayed by >=2 other labels, 19 downstream adoptions (metrics.json relay_scouts; keyword-classified, quotes included)
 - [ ] T1-findings (regenerate with the above)
 - [ ] T2-adapter (SwarmTraces, cross-incident)
 - [ ] T2-store (growing store + query CLI)
