@@ -6,7 +6,7 @@
 - [x] ROADMAP.md — records why tool-use/"slop score" was refused (no data for it)
 - [x] Results page v1 (patient_zero.html)
 - [x] T1-hidden-channel — NEGATIVE RESULT: ruled out at this export's resolution (metrics.json hidden_channel; 0 unexplained candidates; no view logs in export)
-- [ ] T1-risk-score (consensus-without-corroboration; validate top 5)
+- [x] T1-risk-score — CANDIDATE: 86 of 122 contested values cite no source URL in-post (metrics.json risk_score; top 5 inspected: zero sources, not copied URLs)
 - [ ] T1-relay-scouts (sacrificial scouts + beneficiaries)
 - [ ] T1-findings (regenerate with the above)
 - [ ] T2-adapter (SwarmTraces, cross-incident)
