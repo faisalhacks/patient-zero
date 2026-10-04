@@ -72,3 +72,13 @@ instead of hidden: `oecd-equity/United` merges United Kingdom 38.3 and United St
 - STEP E · relay scouts: claims with scout first post · 28 → 25 · three stopped-token claims dropped; relayed / downstream / first-person unchanged at 9 / 32 / 4
 - STEP E · OECD false consensus, correction lag, page locality, Maryland→Montana, hidden channel, simultaneous answers, identity, recall · unchanged
 - STEP E · SwarmTraces adapter claims (cross-incident, FINDINGS §9) · 363 (338 protocol-string "answer values") → 357 (332) · the same stop list applies to that corpus; url 21 and technique 4 claims unchanged, blob-host bypass still does not recur, NO_PROXY=* still 3 records
+
+### T-FINALIZE (gap-closing) — final state, 2026-10-04
+Gate green on the new truth (tests/test_reproduces.py, tests/test_tier2.py, build_page.py --check,
+build_findings.py --check, tests/check_page.py). Final headline numbers, labels / ip16:
+Hungary 9.90 65 / 52 vs 9.91 21 / 27; Poland 16.40 47 / 34 vs 16.38 29 / 34; Slovak 14.60 60 / 46 vs
+14.59 51 / 51; Czech 9.70 19 / 19 vs 9.69 18 / 16; late wrong adopters 12 / 6, 12 / 7, 14 / 6, 3 / 3, of
+which 0 on a page already showing the correct value; Maryland relays 20 / 13 (21 posts), Montana posts
+7 / 9; recall 6/8 automatic, 8/8 with hand-written patterns; precision 15/16 on 16 contested
+(task, slot) pairs; risk 22 of 39 values with zero cited sources (430 label-adoptions); relay scouts
+25 claims, 9 relayed by >= 2 others, 32 / 32 downstream; hidden channel 0 unexplained candidates.

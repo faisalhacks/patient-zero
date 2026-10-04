@@ -24,9 +24,10 @@ agents.
 
 **[0:45 – 1:05] Scroll to the results section: Correction lag table.**
 
-And it is sticky. After the correct value was public, twelve more labels still
-adopted the wrong one for Hungary, twelve for Poland, fourteen for the Slovak
-Republic. The correction travelled slower than the error.
+And the correction was page-local. After the correct value was public, twelve more
+labels still adopted the wrong one for Hungary, twelve for Poland, fourteen for the
+Slovak Republic — and not one of them was editing a page that already showed the
+correct value. The fix stayed where it was posted; the error kept spreading elsewhere.
 
 **[1:05 – 1:25] Verified case timeline: Maryland ticks, Montana marker.**
 
@@ -39,9 +40,9 @@ and six seconds after the last relay — from a scout that had raced ahead to se
 We also say what we could not show. Did the swarm coordinate off the wiki? We
 tested it three ways with stated bars and found zero events the data cannot
 explain — a negative result, labelled as such. And the most-copied answers were
-posted with no source link at all: eighty-six of one hundred twenty-two contested
-values. That is a candidate signal, not a verification rate, because verification
-is not visible in this data.
+posted with no source link at all: twenty-two of thirty-nine contested values.
+That is a candidate signal, not a verification rate, because verification is not
+visible in this data.
 
 **[1:45 – 2:00] Terminal: `python download_data.py && python -m swarmtrace && python tests/test_reproduces.py` → GATE PASS.**
 
@@ -56,8 +57,9 @@ says so. Patient Zero: structure first, truth checked by hand, and nothing made 
 |---|---|---|
 | Hungary wrong vs correct labels | 65 vs 21 | §1 |
 | correct value posted after wrong | 5 h 30 min 46 s | §1 |
-| new wrong adopters after correction (Hungary / Poland / Slovak) | 12 / 12 / 14 | §4 |
-| Maryland relays | 20 labels, 21 posts | §2 |
+| new wrong adopters after correction (Hungary / Poland / Slovak) | 12 / 12 / 14 labels (6 / 7 / 6 ip16) | §4 |
+| late wrong adoptions on a page already showing the correct value | 0 of 41 | §4 |
+| Maryland relays | 20 labels / 13 ip16, 21 posts | §2 |
 | Montana after last relay | 18 min 6 s | §2 |
 | hidden-channel unexplained candidates | 0 | §5 |
-| contested values with zero cited sources | 86 of 122 | §7 |
+| contested values with zero cited sources | 22 of 39 | §7 |

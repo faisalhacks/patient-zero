@@ -15,7 +15,8 @@ def test_swarmtraces_adapter():
         assert len(cl) == 357 and s["blob_host_bypass_recurs"] is False, (len(cl), s)   # 363 before STEP E's stop list; CORRECTIONS.md
         assert (s["answer_value_claims"], s["url_claims"], s["technique_claims"]) == (332, 21, 4), s
         assert s["mode"] == "time-free" and s["contested_slots_time_free"] == 25, s    # STEP F: contestation only, no ordering
-        assert all(c["false_consensus"] is None for c in __import__("json").load(open(pathlib.Path(d)/"swarmtraces_summary.json")) and []) or True
+        cas = [json.loads(l) for l in open(pathlib.Path(d)/"swarmtraces_cascades.jsonl", encoding="utf-8") if l.strip()]
+        assert len(cas) == 25 and all(c["false_consensus"] is None and c["mode"].startswith("time-free") for c in cas), cas[:2]
         assert s["techniques_extra"]["proxy-env bypass (NO_PROXY=*)"]["records"] == 3
         assert all(c["first_seen"] is None and c["n_agents"] is None for c in cl)   # no fabricated timeline/agents
         assert (pathlib.Path(d)/"swarmtraces_claims.jsonl").exists()
