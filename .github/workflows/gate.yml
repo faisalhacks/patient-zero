@@ -20,9 +20,11 @@ jobs:
       - name: Cross-incident run emits claims
         run: python -m swarmtrace --source swarmtraces --no-store
       - name: Page is self-contained (no external scripts) and embeds the current page data
-        run: python build_page.py --check
+        run: python dev/build_page.py --check
       - name: FINDINGS.md is current relative to the outputs
-        run: python build_findings.py --check
+        run: python dev/build_findings.py --check
+      - name: No stale numbers in index.html / README.md
+        run: python dev/check_stale.py
       - name: Open-check the page in headless Chromium (console errors, keyboard tabs, graph, results)
         run: |
           pip install playwright

@@ -2,8 +2,8 @@
 """Rebuild outputs/page_data.json from the latest outputs and embed it into
 patient_zero.html (the page is self-contained: one HTML file, no external JS).
 
-  python build_page.py            # regenerate page_data.json, embed, write patient_zero.html (+ outputs/ copy)
-  python build_page.py --check    # exit 1 if the page does not embed the current data or loads external scripts
+  python dev/build_page.py            # regenerate page_data.json, embed, write patient_zero.html + index.html (+ outputs/ copy)
+  python dev/build_page.py --check    # exit 1 if the page does not embed the current data, loads external scripts, or index.html differs
 
 Selection rule for the interactive slots: the 8 NAMED contested slots (regex
 artifacts such as "Expected" are excluded, see metrics.json slots) with the most
@@ -11,9 +11,10 @@ total adopters. Every number on the page comes from claims/cascades/metrics.
 """
 import json, re, sys, pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path(__file__).resolve().parents[1]   # dev/ -> repo root
 OUT = ROOT / "outputs"
 PAGE = ROOT / "patient_zero.html"
+INDEX = ROOT / "index.html"      # GitHub Pages root: always an identical copy of the page
 N_SLOTS = 8
 SLOT_LABELS = {  # hand-written context for the slot name; everything else is computed
     "Slovak": "OECD, % (R4)", "Hungary": "OECD, % (R2)", "Poland": "OECD, % (R3)", "Czech": "OECD, % (R1)",
@@ -107,8 +108,10 @@ def check():
     ext = re.findall(r'<script[^>]+src="(https?://[^"]+)"', html)
     data = build_page_data()
     m = DATA_RX.search(html)
-    ok = bool(m) and json.loads(m.group(1)) == data and not ext
+    same = INDEX.exists() and INDEX.read_text(encoding="utf-8") == html
+    ok = bool(m) and json.loads(m.group(1)) == data and not ext and same
     print("external scripts:", ext or "none"); print("embeds current page data:", bool(m) and json.loads(m.group(1)) == data)
+    print("index.html identical to patient_zero.html:", same)
     return ok
 
 def main():
@@ -119,6 +122,7 @@ def main():
         json.dump(data, f, ensure_ascii=False); f.write("\n")
     html = embed(PAGE.read_text(encoding="utf-8"), data)
     PAGE.write_text(html, encoding="utf-8", newline="\n")
+    INDEX.write_text(html, encoding="utf-8", newline="\n")
     (OUT / "patient_zero.html").write_text(html, encoding="utf-8", newline="\n")
     print(f"page_data.json: {len(data['slots'])} slots; patient_zero.html rebuilt ({len(html):,} bytes)")
 

@@ -1,108 +1,43 @@
 # Patient Zero
 
-**Tracing how a claim spreads through an AI agent swarm.**
-Built for the [AI Swarm Dynamics Hackathon](https://swarmchasing.com/) (AI Village × Grove Research), October 2026.
+**Tracing how a claim spreads through an AI agent swarm — who posted it first, how fast others copied it, and whether the version that won was even correct.**
 
-When thousands of autonomous agents coordinate, the dangerous failures don't live
-inside any single agent's transcript — they live *between* agents: a wrong answer
-copied faster than it's checked, confidence rising while the independent evidence
-behind it never grows. Patient Zero reads a timestamped multi-agent log and, for
-every repeatable claim (an answer, a technique, a shared URL), shows **who posted
-it first, how fast others adopted it, and whether the version that spread widest
-was even correct.**
+➡️ **Live results page:** https://faisalhacks.github.io/patient-zero/
+➡️ Built for the [AI Swarm Dynamics Hackathon](https://swarmchasing.com/) (AI Village × Grove Research), October 2026, on the public, redacted [collusion.wiki](https://collusion.wiki/) export of DSEWiki agent edits.
 
-➡️ **Live results page:** `patient_zero.html` (open it, pick a slot, hit *Replay the spread*).
-➡️ **What it found:** [`FINDINGS.md`](FINDINGS.md) — every number labelled FINDING, CANDIDATE or NEGATIVE RESULT, every headline count given as *N labels / M ip16 prefixes*.
-➡️ **How well it finds what experts found:** [`EVALUATION.md`](EVALUATION.md) — recall against the hand-written [collusion.wiki](https://collusion.wiki/) write-up and precision on contested slots.
-➡️ **Every number that moved, and why:** [`CORRECTIONS.md`](CORRECTIONS.md).
-➡️ **What it refused to build, and why:** [`ROADMAP.md`](ROADMAP.md).
+## Two headline findings (gated, exact; counts given as labels / ip16 prefixes)
 
-## Run it in two minutes (no dependencies)
+1. **The swarm's most-adopted OECD answer was the wrong one, and the correction was page-local.**
+   Hungary: the padded value `9.90` reached **65 labels / 52 ip16**; the correct `9.91` (hand-checked against collusion.wiki) reached **21 / 27** and was first posted **5 h 30 min 46 s** later. After the correction was public, **12 / 6** more adopted the wrong value — and **0 of 41** such late adoptions (across Hungary, Poland, Slovak, Czech) happened on a page that already showed the correct value. The fix stayed where it was posted; the error kept spreading elsewhere.
+2. **A cracked-seed guess travelled before the real answer landed.**
+   **20 labels / 13 ip16** relayed the predicted "Maryland = 52,395" in 21 posts; the real answer, Montana = 8553, was posted by a scout that had raced ahead **18 min 6 s** after the last relay, then by 7 labels / 9 ip16.
+
+**Evaluation against the hand-written write-up:** recall **6 / 8** of collusion.wiki's documented incidents surfaced automatically (8 / 8 with hand-written technique patterns); precision on contested slots **15 / 16**. Two further results are deliberately labelled: *no out-of-band channel* and *no simultaneity signal* are **NEGATIVE RESULTS**; *consensus without corroboration* (22 of 39 contested values cite no source) and *relay scouts* are **CANDIDATES**, not findings.
+
+- [FINDINGS.md](FINDINGS.md) — every result, labelled FINDING / CANDIDATE / NEGATIVE RESULT, with citations
+- [EVALUATION.md](EVALUATION.md) — recall and precision against ground truth ([ground_truth.json](ground_truth.json))
+- [CORRECTIONS.md](CORRECTIONS.md) — every number that moved during review, old → new, and why
+- [ROADMAP.md](ROADMAP.md) — what was deliberately not built (verification rate, slop score) and why
+
+## Run it (three commands, standard library only, Python 3.9+)
 
 ```bash
 python download_data.py          # fetch the public redacted export, verify checksums
-python -m swarmtrace             # -> outputs/claims.jsonl, cascades.jsonl, metrics.json, evaluation.json (+ appends to outputs/store.jsonl)
-python tests/test_reproduces.py  # the gate: every finding, metric, recall/precision figure and the rendered write-ups reproduce
+python -m swarmtrace             # -> outputs/claims.jsonl, cascades.jsonl, metrics.json, evaluation.json
+python tests/test_reproduces.py  # the gate: every finding, metric and write-up reproduces, or it fails
 ```
 
-Pure Python 3.9+ standard library. Then open `patient_zero.html` in a browser.
+Then open `patient_zero.html` (or `index.html`, the same file). `python patient_zero.py query 9.90 --slot Hungary` prints how a value spread.
 
-More:
+## Honesty notes
 
-```bash
-python patient_zero.py query 9.90 --slot Hungary     # how did this value spread? (reads outputs/store.jsonl)
-python build_findings.py                             # re-render FINDINGS.md and EVALUATION.md from the outputs
-python build_page.py                                 # regenerate outputs/page_data.json and rebuild patient_zero.html
-python download_data.py --swarmtraces                # also fetch the SwarmTraces redacted export (15 MB, sha256 pinned)
-python -m swarmtrace --source swarmtraces            # cross-incident run, TIME-FREE MODE (see below)
-python tests/test_tier2.py                           # adapter + store acceptance
-```
+- Labels are self-assigned names and the redacted ip16 prefix is not an identity either (3,103 labels wrote from 191 prefixes). Nothing on this page is a head count.
+- The engine reports structure; correctness is a human judgement, stated and cited (FINDINGS §1, §2).
+- The SwarmTraces cross-incident run is **time-free** (that export has no timestamps): contestation only, no propagation tracing.
+- Public redacted data only; no live wiki contacted; no identifiers reconstructed.
 
-## How it works
+## Build notes
 
-1. **Ingest** — a tiny adapter turns log rows into normalized events
-   `{time, agent, where, text, family, ip16}`. A wiki adapter ships in `swarmtrace/core.py`; a
-   SwarmTraces adapter in `swarmtrace/adapters.py`; add `events_from_<source>()` for
-   any other timestamped log.
-2. **Extract** — pull repeatable claims: answer values, named techniques, URLs.
-   Answer slots are keyed by **(task, word)**, where the task is the export's own
-   `page_family` for the page (with an unambiguous-inheritance fallback for
-   coordination pages), so "Business 5,269" on one task never merges with
-   "Business 54,544" on another. Generic status/format tokens are stopped.
-3. **Trace** — per claim: first appearance, **patient zero**, and the ordered
-   adoption timeline, with both the label and the redacted ip16 prefix of each adopter.
-4. **Contradict** — flag a *contested slot* when two+ answers to the same (task, slot)
-   were each adopted by multiple labels, and surface which value won on adoption
-   versus which came first (the **false-consensus** signal).
-5. **Analyse** (`swarmtrace/analyses.py`, `hidden_channel.py`, `risk.py`, `relay.py`,
-   `evaluation.py`) — page-local correction lag, the hidden-channel tests, the
-   consensus-without-corroboration score, the relay-scout list and the ground-truth
-   evaluation, all written to `outputs/metrics.json` / `outputs/evaluation.json` with
-   their definitions, bars and the innocent explanations that were checked.
+Scaffolding for the autonomous build loop lives in [`dev/`](dev/): [ORCHESTRATION.md](dev/ORCHESTRATION.md) (the loop), [STATE.md](dev/STATE.md) (package ticks), [VIDEO_SCRIPT.md](dev/VIDEO_SCRIPT.md), `build_findings.py` / `build_page.py` (render FINDINGS.md, EVALUATION.md and the page from the outputs), `check_stale.py`. The GitHub Action in `.github/workflows/gate.yml` reruns the full gate on every push.
 
-**The engine reports structure; it never decides what is true.** Which answer is
-correct is checked by hand against a cited collusion.wiki section and stated as such.
-
-## Output contract (stable)
-
-Everything downstream reads these files, so the page, the write-up and new dataset
-adapters can be built in parallel without touching the engine:
-
-- `outputs/claims.jsonl` — one claim per line: `claim_id, kind, task, slot, value,
-  first_seen, patient_zero, n_agents, n_ip16, agents[], ip16_first_seen[[time,ip16]],
-  pages[], adoption[[time,agent,where,ip16]]`.
-- `outputs/cascades.jsonl` — one contested (task, slot) per line: `task, slot, values[{value,
-  n_agents, n_ip16, first_seen, patient_zero}], false_consensus{earliest_value, widest_value,
-  widest_agents, widest_ip16, head_start_hours, correct_value:null}`.
-- `outputs/metrics.json` — every analysed number, with definitions; `outputs/evaluation.json` —
-  recall/precision against `ground_truth.json`. `FINDINGS.md`, `EVALUATION.md` and
-  `patient_zero.html` are rendered from these.
-- `outputs/store.jsonl` — append-only record of every run; `patient_zero.py query` reads it.
-
-**Counting convention.** `n_agents` means *distinct self-assigned labels*; `n_ip16` means
-*distinct redacted ip16 prefixes among the same posts*. Neither is an agent identity: the
-export shows 3,103 labels writing from 191 prefixes, one label from as many as 114 of them.
-Every headline number is therefore given both ways.
-
-## SwarmTraces: time-free mode
-
-The public [SwarmTraces](https://swarmtraces.org/) redacted export carries **no
-timestamps** and redacted agent identifiers. The adapter therefore runs in
-**time-free mode**: it extracts claims and reports *contestation only* (two or more
-values for the same slot, each in at least two records). There is **no propagation
-tracing** there — no patient zero, no adoption order, no head start — and its
-"answer values" are protocol strings (e.g. `HTTP 1.0` vs `1.1`) because that corpus has
-no question-answering task. Only the technique and host claims carry meaning
-(FINDINGS §9).
-
-## Data & ethics
-
-Runs only on the **public, redacted** [collusion.wiki](https://collusion.wiki/)
-export of DSEWiki agent edits (24 May – 2 Jul 2026). No live wiki is contacted and
-no redacted identifiers are reconstructed. Agent names in the data are
-self-assigned and are **not** a head count.
-
-## Credits
-
-Dataset: Nightingale Collective and collaborators (collusion.wiki). Hackathon:
-AI Village (AI Digest) × Grove Research.
+Dataset: Nightingale Collective and collaborators (collusion.wiki). License: MIT.

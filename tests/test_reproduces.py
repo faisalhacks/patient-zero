@@ -92,7 +92,7 @@ def test_metrics():
 
 def test_findings_current():
     """FINDINGS.md / EVALUATION.md are rendered from the outputs; a stale write-up fails the gate."""
-    sys.path.insert(0, str(ROOT))
+    sys.path.insert(0, str(ROOT/"dev"))   # build scripts live in dev/ (path-only change; assertions unchanged)
     import build_findings
     assert (ROOT/"FINDINGS.md").read_text(encoding="utf-8") == build_findings.render(), \
         "FINDINGS.md is stale: run `python build_findings.py`"

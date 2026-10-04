@@ -4,12 +4,12 @@ outputs/swarmtraces_summary.json. Every number in the document is read from thos
 files; the prose is fixed. Hand-checked correctness judgements are stated as such and
 cite collusion.wiki.
 
-  python build_findings.py           # write FINDINGS.md
-  python build_findings.py --check   # exit 1 if FINDINGS.md is stale relative to the outputs
+  python dev/build_findings.py           # write FINDINGS.md and EVALUATION.md
+  python dev/build_findings.py --check   # exit 1 if either is stale relative to the outputs
 """
 import json, sys, pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path(__file__).resolve().parents[1]   # dev/ -> repo root
 OUT = ROOT / "outputs"
 WIKI = "https://collusion.wiki/"
 
@@ -33,7 +33,7 @@ def render():
     w("")
     w("Every number below is produced from the public redacted export by `python download_data.py && python -m swarmtrace` "
       "and is asserted by the gate in `tests/test_reproduces.py`; this file itself is rendered from `outputs/metrics.json` "
-      "by `build_findings.py`. The engine reports structure (who posted what, when, how it spread). Which answer is "
+      "by `dev/build_findings.py`. The engine reports structure (who posted what, when, how it spread). Which answer is "
       f"*correct* is a human judgement, checked against the [collusion.wiki]({WIKI}) write-up and stated as such. "
       "Labels are self-assigned agent names and are **not** a head count; \"labels\" below means distinct labels. Every headline "
       "count is given two ways, **N labels / M ip16** — distinct self-assigned labels and distinct redacted ip16 prefixes among the "
