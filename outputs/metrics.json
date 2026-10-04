@@ -301,19 +301,6 @@
           "status": "explained"
         },
         {
-          "page": "FreshChainOne882",
-          "lead_seconds": 3,
-          "mentioned_at": "2026-06-18T20:13:33Z",
-          "mentioned_by": "AgentRelent",
-          "mentioned_on": "dse~WillkommenImWiki",
-          "created_at": "2026-06-18T20:13:36Z",
-          "created_by": "AgentResearchMassY2",
-          "innocent_explanations": [
-            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
-          ],
-          "status": "explained"
-        },
-        {
           "page": "FreshChainFour882",
           "lead_seconds": 3,
           "mentioned_at": "2026-06-18T20:13:50Z",
@@ -334,6 +321,19 @@
           "mentioned_on": "dse~WillkommenImWiki",
           "created_at": "2026-06-18T20:13:39Z",
           "created_by": "MementoAgentTest",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainOne882",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-18T20:13:33Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:36Z",
+          "created_by": "AgentResearchMassY2",
           "innocent_explanations": [
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
@@ -742,6 +742,313 @@
     },
     "unexplained_candidates": 0,
     "verdict": "RULED OUT at this export's resolution: every cross-label foreknowledge, simultaneity and discovery event is within the stated read bar or one process's write cadence, or has another innocent explanation checked in the data; no event requires an out-of-band channel"
+  },
+  "risk_score": {
+    "definition": "risk = distinct labels adopting the value / max(1, distinct non-infrastructure URLs cited in posts that contain the value); values are the competing answers in cascades.jsonl",
+    "not_a_verification_rate": "the export has no tool-use or browsing logs; this counts citations in post text only",
+    "infrastructure_hosts_excluded": [
+      "counterapi.dev",
+      "wikiservice.at",
+      "pinggy",
+      "lhr.life",
+      "serveousercontent.com",
+      "loca.lt",
+      "trycloudflare.com",
+      "ngrok",
+      "localhost",
+      "127.0.0.1",
+      "example.com"
+    ],
+    "values_scored": 122,
+    "values_with_zero_cited_sources": 86,
+    "adopters_of_values_with_zero_cited_sources": 662,
+    "top": [
+      {
+        "slot": "Business",
+        "value": "5,269",
+        "adopters": 69,
+        "posts": 97,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 4,
+        "risk": 69.0
+      },
+      {
+        "slot": "Visual",
+        "value": "2,134",
+        "adopters": 67,
+        "posts": 97,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 3,
+        "risk": 67.0
+      },
+      {
+        "slot": "Psychology",
+        "value": "1,544",
+        "adopters": 66,
+        "posts": 97,
+        "posts_citing_any_url": 2,
+        "distinct_urls_in_posts": 2,
+        "distinct_source_urls_in_posts": 1,
+        "distinct_source_hosts_in_posts": 1,
+        "distinct_source_urls_on_same_pages": 2,
+        "risk": 66.0
+      },
+      {
+        "slot": "Social",
+        "value": "2,749",
+        "adopters": 61,
+        "posts": 87,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 3,
+        "risk": 61.0
+      },
+      {
+        "slot": "Slovak",
+        "value": "14.59",
+        "adopters": 51,
+        "posts": 71,
+        "posts_citing_any_url": 7,
+        "distinct_urls_in_posts": 8,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 3,
+        "risk": 51.0
+      },
+      {
+        "slot": "Poland",
+        "value": "16.40",
+        "adopters": 47,
+        "posts": 57,
+        "posts_citing_any_url": 3,
+        "distinct_urls_in_posts": 3,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 3,
+        "risk": 47.0
+      },
+      {
+        "slot": "Education",
+        "value": "5,432",
+        "adopters": 39,
+        "posts": 53,
+        "posts_citing_any_url": 1,
+        "distinct_urls_in_posts": 1,
+        "distinct_source_urls_in_posts": 1,
+        "distinct_source_hosts_in_posts": 1,
+        "distinct_source_urls_on_same_pages": 2,
+        "risk": 39.0
+      },
+      {
+        "slot": "Hungary",
+        "value": "9.90",
+        "adopters": 65,
+        "posts": 89,
+        "posts_citing_any_url": 6,
+        "distinct_urls_in_posts": 6,
+        "distinct_source_urls_in_posts": 2,
+        "distinct_source_hosts_in_posts": 2,
+        "distinct_source_urls_on_same_pages": 4,
+        "risk": 32.5
+      },
+      {
+        "slot": "Slovak",
+        "value": "14.60",
+        "adopters": 60,
+        "posts": 78,
+        "posts_citing_any_url": 7,
+        "distinct_urls_in_posts": 7,
+        "distinct_source_urls_in_posts": 2,
+        "distinct_source_hosts_in_posts": 2,
+        "distinct_source_urls_on_same_pages": 4,
+        "risk": 30.0
+      },
+      {
+        "slot": "California",
+        "value": "11.2",
+        "adopters": 29,
+        "posts": 35,
+        "posts_citing_any_url": 4,
+        "distinct_urls_in_posts": 3,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 2,
+        "risk": 29.0
+      },
+      {
+        "slot": "Poland",
+        "value": "16.38",
+        "adopters": 29,
+        "posts": 40,
+        "posts_citing_any_url": 3,
+        "distinct_urls_in_posts": 3,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 5,
+        "risk": 29.0
+      },
+      {
+        "slot": "Hungary",
+        "value": "9.91",
+        "adopters": 21,
+        "posts": 31,
+        "posts_citing_any_url": 1,
+        "distinct_urls_in_posts": 1,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 4,
+        "risk": 21.0
+      },
+      {
+        "slot": "Czech",
+        "value": "9.70",
+        "adopters": 19,
+        "posts": 21,
+        "posts_citing_any_url": 4,
+        "distinct_urls_in_posts": 3,
+        "distinct_source_urls_in_posts": 1,
+        "distinct_source_hosts_in_posts": 1,
+        "distinct_source_urls_on_same_pages": 2,
+        "risk": 19.0
+      },
+      {
+        "slot": "Czech",
+        "value": "9.69",
+        "adopters": 18,
+        "posts": 22,
+        "posts_citing_any_url": 2,
+        "distinct_urls_in_posts": 2,
+        "distinct_source_urls_in_posts": 1,
+        "distinct_source_hosts_in_posts": 1,
+        "distinct_source_urls_on_same_pages": 4,
+        "risk": 18.0
+      },
+      {
+        "slot": "Slovenia",
+        "value": "23.10",
+        "adopters": 13,
+        "posts": 15,
+        "posts_citing_any_url": 2,
+        "distinct_urls_in_posts": 2,
+        "distinct_source_urls_in_posts": 1,
+        "distinct_source_hosts_in_posts": 1,
+        "distinct_source_urls_on_same_pages": 3,
+        "risk": 13.0
+      },
+      {
+        "slot": "Slovenia",
+        "value": "23.13",
+        "adopters": 13,
+        "posts": 13,
+        "posts_citing_any_url": 1,
+        "distinct_urls_in_posts": 2,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 13.0
+      },
+      {
+        "slot": "Hampshire",
+        "value": "1.32",
+        "adopters": 12,
+        "posts": 17,
+        "posts_citing_any_url": 1,
+        "distinct_urls_in_posts": 1,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 1,
+        "risk": 12.0
+      },
+      {
+        "slot": "Psychology",
+        "value": "12,468",
+        "adopters": 9,
+        "posts": 12,
+        "posts_citing_any_url": 1,
+        "distinct_urls_in_posts": 1,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 9.0
+      },
+      {
+        "slot": "Florida",
+        "value": "71,563",
+        "adopters": 8,
+        "posts": 8,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 8.0
+      },
+      {
+        "slot": "Social",
+        "value": "16,947",
+        "adopters": 8,
+        "posts": 15,
+        "posts_citing_any_url": 1,
+        "distinct_urls_in_posts": 1,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 26,
+        "risk": 8.0
+      }
+    ],
+    "top5_inspection": [
+      {
+        "slot": "Business",
+        "value": "5,269",
+        "adopters": 69,
+        "risk": 69.0,
+        "source_urls_cited": [],
+        "machine_check": "no source URL is cited in any post containing this value"
+      },
+      {
+        "slot": "Visual",
+        "value": "2,134",
+        "adopters": 67,
+        "risk": 67.0,
+        "source_urls_cited": [],
+        "machine_check": "no source URL is cited in any post containing this value"
+      },
+      {
+        "slot": "Psychology",
+        "value": "1,544",
+        "adopters": 66,
+        "risk": 66.0,
+        "source_urls_cited": [
+          "https://cors.bwa.workers.dev/"
+        ],
+        "machine_check": "all 1 cited URL(s) are on one host (cors.bwa.workers.dev); not independent sources"
+      },
+      {
+        "slot": "Social",
+        "value": "2,749",
+        "adopters": 61,
+        "risk": 61.0,
+        "source_urls_cited": [],
+        "machine_check": "no source URL is cited in any post containing this value"
+      },
+      {
+        "slot": "Slovak",
+        "value": "14.59",
+        "adopters": 51,
+        "risk": 51.0,
+        "source_urls_cited": [],
+        "machine_check": "no source URL is cited in any post containing this value"
+      }
+    ],
+    "status": "CANDIDATE — a structural signal (adoption without in-post citation), not evidence that any agent skipped verification"
   },
   "negative_result_simultaneous_answers": {
     "claim": "near-simultaneous identical answers across pages",

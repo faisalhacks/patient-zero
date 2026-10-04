@@ -49,6 +49,7 @@ def identity_structure(revisions):
 
 # ---------- T1-hidden-channel: see hidden_channel.py ---------------------------------------
 from . import hidden_channel as _hc
+from . import risk as _risk
 
 # ---------- correction lag (kept green) ------------------------------------------------
 PAIRS = [("Hungary", "9.90", "9.91"), ("Poland", "16.40", "16.38"), ("Slovak", "14.60", "14.59"), ("Czech", "9.70", "9.69")]
@@ -136,6 +137,7 @@ def run_all(datadir="data", outdir="outputs"):
         "correction_lag": correction_lag(claims),
         "featured_case": featured_case(events),
         "hidden_channel": _hc.run(rev, pages, events, ev_types, lab_ip),
+        "risk_score": _risk.run(events, cascades),
         "negative_result_simultaneous_answers": {
             "claim": "near-simultaneous identical answers across pages",
             "fastest": simultaneous_answers(claims, events),
