@@ -45,8 +45,14 @@ def test_metrics():
     assert cl["Hungary"]["head_start_of_wrong_over_correct_seconds"] == 19846
     assert cl["Slovak"]["head_start_of_wrong_over_correct_seconds"] == 233490
     assert (cl["Hungary"]["wrong_adopters_total"], cl["Hungary"]["correct_adopters_total"]) == (65, 21)
+    # STEP C: every headline number both ways — labels AND ip16 prefixes, same extraction
+    assert (cl["Hungary"]["wrong_adopters_ip16_total"], cl["Hungary"]["correct_adopters_ip16_total"]) == (52, 27), cl["Hungary"]
+    assert {k: v["new_wrong_ip16_after_correction"] for k, v in cl.items()} == \
+           {"Hungary": 6, "Poland": 7, "Slovak": 6, "Czech": 3}, cl
+    assert (cl["Poland"]["wrong_adopters_ip16_total"], cl["Slovak"]["wrong_adopters_ip16_total"], cl["Czech"]["wrong_adopters_ip16_total"]) == (34, 46, 19)
     f = m["featured_case"]
     assert (f["wrong"]["distinct_labels"], f["wrong"]["posts"]) == (20, 21), f["wrong"]
+    assert (f["wrong"]["distinct_ip16"], f["truth"]["distinct_labels"], f["truth"]["distinct_ip16"]) == (13, 7, 9), f
     assert (f["wrong"]["first"], f["wrong"]["last"]) == ("2026-06-16T10:54:31Z", "2026-06-16T22:38:44Z")
     assert f["truth"]["at"][0] == "2026-06-16T22:56:50Z" and f["truth"]["wrong_relays_after_truth"] == 0
     assert f["truth"]["seconds_after_last_wrong_relay"] == 1086

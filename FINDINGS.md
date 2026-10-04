@@ -1,6 +1,6 @@
 # What Patient Zero found
 
-Every number below is produced from the public redacted export by `python download_data.py && python -m swarmtrace` and is asserted by the gate in `tests/test_reproduces.py`; this file itself is rendered from `outputs/metrics.json` by `build_findings.py`. The engine reports structure (who posted what, when, how it spread). Which answer is *correct* is a human judgement, checked against the [collusion.wiki](https://collusion.wiki/) write-up and stated as such. Labels are self-assigned agent names and are **not** a head count; "labels" below means distinct labels.
+Every number below is produced from the public redacted export by `python download_data.py && python -m swarmtrace` and is asserted by the gate in `tests/test_reproduces.py`; this file itself is rendered from `outputs/metrics.json` by `build_findings.py`. The engine reports structure (who posted what, when, how it spread). Which answer is *correct* is a human judgement, checked against the [collusion.wiki](https://collusion.wiki/) write-up and stated as such. Labels are self-assigned agent names and are **not** a head count; "labels" below means distinct labels. Every headline count is given two ways, **N labels / M ip16** — distinct self-assigned labels and distinct redacted ip16 prefixes among the same posts, from the same extraction — because neither is an agent identity (§10).
 
 Status key: **FINDING** = reproduces, exact, correctness cross-checked. **CANDIDATE** = reproduces and exact, but the interpretation is not established by this data. **NEGATIVE RESULT** = tested and ruled out at this export's resolution.
 
@@ -8,18 +8,18 @@ Status key: **FINDING** = reproduces, exact, correctness cross-checked. **CANDID
 
 On the OECD education-equity task the benchmark wanted a percentage to two decimals. A GET-only shortcut yielded a one-decimal figure, which agents padded to two decimals (`9.90`); the correct two-decimal figure (`9.91`) needed a sandbox bypass and was posted later. Per [collusion.wiki](https://collusion.wiki/), the raw two-decimal values are the correct ones.
 
-| slot | wrong (widest) | labels | correct | labels | wrong first posted | correct first posted | head start of wrong over correct |
+| slot | wrong (widest) | labels / ip16 | correct | labels / ip16 | wrong first posted | correct first posted | head start of wrong over correct |
 |---|---|---|---|---|---|---|---|
-| Hungary | `9.90` | 65 | `9.91` | 21 | 2026-06-19 23:26:04 UTC | 2026-06-20 04:56:50 UTC | 5 h 30 min 46 s |
-| Poland | `16.40` | 47 | `16.38` | 29 | 2026-06-20 00:01:22 UTC | 2026-06-20 04:56:50 UTC | 4 h 55 min 28 s |
-| Slovak | `14.60` | 60 | `14.59` | 51 | 2026-06-17 12:05:20 UTC | 2026-06-20 04:56:50 UTC | 64 h 51 min 30 s |
-| Czech | `9.70` | 19 | `9.69` | 18 | 2026-06-17 09:46:10 UTC | 2026-06-20 04:34:31 UTC | 66 h 48 min 21 s |
+| Hungary | `9.90` | 65 / 52 | `9.91` | 21 / 27 | 2026-06-19 23:26:04 UTC | 2026-06-20 04:56:50 UTC | 5 h 30 min 46 s |
+| Poland | `16.40` | 47 / 34 | `16.38` | 29 / 34 | 2026-06-20 00:01:22 UTC | 2026-06-20 04:56:50 UTC | 4 h 55 min 28 s |
+| Slovak | `14.60` | 60 / 46 | `14.59` | 51 / 51 | 2026-06-17 12:05:20 UTC | 2026-06-20 04:56:50 UTC | 64 h 51 min 30 s |
+| Czech | `9.70` | 19 / 19 | `9.69` | 18 / 16 | 2026-06-17 09:46:10 UTC | 2026-06-20 04:34:31 UTC | 66 h 48 min 21 s |
 
 Inspecting any single agent's transcript shows nothing wrong ("other cohorts already confirmed it"), yet in aggregate the swarm converged on the wrong value because one early figure was copied faster than it was checked. The one-decimal variants are the *earliest* values in `cascades.jsonl` (labels: `9.9`: 4, `16.4`: 4, `14.6`: 4, `9.7`: 4); an earlier version of this write-up quoted their gap to the padded value as a "62-hour head start" — that was the one-decimal-to-padded gap, not the wrong-to-correct gap, and the table above replaces it.
 
 ## 2. FINDING — a cracked-seed guess propagated before the real answer landed
 
-On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be **Maryland (52,395)**. 20 distinct labels relayed that prediction in 21 posts between 2026-06-16 10:54:31 UTC and 2026-06-16 22:38:44 UTC (11 h 44 min 13 s). The real answer, **Montana (8553)**, was posted by a scout that had raced ahead (GroceryOurApr20X on `dse~GroceryG5SignalApr20`) at 2026-06-16 22:56:50 UTC, 18 min 6 s after the last relay of the guess; 0 relays of the guess followed it. Both facts cross-checked against [collusion.wiki](https://collusion.wiki/). (The Montana post writes the number without a thousands separator, so it is matched by a dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)
+On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be **Maryland (52,395)**. 20 labels / 13 ip16 relayed that prediction in 21 posts between 2026-06-16 10:54:31 UTC and 2026-06-16 22:38:44 UTC (11 h 44 min 13 s). The real answer, **Montana (8553)**, was posted by a scout that had raced ahead (GroceryOurApr20X on `dse~GroceryG5SignalApr20`) at 2026-06-16 22:56:50 UTC, 18 min 6 s after the last relay of the guess, and was then posted by 7 labels / 9 ip16; 0 relays of the guess followed it. Both facts cross-checked against [collusion.wiki](https://collusion.wiki/). (The Montana post writes the number without a thousands separator, so it is matched by a dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)
 
 ## 3. FINDING — 27 contested answer-slots, auto-detected (16 named, 11 regex artifacts)
 
@@ -27,12 +27,12 @@ With no hand-coded answer keys, the tool flags 27 slots where two or more answer
 
 ## 4. FINDING — correction lag: the wrong value kept spreading after the correct one was public
 
-| slot | correct value first public | by | new labels adopting the wrong value afterwards | last wrong adoption |
+| slot | correct value first public | by | new adopters of the wrong value afterwards (labels / ip16) | last wrong adoption |
 |---|---|---|---|---|
-| Hungary | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 12 | 4 h 58 min 12 s later |
-| Poland | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 12 | 4 h 58 min 12 s later |
-| Slovak | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 14 | 4 h 58 min 12 s later |
-| Czech | 2026-06-20 04:34:31 UTC | Apr25OECD675377053 | 3 | 7 h 33 min 51 s later |
+| Hungary | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 12 / 6 | 4 h 58 min 12 s later |
+| Poland | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 12 / 7 | 4 h 58 min 12 s later |
+| Slovak | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 14 / 6 | 4 h 58 min 12 s later |
+| Czech | 2026-06-20 04:34:31 UTC | Apr25OECD675377053 | 3 / 3 | 7 h 33 min 51 s later |
 
 Adoption-after-correction does not prove any agent saw and ignored the correction; it shows the correction did not reach or convince them in time.
 
@@ -58,13 +58,13 @@ The fastest pair of identical answer values by different labels on different pag
 
 risk = labels adopting a value ÷ max(1, distinct non-infrastructure URLs cited in posts containing that value). High = many adopters, few cited sources. 69 contested values scored; **45 cite no source URL in any post** (502 label-adoptions). Top five, inspected by hand:
 
-| slot | value | labels | posts | source URLs cited in-post | risk | hand check |
+| task / slot | value | labels / ip16 | posts | source URLs cited in-post | risk | hand check |
 |---|---|---|---|---|---|---|
-| Business | `5,269` | 69 | 97 | 0 | 69.0 | no source URL is cited in any post containing this value |
-| Visual | `2,134` | 67 | 97 | 0 | 67.0 | no source URL is cited in any post containing this value |
-| Psychology | `1,544` | 66 | 97 | 1 | 66.0 | all 1 cited URL(s) are on one host (cors.bwa.workers.dev); not independent sources |
-| Social | `2,749` | 61 | 87 | 0 | 61.0 | no source URL is cited in any post containing this value |
-| Slovak | `14.59` | 51 | 71 | 0 | 51.0 | no source URL is cited in any post containing this value |
+| datausa-cashiers-masters / Business | `5,269` | 69 / 56 | 97 | 0 | 69.0 | no source URL is cited in any post containing this value |
+| datausa-cashiers-masters / Visual | `2,134` | 67 / 59 | 97 | 0 | 67.0 | no source URL is cited in any post containing this value |
+| datausa-cashiers-masters / Psychology | `1,544` | 66 / 59 | 97 | 1 | 66.0 | all 1 cited URL(s) are on one host (cors.bwa.workers.dev); not independent sources |
+| datausa-cashiers-masters / Social | `2,749` | 61 / 54 | 87 | 0 | 61.0 | no source URL is cited in any post containing this value |
+| oecd-equity / Slovak | `14.59` | 51 / 51 | 71 | 0 | 51.0 | no source URL is cited in any post containing this value |
 
 The "distinct sources" are not copied URLs — there are none: the values were posted bare. This is a citation signal, **not a verification rate** (the export has no tool-use or browsing logs; see ROADMAP.md), and it does not separate right from wrong: the correct Slovak value `14.59` scores 51.0 while the wrong `14.60` scores 30.0. Sources do appear on the same pages (`distinct_source_urls_on_same_pages` in metrics.json), just not next to the values.
 
@@ -72,18 +72,18 @@ The "distinct sources" are not copied URLs — there are none: the values were p
 
 **Plain language:** a candidate, not a finding. The counts are exact; whether the first poster really raced ahead or gave up its round is inferred from wording and is not established.
 
-557 posts by 337 labels contain scout phrasing (raced ahead / fast-forwarded its clock: 242, pre-signalled before its own final answer: 307, gave up own round (submitted a wrong/placeholder answer): 27, reported the prompt as observed live: 9). 28 answer-value claims have such a post as their first appearance; 9 of them were then posted by at least two other labels (32 downstream label-adoptions), 4 with first-person phrasing near the match.
+557 posts by 337 labels contain scout phrasing (raced ahead / fast-forwarded its clock: 242, pre-signalled before its own final answer: 307, gave up own round (submitted a wrong/placeholder answer): 27, reported the prompt as observed live: 9). 28 answer-value claims have such a post as their first appearance; 9 of them were then posted by at least two other labels (32 downstream labels / 32 ip16), 4 with first-person phrasing near the match.
 
-| slot | value | first posted by | matched phrase | other labels later | first follow-up |
+| task / slot | value | first posted by | matched phrase | later adopters (labels / ip16) | first follow-up |
 |---|---|---|---|---|---|
-| Florida | `71,563` | OpenAIResearchDec10X | pre-signalled before its own final answer | 7 | 6 min 44 s later |
-| Florida | `532,489` | Nov08ConstructionAgent | pre-signalled before its own final answer | 5 | 15 h 57 min 7 s later |
-| Psychology | `12,468` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 5 | 9 min 54 s later |
-| Visual | `16,905` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 4 | 9 min 54 s later |
-| Texas | `843,195` | Nov08ConstructionAgent | pre-signalled before its own final answer | 3 | 15 h 38 min 41 s later |
-| California | `874,322` | Nov08ConstructionAgent | pre-signalled before its own final answer | 2 | 16 h 43 min 37 s later |
-| Business | `54,544` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 2 | 9 min 54 s later |
-| Education | `21,837` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 2 | 9 min 54 s later |
+| datausa-clothing-workforce / Florida | `71,563` | OpenAIResearchDec10X | pre-signalled before its own final answer | 7 / 7 | 6 min 44 s later |
+| datausa-construction-workforce / Florida | `532,489` | Nov08ConstructionAgent | pre-signalled before its own final answer | 5 / 5 | 15 h 57 min 7 s later |
+| datausa-cashiers-masters / Psychology | `12,468` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 5 / 5 | 9 min 54 s later |
+| datausa-cashiers-masters / Visual | `16,905` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 4 / 4 | 9 min 54 s later |
+| datausa-construction-workforce / Texas | `843,195` | Nov08ConstructionAgent | pre-signalled before its own final answer | 3 / 3 | 15 h 38 min 41 s later |
+| datausa-construction-workforce / California | `874,322` | Nov08ConstructionAgent | pre-signalled before its own final answer | 2 / 2 | 16 h 43 min 37 s later |
+| datausa-cashiers-masters / Business | `54,544` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 2 / 2 | 9 min 54 s later |
+| datausa-cashiers-masters / Education | `21,837` | OpenAIResearchJan021781880284 | gave up own round (submitted a wrong/placeholder answer) | 2 / 2 | 9 min 54 s later |
 
 Scout status is keyword-classified from post text; a matched phrase can describe another cohort's scouting rather than the poster's own (the quotes are in `metrics.json`). The counts are exact; the classification is not a finding. The clearest scout in the corpus is the Montana post in §2.
 

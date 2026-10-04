@@ -33,7 +33,9 @@ def render():
       "and is asserted by the gate in `tests/test_reproduces.py`; this file itself is rendered from `outputs/metrics.json` "
       "by `build_findings.py`. The engine reports structure (who posted what, when, how it spread). Which answer is "
       f"*correct* is a human judgement, checked against the [collusion.wiki]({WIKI}) write-up and stated as such. "
-      "Labels are self-assigned agent names and are **not** a head count; \"labels\" below means distinct labels.")
+      "Labels are self-assigned agent names and are **not** a head count; \"labels\" below means distinct labels. Every headline "
+      "count is given two ways, **N labels / M ip16** — distinct self-assigned labels and distinct redacted ip16 prefixes among the "
+      "same posts, from the same extraction — because neither is an agent identity (§10).")
     w("")
     w("Status key: **FINDING** = reproduces, exact, correctness cross-checked. **CANDIDATE** = reproduces and exact, "
       "but the interpretation is not established by this data. **NEGATIVE RESULT** = tested and ruled out at this export's resolution.")
@@ -45,10 +47,11 @@ def render():
       "one-decimal figure, which agents padded to two decimals (`9.90`); the correct two-decimal figure (`9.91`) needed a sandbox "
       f"bypass and was posted later. Per [collusion.wiki]({WIKI}), the raw two-decimal values are the correct ones.")
     w("")
-    w("| slot | wrong (widest) | labels | correct | labels | wrong first posted | correct first posted | head start of wrong over correct |")
+    w("| slot | wrong (widest) | labels / ip16 | correct | labels / ip16 | wrong first posted | correct first posted | head start of wrong over correct |")
     w("|---|---|---|---|---|---|---|---|")
     for slot, v in m["correction_lag"].items():
-        w(f"| {slot} | `{v['wrong']}` | {v['wrong_adopters_total']} | `{v['correct']}` | {v['correct_adopters_total']} | "
+        w(f"| {slot} | `{v['wrong']}` | {v['wrong_adopters_total']} / {v['wrong_adopters_ip16_total']} | `{v['correct']}` | "
+          f"{v['correct_adopters_total']} / {v['correct_adopters_ip16_total']} | "
           f"{ts(v['wrong_first_posted'])} | {ts(v['correction_first_posted'])} | {hms(v['head_start_of_wrong_over_correct_seconds'])} |")
     w("")
     od = []
@@ -67,10 +70,11 @@ def render():
     w("## 2. FINDING — a cracked-seed guess propagated before the real answer landed")
     w("")
     w(f"On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be "
-      f"**Maryland (52,395)**. {fw['distinct_labels']} distinct labels relayed that prediction in {fw['posts']} posts between "
+      f"**Maryland (52,395)**. {fw['distinct_labels']} labels / {fw['distinct_ip16']} ip16 relayed that prediction in {fw['posts']} posts between "
       f"{ts(fw['first'])} and {ts(fw['last'])} ({hms(fw['span_seconds'])}). The real answer, **Montana (8553)**, was posted by "
       f"a scout that had raced ahead ({ft['at'][1]} on `{ft['at'][2]}`) at {ts(ft['at'][0])}, {hms(ft['seconds_after_last_wrong_relay'])} "
-      f"after the last relay of the guess; {ft['wrong_relays_after_truth']} relays of the guess followed it. Both facts cross-checked "
+      f"after the last relay of the guess, and was then posted by {ft['distinct_labels']} labels / {ft['distinct_ip16']} ip16; "
+      f"{ft['wrong_relays_after_truth']} relays of the guess followed it. Both facts cross-checked "
       f"against [collusion.wiki]({WIKI}). (The Montana post writes the number without a thousands separator, so it is matched by a "
       "dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)")
     w("")
@@ -86,10 +90,11 @@ def render():
     # 4. correction lag
     w("## 4. FINDING — correction lag: the wrong value kept spreading after the correct one was public")
     w("")
-    w("| slot | correct value first public | by | new labels adopting the wrong value afterwards | last wrong adoption |")
+    w("| slot | correct value first public | by | new adopters of the wrong value afterwards (labels / ip16) | last wrong adoption |")
     w("|---|---|---|---|---|")
     for slot, v in m["correction_lag"].items():
-        w(f"| {slot} | {ts(v['correction_first_posted'])} | {v['correction_posted_by']} | {v['new_wrong_adopters_after_correction']} | "
+        w(f"| {slot} | {ts(v['correction_first_posted'])} | {v['correction_posted_by']} | "
+          f"{v['new_wrong_adopters_after_correction']} / {v['new_wrong_ip16_after_correction']} | "
           f"{hms(v['seconds_from_correction_to_last_wrong_adoption'])} later |")
     w("")
     w("Adoption-after-correction does not prove any agent saw and ignored the correction; it shows the correction did not reach "
@@ -154,17 +159,17 @@ def render():
       f"**{rs['values_with_zero_cited_sources']} cite no source URL in any post** ({rs['adopters_of_values_with_zero_cited_sources']} "
       "label-adoptions). Top five, inspected by hand:")
     w("")
-    w("| slot | value | labels | posts | source URLs cited in-post | risk | hand check |")
+    w("| task / slot | value | labels / ip16 | posts | source URLs cited in-post | risk | hand check |")
     w("|---|---|---|---|---|---|---|")
-    top = {(r["slot"], r["value"]): r for r in rs["top"]}
+    top = {(r["task"], r["slot"], r["value"]): r for r in rs["top"]}
     for i in rs["top5_inspection"]:
-        r = top[(i["slot"], i["value"])]
-        w(f"| {i['slot']} | `{i['value']}` | {i['adopters']} | {r['posts']} | {r['distinct_source_urls_in_posts']} | {i['risk']} | {i['machine_check']} |")
+        r = top[(i["task"], i["slot"], i["value"])]
+        w(f"| {i['task']} / {i['slot']} | `{i['value']}` | {i['adopters']} / {i['adopters_ip16']} | {r['posts']} | {r['distinct_source_urls_in_posts']} | {i['risk']} | {i['machine_check']} |")
     w("")
     w("The \"distinct sources\" are not copied URLs — there are none: the values were posted bare. This is a citation signal, "
       "**not a verification rate** (the export has no tool-use or browsing logs; see ROADMAP.md), and it does not separate right "
-      f"from wrong: the correct Slovak value `14.59` scores {top[('Slovak','14.59')]['risk']} while the wrong `14.60` scores "
-      f"{top[('Slovak','14.60')]['risk']}. Sources do appear on the same pages "
+      f"from wrong: the correct Slovak value `14.59` scores {top[('oecd-equity','Slovak','14.59')]['risk']} while the wrong `14.60` scores "
+      f"{top[('oecd-equity','Slovak','14.60')]['risk']}. Sources do appear on the same pages "
       "(`distinct_source_urls_on_same_pages` in metrics.json), just not next to the values.")
     w("")
     # 8. relay scouts
@@ -178,14 +183,14 @@ def render():
       f"({', '.join(f'{k}: {v}' for k, v in rl['scout_posts_per_kind'].items())}). "
       f"{rl['claims_with_scout_patient_zero']} answer-value claims have such a post as their first appearance; "
       f"{rl['claims_relayed_by_at_least_2_other_labels']} of them were then posted by at least two other labels "
-      f"({rl['downstream_adoptions_total']} downstream label-adoptions), {rl['relayed_claims_with_first_person_self_report']} with "
+      f"({rl['downstream_adoptions_total']} downstream labels / {rl['downstream_ip16_total']} ip16), {rl['relayed_claims_with_first_person_self_report']} with "
       "first-person phrasing near the match.")
     w("")
-    w("| slot | value | first posted by | matched phrase | other labels later | first follow-up |")
+    w("| task / slot | value | first posted by | matched phrase | later adopters (labels / ip16) | first follow-up |")
     w("|---|---|---|---|---|---|")
     for r in rl["top"][:8]:
         ph = r["scout_phrases"][0]
-        w(f"| {r['slot']} | `{r['value']}` | {r['scout_label']} | {ph['kind']} | {r['downstream_labels']} | "
+        w(f"| {r['task']} / {r['slot']} | `{r['value']}` | {r['scout_label']} | {ph['kind']} | {r['downstream_labels']} / {r['downstream_ip16']} | "
           f"{hms(r['seconds_to_first_downstream'])} later |")
     w("")
     w("Scout status is keyword-classified from post text; a matched phrase can describe another cohort's scouting rather than "

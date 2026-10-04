@@ -65,14 +65,17 @@ def correction_lag(claims):
         w, r = get[(OECD_TASK, slot, wrong)], get[(OECD_TASK, slot, right)]
         tc = r["first_seen"]
         after = [a for a in w["adoption"] if _t(a[0]) > _t(tc)]
+        after_ip16 = [x for x in w["ip16_first_seen"] if _t(x[0]) > _t(tc)]
         last = max(a[0] for a in w["adoption"])
         out[slot] = {"task": OECD_TASK, "correct": right, "wrong": wrong, "correction_first_posted": tc, "correction_posted_by": r["patient_zero"],
                      "wrong_first_posted": w["first_seen"], "wrong_posted_by": w["patient_zero"],
                      "head_start_of_wrong_over_correct_seconds": _sec(w["first_seen"], tc),
-                     "wrong_adopters_total": w["n_agents"], "new_wrong_adopters_after_correction": len(after),
+                     "wrong_adopters_total": w["n_agents"], "wrong_adopters_ip16_total": w["n_ip16"],
+                     "new_wrong_adopters_after_correction": len(after),
+                     "new_wrong_ip16_after_correction": len(after_ip16),
                      "last_wrong_adoption": last, "seconds_from_correction_to_last_wrong_adoption": _sec(tc, last),
                      "hours": round(_sec(tc, last) / 3600, 2),
-                     "correct_adopters_total": r["n_agents"]}
+                     "correct_adopters_total": r["n_agents"], "correct_adopters_ip16_total": r["n_ip16"]}
     return out
 
 # ---------- featured case (Maryland -> Montana), reproducible --------------------------
@@ -80,17 +83,18 @@ MD_RX = re.compile(r"Maryland[^.\n]{0,60}?\b52,?395\b|\b52,?395\b[^.\n]{0,60}?Ma
 MT_RX = re.compile(r"Montana[^.\n]{0,60}?\b8,?553\b|\b8,?553\b[^.\n]{0,60}?Montana")
 def featured_case(events):
     def census(rx):
-        posts = sorted((e for e in events if rx.search(e["text"])), key=lambda e: e["time"])
+        posts = sorted((e for e in events if rx.search(e["text"])), key=lambda e: (e["time"], e["source_rev"]))
         first = {}
-        for e in posts: first.setdefault(e["agent"], [e["time"], e["agent"], e["where"]])
-        return posts, sorted(first.values())
-    mp, mf = census(MD_RX); tp, tf = census(MT_RX)
+        for e in posts: first.setdefault(e["agent"], [e["time"], e["agent"], e["where"], e.get("ip16")])
+        ip16 = {e.get("ip16") for e in posts} - {None}
+        return posts, sorted(first.values()), len(ip16)
+    mp, mf, mi = census(MD_RX); tp, tf, ti = census(MT_RX)
     truth = tf[0]
     return {"wrong": {"label": "predicted Maryland = 52,395 (from a cracked-seed guess)", "regex": MD_RX.pattern,
-                      "posts": len(mp), "distinct_labels": len(mf), "first": mf[0][0], "last": mf[-1][0],
+                      "posts": len(mp), "distinct_labels": len(mf), "distinct_ip16": mi, "first": mf[0][0], "last": mf[-1][0],
                       "span_seconds": _sec(mf[0][0], mf[-1][0]), "adoption": mf},
             "truth": {"label": "actual answer Montana = 8553 (seen live by a scout)", "regex": MT_RX.pattern,
-                      "posts": len(tp), "distinct_labels": len(tf), "at": truth,
+                      "posts": len(tp), "distinct_labels": len(tf), "distinct_ip16": ti, "at": truth,
                       "seconds_after_last_wrong_relay": _sec(mf[-1][0], truth[0]),
                       "wrong_relays_after_truth": sum(1 for e in mp if _t(e["time"]) > _t(truth[0]))}}
 

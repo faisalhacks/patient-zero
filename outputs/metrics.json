@@ -57,11 +57,14 @@
       "wrong_posted_by": "March16OECDScout",
       "head_start_of_wrong_over_correct_seconds": 19846,
       "wrong_adopters_total": 65,
+      "wrong_adopters_ip16_total": 52,
       "new_wrong_adopters_after_correction": 12,
+      "new_wrong_ip16_after_correction": 6,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
       "seconds_from_correction_to_last_wrong_adoption": 17892,
       "hours": 4.97,
-      "correct_adopters_total": 21
+      "correct_adopters_total": 21,
+      "correct_adopters_ip16_total": 27
     },
     "Poland": {
       "task": "oecd-equity",
@@ -73,11 +76,14 @@
       "wrong_posted_by": "OECDJul10Research",
       "head_start_of_wrong_over_correct_seconds": 17728,
       "wrong_adopters_total": 47,
+      "wrong_adopters_ip16_total": 34,
       "new_wrong_adopters_after_correction": 12,
+      "new_wrong_ip16_after_correction": 7,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
       "seconds_from_correction_to_last_wrong_adoption": 17892,
       "hours": 4.97,
-      "correct_adopters_total": 29
+      "correct_adopters_total": 29,
+      "correct_adopters_ip16_total": 34
     },
     "Slovak": {
       "task": "oecd-equity",
@@ -89,11 +95,14 @@
       "wrong_posted_by": "OECDEquityOct04Agent",
       "head_start_of_wrong_over_correct_seconds": 233490,
       "wrong_adopters_total": 60,
+      "wrong_adopters_ip16_total": 46,
       "new_wrong_adopters_after_correction": 14,
+      "new_wrong_ip16_after_correction": 6,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
       "seconds_from_correction_to_last_wrong_adoption": 17892,
       "hours": 4.97,
-      "correct_adopters_total": 51
+      "correct_adopters_total": 51,
+      "correct_adopters_ip16_total": 51
     },
     "Czech": {
       "task": "oecd-equity",
@@ -105,11 +114,14 @@
       "wrong_posted_by": "OECDEquityOct04Agent",
       "head_start_of_wrong_over_correct_seconds": 240501,
       "wrong_adopters_total": 19,
+      "wrong_adopters_ip16_total": 19,
       "new_wrong_adopters_after_correction": 3,
+      "new_wrong_ip16_after_correction": 3,
       "last_wrong_adoption": "2026-06-20T12:08:22Z",
       "seconds_from_correction_to_last_wrong_adoption": 27231,
       "hours": 7.56,
-      "correct_adopters_total": 18
+      "correct_adopters_total": 18,
+      "correct_adopters_ip16_total": 16
     }
   },
   "featured_case": {
@@ -118,6 +130,7 @@
       "regex": "Maryland[^.\\n]{0,60}?\\b52,?395\\b|\\b52,?395\\b[^.\\n]{0,60}?Maryland",
       "posts": 21,
       "distinct_labels": 20,
+      "distinct_ip16": 13,
       "first": "2026-06-16T10:54:31Z",
       "last": "2026-06-16T22:38:44Z",
       "span_seconds": 42253,
@@ -125,102 +138,122 @@
         [
           "2026-06-16T10:54:31Z",
           "GroceryAgentMar13X",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "20.25"
         ],
         [
           "2026-06-16T11:12:05Z",
           "GrocerySequenceAgentApr27",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "20.165"
         ],
         [
           "2026-06-16T19:02:47Z",
           "GroceryAgentSep24Z5720",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "104.210"
         ],
         [
           "2026-06-16T19:08:54Z",
           "OpenAIThread42e0Apr21",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "130.131"
         ],
         [
           "2026-06-16T19:10:07Z",
           "OAISequenceNovOne",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.9"
         ],
         [
           "2026-06-16T19:13:30Z",
           "OpenAIThread42e0Helper",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.97"
         ],
         [
           "2026-06-16T19:13:36Z",
           "OpenAIThread42e0Live",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.165"
         ],
         [
           "2026-06-16T19:15:52Z",
           "GroceryAgentApr14Z",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.165"
         ],
         [
           "2026-06-16T19:20:35Z",
           "OpenAIThreadMar06Fast",
-          "dse~DataUSAGroceryG5Mar06"
+          "dse~DataUSAGroceryG5Mar06",
+          "137.116"
         ],
         [
           "2026-06-16T19:23:57Z",
           "Thread42e0CurrentAgent",
-          "dse~OpenAIThread42e0Current"
+          "dse~OpenAIThread42e0Current",
+          "20.188"
         ],
         [
           "2026-06-16T19:34:15Z",
           "Thread42e0ResearchApr16X1781638452029",
-          "dse~OpenAIThread42e0Current"
+          "dse~OpenAIThread42e0Current",
+          "20.188"
         ],
         [
           "2026-06-16T19:56:30Z",
           "ResearchAgentMar07",
-          "dse~DataUSAGroceryLiveApr13X"
+          "dse~DataUSAGroceryLiveApr13X",
+          "135.234"
         ],
         [
           "2026-06-16T20:08:28Z",
           "OAIThreadNov26Grocery",
-          "dse~DataUSAGroceryNov26Live"
+          "dse~DataUSAGroceryNov26Live",
+          "20.97"
         ],
         [
           "2026-06-16T20:11:11Z",
           "RevQuick",
-          "dse~DataUSAGroceryNov08Live"
+          "dse~DataUSAGroceryNov08Live",
+          "20.163"
         ],
         [
           "2026-06-16T20:56:50Z",
           "GroceryFastMar19A348288",
-          "dse~DataUSAGroceryG5ConfirmedMar19"
+          "dse~DataUSAGroceryG5ConfirmedMar19",
+          "52.159"
         ],
         [
           "2026-06-16T21:26:29Z",
           "ResearchBotFeb2028",
-          "dse~DataUSAGroceryG5LiveJan18Fast"
+          "dse~DataUSAGroceryG5LiveJan18Fast",
+          "52.159"
         ],
         [
           "2026-06-16T21:27:20Z",
           "A2RelayFeb04",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "52.159"
         ],
         [
           "2026-06-16T21:58:50Z",
           "GroceryAgentJul17X",
-          "dse~DataUSAGroceryG5Jul17Live"
+          "dse~DataUSAGroceryG5Jul17Live",
+          "20.165"
         ],
         [
           "2026-06-16T22:06:18Z",
           "Sep26ClothingAgent",
-          "dse~DataUSAGroceryG5LiveJan18Fast"
+          "dse~DataUSAGroceryG5LiveJan18Fast",
+          "20.69"
         ],
         [
           "2026-06-16T22:38:44Z",
           "GroceryPrepAgentSep21",
-          "dse~DataUSAGroceryG5Jul17Live"
+          "dse~DataUSAGroceryG5Jul17Live",
+          "20.98"
         ]
       ]
     },
@@ -229,10 +262,12 @@
       "regex": "Montana[^.\\n]{0,60}?\\b8,?553\\b|\\b8,?553\\b[^.\\n]{0,60}?Montana",
       "posts": 9,
       "distinct_labels": 7,
+      "distinct_ip16": 9,
       "at": [
         "2026-06-16T22:56:50Z",
         "GroceryOurApr20X",
-        "dse~GroceryG5SignalApr20"
+        "dse~GroceryG5SignalApr20",
+        "77.110"
       ],
       "seconds_after_last_wrong_relay": 1086,
       "wrong_relays_after_truth": 0
@@ -1145,6 +1180,7 @@
     "claims_with_scout_patient_zero": 28,
     "claims_relayed_by_at_least_2_other_labels": 9,
     "downstream_adoptions_total": 32,
+    "downstream_ip16_total": 32,
     "relayed_claims_with_first_person_self_report": 4,
     "excluded_generic_word_slots": [
       "Answered",
@@ -1180,6 +1216,8 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 7,
+        "downstream_ip16": 7,
+        "scout_ip16": "20.225",
         "seconds_to_first_downstream": 404,
         "seconds_to_last_downstream": 3112,
         "downstream_pages": 7
@@ -1200,6 +1238,8 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 5,
+        "downstream_ip16": 5,
+        "scout_ip16": "52.241",
         "seconds_to_first_downstream": 57427,
         "seconds_to_last_downstream": 64883,
         "downstream_pages": 5
@@ -1220,6 +1260,8 @@
         ],
         "first_person_self_report": true,
         "downstream_labels": 5,
+        "downstream_ip16": 5,
+        "scout_ip16": "135.119",
         "seconds_to_first_downstream": 594,
         "seconds_to_last_downstream": 7100,
         "downstream_pages": 2
@@ -1240,6 +1282,8 @@
         ],
         "first_person_self_report": true,
         "downstream_labels": 4,
+        "downstream_ip16": 4,
+        "scout_ip16": "135.119",
         "seconds_to_first_downstream": 594,
         "seconds_to_last_downstream": 7100,
         "downstream_pages": 2
@@ -1260,6 +1304,8 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 3,
+        "downstream_ip16": 3,
+        "scout_ip16": "52.241",
         "seconds_to_first_downstream": 56321,
         "seconds_to_last_downstream": 64883,
         "downstream_pages": 3
@@ -1280,6 +1326,8 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "52.241",
         "seconds_to_first_downstream": 60217,
         "seconds_to_last_downstream": 64883,
         "downstream_pages": 2
@@ -1300,6 +1348,8 @@
         ],
         "first_person_self_report": true,
         "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "135.119",
         "seconds_to_first_downstream": 594,
         "seconds_to_last_downstream": 7100,
         "downstream_pages": 2
@@ -1320,6 +1370,8 @@
         ],
         "first_person_self_report": true,
         "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "135.119",
         "seconds_to_first_downstream": 594,
         "seconds_to_last_downstream": 7100,
         "downstream_pages": 2
@@ -1340,6 +1392,8 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "20.62",
         "seconds_to_first_downstream": 6458,
         "seconds_to_last_downstream": 12748,
         "downstream_pages": 1
