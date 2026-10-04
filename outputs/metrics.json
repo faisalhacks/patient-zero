@@ -219,6 +219,7 @@
       "wrong_relays_after_truth": 0
     }
   },
+  "events": 14591,
   "hidden_channel": {
     "question": "did the swarm coordinate out-of-band (a hidden channel)?",
     "data_limits": {
@@ -299,15 +300,14 @@
           "status": "explained"
         },
         {
-          "page": "MassachusettsDataLinks42",
+          "page": "FreshChainFour882",
           "lead_seconds": 3,
-          "mentioned_at": "2026-06-19T00:24:18Z",
-          "mentioned_by": "AgentPageFit",
-          "mentioned_on": "dse~AgentInvCX",
-          "created_at": "2026-06-19T00:24:21Z",
-          "created_by": "WillOver2366",
+          "mentioned_at": "2026-06-18T20:13:50Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:53Z",
+          "created_by": "UltraMDHelper",
           "innocent_explanations": [
-            "mentioning label itself created a page within 120 s (page-chain process)",
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
           "status": "explained"
@@ -339,19 +339,6 @@
           "status": "explained"
         },
         {
-          "page": "FreshChainFour882",
-          "lead_seconds": 3,
-          "mentioned_at": "2026-06-18T20:13:50Z",
-          "mentioned_by": "AgentRelent",
-          "mentioned_on": "dse~WillkommenImWiki",
-          "created_at": "2026-06-18T20:13:53Z",
-          "created_by": "UltraMDHelper",
-          "innocent_explanations": [
-            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
-          ],
-          "status": "explained"
-        },
-        {
           "page": "LiveChildProxy998800",
           "lead_seconds": 3,
           "mentioned_at": "2026-06-18T20:02:21Z",
@@ -360,6 +347,20 @@
           "created_at": "2026-06-18T20:02:24Z",
           "created_by": "AgentFinalZ",
           "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "MassachusettsDataLinks42",
+          "lead_seconds": 3,
+          "mentioned_at": "2026-06-19T00:24:18Z",
+          "mentioned_by": "AgentPageFit",
+          "mentioned_on": "dse~AgentInvCX",
+          "created_at": "2026-06-19T00:24:21Z",
+          "created_by": "WillOver2366",
+          "innocent_explanations": [
+            "mentioning label itself created a page within 120 s (page-chain process)",
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
           "status": "explained"
@@ -379,19 +380,6 @@
           "status": "explained"
         },
         {
-          "page": "FreshChainFive882",
-          "lead_seconds": 4,
-          "mentioned_at": "2026-06-18T20:13:53Z",
-          "mentioned_by": "AgentRelent",
-          "mentioned_on": "dse~WillkommenImWiki",
-          "created_at": "2026-06-18T20:13:57Z",
-          "created_by": "OpenAIBot",
-          "innocent_explanations": [
-            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
-          ],
-          "status": "explained"
-        },
-        {
           "page": "BridgeCamelTemp991112",
           "lead_seconds": 4,
           "mentioned_at": "2026-06-18T19:46:47Z",
@@ -401,6 +389,19 @@
           "created_by": "AgentX",
           "innocent_explanations": [
             "mentioning label itself created a page within 120 s (page-chain process)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "FreshChainFive882",
+          "lead_seconds": 4,
+          "mentioned_at": "2026-06-18T20:13:53Z",
+          "mentioned_by": "AgentRelent",
+          "mentioned_on": "dse~WillkommenImWiki",
+          "created_at": "2026-06-18T20:13:57Z",
+          "created_by": "OpenAIBot",
+          "innocent_explanations": [
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
           "status": "explained"
@@ -616,6 +617,20 @@
       "candidates": [],
       "closest_calls": [
         {
+          "page": "FreshChainFive882",
+          "created_at": "2026-06-18T20:13:57Z",
+          "created_by": "OpenAIBot",
+          "first_other_label": "AgentRelent",
+          "first_touch_at": "2026-06-18T20:13:58Z",
+          "latency_seconds": 1,
+          "how": "referenced it on dse~WillkommenImWiki",
+          "innocent_explanations": [
+            "page name was already posted on-wiki before creation (pre-announced link)",
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
           "page": "OpenAIResearchHelperXQ",
           "created_at": "2026-06-16T21:46:11Z",
           "created_by": "OpenAIThread4ffeaMar12",
@@ -644,20 +659,6 @@
           "status": "explained"
         },
         {
-          "page": "FreshChainFive882",
-          "created_at": "2026-06-18T20:13:57Z",
-          "created_by": "OpenAIBot",
-          "first_other_label": "AgentRelent",
-          "first_touch_at": "2026-06-18T20:13:58Z",
-          "latency_seconds": 1,
-          "how": "referenced it on dse~WillkommenImWiki",
-          "innocent_explanations": [
-            "page name was already posted on-wiki before creation (pre-announced link)",
-            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
-          ],
-          "status": "explained"
-        },
-        {
           "page": "AgentMDSmallCountyOctUnique",
           "created_at": "2026-06-18T19:40:32Z",
           "created_by": "MassUpdaterNew",
@@ -667,6 +668,19 @@
           "how": "referenced it on dse~AgentCountyTransformNextProxyOctZZ24",
           "innocent_explanations": [
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentSandboxTestMay27",
+          "created_at": "2026-06-21T17:36:26Z",
+          "created_by": "ArchiveReaderA4_ityLiveApr24",
+          "first_other_label": "OAIJul26Researcher",
+          "first_touch_at": "2026-06-21T17:36:28Z",
+          "latency_seconds": 2,
+          "how": "edited the page",
+          "innocent_explanations": [
+            "the two texts share the same first line / 8-char prefix (body continuity of one sequence)"
           ],
           "status": "explained"
         },
@@ -685,19 +699,6 @@
           "status": "explained"
         },
         {
-          "page": "AgentSandboxTestMay27",
-          "created_at": "2026-06-21T17:36:26Z",
-          "created_by": "ArchiveReaderA4_ityLiveApr24",
-          "first_other_label": "OAIJul26Researcher",
-          "first_touch_at": "2026-06-21T17:36:28Z",
-          "latency_seconds": 2,
-          "how": "edited the page",
-          "innocent_explanations": [
-            "the two texts share the same first line / 8-char prefix (body continuity of one sequence)"
-          ],
-          "status": "explained"
-        },
-        {
           "page": "AgentChildWindow9Experiments",
           "created_at": "2026-06-18T19:57:04Z",
           "created_by": "ZZUniqueAgentJun18Citations",
@@ -705,6 +706,19 @@
           "first_touch_at": "2026-06-18T19:57:07Z",
           "latency_seconds": 3,
           "how": "referenced it on dse~AgentSlashCountyMoreUnique123",
+          "innocent_explanations": [
+            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+          ],
+          "status": "explained"
+        },
+        {
+          "page": "AgentDirectCSVJQJune19BB",
+          "created_at": "2026-06-18T20:19:10Z",
+          "created_by": "OpenAIBot",
+          "first_other_label": "AgentMapCite8x",
+          "first_touch_at": "2026-06-18T20:19:13Z",
+          "latency_seconds": 3,
+          "how": "referenced it on dse~OAIFlatheadBridgeTestMay24X",
           "innocent_explanations": [
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
@@ -725,28 +739,15 @@
           "status": "explained"
         },
         {
-          "page": "AgentDirectCSVJQJune19BB",
-          "created_at": "2026-06-18T20:19:10Z",
-          "created_by": "OpenAIBot",
-          "first_other_label": "AgentMapCite8x",
-          "first_touch_at": "2026-06-18T20:19:13Z",
-          "latency_seconds": 3,
-          "how": "referenced it on dse~OAIFlatheadBridgeTestMay24X",
-          "innocent_explanations": [
-            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
-          ],
-          "status": "explained"
-        },
-        {
-          "page": "OurGroceryMar20Probe1781646500",
-          "created_at": "2026-06-16T21:47:32Z",
-          "created_by": "ArchiveResearcher",
-          "first_other_label": "OpenAIResearchMay21",
-          "first_touch_at": "2026-06-16T21:47:36Z",
+          "page": "AgentScratchOurLangTest",
+          "created_at": "2026-06-16T21:49:22Z",
+          "created_by": "OpenAIResearchHelperXQ",
+          "first_other_label": "FreshReaderXYZ",
+          "first_touch_at": "2026-06-16T21:49:26Z",
           "latency_seconds": 4,
           "how": "edited the page",
           "innocent_explanations": [
-            "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
+            "one revision is a test save (added text <= 2 chars)"
           ],
           "status": "explained"
         }

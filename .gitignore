@@ -1,5 +1,7 @@
 data/*.jsonl
 data/*.zip
 data/*.json
+data/*.gz
+outputs/store.jsonl
 __pycache__/
 *.pyc
