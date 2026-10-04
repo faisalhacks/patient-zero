@@ -222,16 +222,27 @@ def render():
     w("")
     return "\n".join(L)
 
+def render_evaluation():
+    p = OUT / "evaluation.json"
+    if not p.exists(): return None
+    sys.path.insert(0, str(ROOT))
+    from swarmtrace.evaluation import render_md
+    return render_md(json.load(open(p, encoding="utf-8")))
+
 def main():
-    text = render()
-    target = ROOT / "FINDINGS.md"
+    text = render(); ev = render_evaluation()
+    target = ROOT / "FINDINGS.md"; etarget = ROOT / "EVALUATION.md"
     if "--check" in sys.argv:
         cur = target.read_text(encoding="utf-8") if target.exists() else ""
-        ok = cur == text
-        print("FINDINGS.md is", "current" if ok else "STALE (run python build_findings.py)")
+        ecur = etarget.read_text(encoding="utf-8") if etarget.exists() else ""
+        ok = cur == text and (ev is None or ecur == ev)
+        print("FINDINGS.md is", "current" if cur == text else "STALE (run python build_findings.py)")
+        if ev is not None: print("EVALUATION.md is", "current" if ecur == ev else "STALE (run python build_findings.py)")
         sys.exit(0 if ok else 1)
     target.write_text(text, encoding="utf-8", newline="\n")
     print(f"FINDINGS.md written ({len(text):,} chars)")
+    if ev is not None:
+        etarget.write_text(ev, encoding="utf-8", newline="\n"); print(f"EVALUATION.md written ({len(ev):,} chars)")
 
 if __name__ == "__main__":
     main()

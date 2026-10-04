@@ -73,6 +73,17 @@ def test_findings_current():
     import build_findings
     assert (ROOT/"FINDINGS.md").read_text(encoding="utf-8") == build_findings.render(),         "FINDINGS.md is stale: run `python build_findings.py`"
 
+def test_evaluation():
+    """STEP A: recall against collusion.wiki ground truth and precision on contested slots reproduce,
+    and every ground-truth item carries a citation into the write-up."""
+    ev = json.load(open(ROOT/"outputs"/"evaluation.json", encoding="utf-8"))
+    ra, rp, pc = ev["recall_automatic"], ev["recall_with_hand_written_patterns"], ev["precision_contested_slots"]
+    assert (ra["found"], ra["total"]) == (6, 8), ra
+    assert (rp["found"], rp["total"]) == (8, 8), rp
+    assert (pc["named"], pc["flagged"]) == (28, 42), pc
+    for it in ev["items"]:
+        assert it["collusion_wiki_url"].startswith("https://collusion.wiki/#") and it["quote"], it["id"]
+
 if __name__ == "__main__":
-    test_counts(); test_hungary_false_consensus(); test_metrics(); test_findings_current()
+    test_counts(); test_hungary_false_consensus(); test_metrics(); test_findings_current(); test_evaluation()
     print("GATE PASS - findings reproduce from the raw export")

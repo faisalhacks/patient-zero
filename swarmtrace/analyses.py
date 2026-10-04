@@ -51,6 +51,7 @@ def identity_structure(revisions):
 from . import hidden_channel as _hc
 from . import risk as _risk
 from . import relay as _relay
+from . import evaluation as _eval
 
 # ---------- correction lag (kept green) ------------------------------------------------
 PAIRS = [("Hungary", "9.90", "9.91"), ("Poland", "16.40", "16.38"), ("Slovak", "14.60", "14.59"), ("Czech", "9.70", "9.69")]
@@ -152,4 +153,10 @@ def run_all(datadir="data", outdir="outputs"):
     }
     with open(pathlib.Path(outdir) / "metrics.json", "w", encoding="utf-8", newline="\n") as f:
         json.dump(m, f, indent=2, ensure_ascii=False); f.write("\n")
+    gt = pathlib.Path(outdir).resolve().parent / "ground_truth.json"
+    if gt.exists():
+        ev = _eval.run(claims, cascades, m, str(gt))
+        with open(pathlib.Path(outdir) / "evaluation.json", "w", encoding="utf-8", newline="\n") as f:
+            json.dump(ev, f, indent=2, ensure_ascii=False); f.write("\n")
+        m["evaluation"] = ev
     return m
