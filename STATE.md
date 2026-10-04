@@ -12,4 +12,4 @@
 - [x] T2-adapter — SwarmTraces adapter emits 363 claims (counts only: no timestamps, ids redacted); blob-host bypass does NOT recur, NO_PROXY=* in 3 records (FINDINGS §9)
 - [x] T2-store — outputs/store.jsonl grows per run; `python patient_zero.py query <value>` prints a claim's spread (tests/test_tier2.py)
 - [x] T3-graph (inferred who-copied-whom SVG per slot) / T3-a11y (keyboard tabs, focus, reduced motion; Lighthouse a11y 1.00) / T3-ci (.github/workflows/gate.yml)
-- [ ] T-FINALIZE (refresh outputs -> rebuild page -> gate green)
+- [x] T-FINALIZE — 2026-10-04: outputs refreshed, FINDINGS.md + patient_zero.html rebuilt, open-check PASS, gate + Tier 2 + page/FINDINGS checks green; VIDEO_SCRIPT.md written
