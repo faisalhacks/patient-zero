@@ -30,18 +30,18 @@ def build_page_data():
     claims = _jsonl(OUT / "claims.jsonl"); cascades = _jsonl(OUT / "cascades.jsonl")
     metrics = json.load(open(OUT / "metrics.json", encoding="utf-8"))
     artifacts = set(metrics["slots"]["artifact_slots"])
-    by_val = {(c["slot"], c["value"]): c for c in claims if c["kind"] == "answer_value"}
-    named = [c for c in cascades if c["slot"] not in artifacts]
+    by_val = {(c["task"], c["slot"], c["value"]): c for c in claims if c["kind"] == "answer_value"}
+    named = [c for c in cascades if f"{c['task']}/{c['slot']}" not in artifacts]
     named.sort(key=lambda c: -sum(v["n_agents"] for v in c["values"]))
     slots = []
     for c in named[:N_SLOTS]:
         vals = []
         for v in c["values"]:
-            cl = by_val[(c["slot"], v["value"])]
-            vals.append({"value": v["value"], "n_agents": v["n_agents"], "patient_zero": v["patient_zero"],
+            cl = by_val[(c["task"], c["slot"], v["value"])]
+            vals.append({"value": v["value"], "n_agents": v["n_agents"], "n_ip16": v["n_ip16"], "patient_zero": v["patient_zero"],
                          "first_seen": v["first_seen"], "adoption": cl["adoption"]})
-        hand = metrics["correction_lag"].get(c["slot"])
-        slots.append({"slot": c["slot"], "label": SLOT_LABELS.get(c["slot"], c["slot"]),
+        hand = metrics["correction_lag"].get(c["slot"]) if c["task"] == "oecd-equity" else None
+        slots.append({"task": c["task"], "slot": c["slot"], "label": f"{c['task']} · {SLOT_LABELS.get(c['slot'], c['slot'])}",
                       "false_consensus": c["false_consensus"], "values": vals,
                       "correct_value": hand["correct"] if hand else None,
                       "correct_source": "hand-checked against collusion.wiki" if hand else None})
@@ -50,7 +50,8 @@ def build_page_data():
         "title": "Grocery task, Round 5: a wrong relay that spread before the truth landed",
         "wrong": {"label": w["label"], "adoption": w["adoption"]},
         "truth": {"label": t["label"], "at": t["at"]},
-        "stats": {"labels": w["distinct_labels"], "posts": w["posts"], "first": w["first"], "last": w["last"],
+        "stats": {"labels": w["distinct_labels"], "ip16": w["distinct_ip16"], "posts": w["posts"], "first": w["first"], "last": w["last"],
+                  "truth_labels": t["distinct_labels"], "truth_ip16": t["distinct_ip16"],
                   "span_seconds": w["span_seconds"], "truth_seconds_after_last_relay": t["seconds_after_last_wrong_relay"],
                   "wrong_relays_after_truth": t["wrong_relays_after_truth"]},
         "note": (f"{w['distinct_labels']} distinct labels relayed the seed-cracked prediction \"Maryland = 52,395\" in "
@@ -62,7 +63,15 @@ def build_page_data():
     }
     cl = metrics["correction_lag"]; hc = metrics["hidden_channel"]; rs = metrics["risk_score"]; rl = metrics["relay_scouts"]
     findings = {
-        "correction_lag": {k: {"wrong": v["wrong"], "correct": v["correct"], "after": v["new_wrong_adopters_after_correction"],
+        "correction_lag": {k: {"wrong": v["wrong"], "correct": v["correct"],
+                               "wrong_labels": v["wrong_adopters_total"], "wrong_ip16": v["wrong_adopters_ip16_total"],
+                               "correct_labels": v["correct_adopters_total"], "correct_ip16": v["correct_adopters_ip16_total"],
+                               "after": v["new_wrong_adopters_after_correction"], "after_ip16": v["new_wrong_ip16_after_correction"],
+                               "showed": metrics["page_locality"][k]["late_adopters_whose_page_already_showed_correct"],
+                               "earlier": metrics["page_locality"][k]["late_adopters_whose_page_had_correct_posted_earlier"],
+                               "pages_wrong": metrics["page_locality"][k]["pages_with_wrong"],
+                               "pages_correct": metrics["page_locality"][k]["pages_with_correct"],
+                               "pages_both": metrics["page_locality"][k]["pages_with_both"],
                                "seconds": v["seconds_from_correction_to_last_wrong_adoption"]} for k, v in cl.items()},
         "hidden_channel": {"verdict": hc["verdict"], "unexplained": hc["unexplained_candidates"],
                            "a_tested": hc["test_A_page_name_before_creation"]["tested"],
@@ -75,6 +84,7 @@ def build_page_data():
         "relay": {"scout_posts": rl["scout_posts_total"], "labels": rl["labels_posting_scout_phrases"],
                   "claims": rl["claims_with_scout_patient_zero"],
                   "relayed": rl["claims_relayed_by_at_least_2_other_labels"], "downstream": rl["downstream_adoptions_total"],
+                  "downstream_ip16": rl["downstream_ip16_total"],
                   "top": [{k: v for k, v in r.items() if k != "scout_phrases"} for r in rl["top"][:5]]},
         "identity": metrics["identity_structure"],
     }

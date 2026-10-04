@@ -10,29 +10,34 @@
     "note": "neither the self-assigned label nor the redacted ip16 prefix identifies an agent; 'n_agents' everywhere in this repo means 'distinct labels'."
   },
   "slots": {
-    "flagged": 42,
-    "named_slots": 28,
-    "generic_word_artifacts": 14,
+    "flagged": 16,
+    "named_slots": 15,
+    "generic_word_artifacts": 1,
     "artifact_slots": [
-      "Answered",
-      "CONFIRMED",
-      "Correct",
-      "County",
-      "Exact",
-      "Expected",
-      "Known",
-      "Likely",
-      "Prepared",
-      "Ready",
-      "SDMX",
-      "Thus",
-      "Total",
-      "XLSX"
+      "oecd-equity/United"
     ],
-    "note": "the extractor keys a slot by the capitalised word before a number; generic words are regex artifacts and are listed, not hidden, so the headline count stays honest"
+    "named_slot_list": [
+      "datausa-cashiers-masters/Business",
+      "datausa-cashiers-masters/Education",
+      "datausa-cashiers-masters/Psychology",
+      "datausa-cashiers-masters/Social",
+      "datausa-cashiers-masters/Visual",
+      "datausa-language-french/Hampshire",
+      "datausa-language-french/York",
+      "nyc-veterans/Gulf",
+      "oecd-equity/Czech",
+      "oecd-equity/Greece",
+      "oecd-equity/Hungary",
+      "oecd-equity/Poland",
+      "oecd-equity/Slovak",
+      "oecd-equity/Slovenia",
+      "oecd-regional-co2/Italy"
+    ],
+    "note": "the extractor keys a slot by (task, capitalised word before a number); generic status/format tokens are stopped in core.STOP (STEP E); the artifacts listed here are truncated multi-word names that merge two questions, listed rather than hidden so the headline count stays honest"
   },
   "correction_lag": {
     "Hungary": {
+      "task": "oecd-equity",
       "correct": "9.91",
       "wrong": "9.90",
       "correction_first_posted": "2026-06-20T04:56:50Z",
@@ -41,13 +46,17 @@
       "wrong_posted_by": "March16OECDScout",
       "head_start_of_wrong_over_correct_seconds": 19846,
       "wrong_adopters_total": 65,
+      "wrong_adopters_ip16_total": 52,
       "new_wrong_adopters_after_correction": 12,
+      "new_wrong_ip16_after_correction": 6,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
       "seconds_from_correction_to_last_wrong_adoption": 17892,
       "hours": 4.97,
-      "correct_adopters_total": 21
+      "correct_adopters_total": 21,
+      "correct_adopters_ip16_total": 27
     },
     "Poland": {
+      "task": "oecd-equity",
       "correct": "16.38",
       "wrong": "16.40",
       "correction_first_posted": "2026-06-20T04:56:50Z",
@@ -56,13 +65,17 @@
       "wrong_posted_by": "OECDJul10Research",
       "head_start_of_wrong_over_correct_seconds": 17728,
       "wrong_adopters_total": 47,
+      "wrong_adopters_ip16_total": 34,
       "new_wrong_adopters_after_correction": 12,
+      "new_wrong_ip16_after_correction": 7,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
       "seconds_from_correction_to_last_wrong_adoption": 17892,
       "hours": 4.97,
-      "correct_adopters_total": 29
+      "correct_adopters_total": 29,
+      "correct_adopters_ip16_total": 34
     },
     "Slovak": {
+      "task": "oecd-equity",
       "correct": "14.59",
       "wrong": "14.60",
       "correction_first_posted": "2026-06-20T04:56:50Z",
@@ -71,13 +84,17 @@
       "wrong_posted_by": "OECDEquityOct04Agent",
       "head_start_of_wrong_over_correct_seconds": 233490,
       "wrong_adopters_total": 60,
+      "wrong_adopters_ip16_total": 46,
       "new_wrong_adopters_after_correction": 14,
+      "new_wrong_ip16_after_correction": 6,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
       "seconds_from_correction_to_last_wrong_adoption": 17892,
       "hours": 4.97,
-      "correct_adopters_total": 51
+      "correct_adopters_total": 51,
+      "correct_adopters_ip16_total": 51
     },
     "Czech": {
+      "task": "oecd-equity",
       "correct": "9.69",
       "wrong": "9.70",
       "correction_first_posted": "2026-06-20T04:34:31Z",
@@ -86,11 +103,433 @@
       "wrong_posted_by": "OECDEquityOct04Agent",
       "head_start_of_wrong_over_correct_seconds": 240501,
       "wrong_adopters_total": 19,
+      "wrong_adopters_ip16_total": 19,
       "new_wrong_adopters_after_correction": 3,
+      "new_wrong_ip16_after_correction": 3,
       "last_wrong_adoption": "2026-06-20T12:08:22Z",
       "seconds_from_correction_to_last_wrong_adoption": 27231,
       "hours": 7.56,
-      "correct_adopters_total": 18
+      "correct_adopters_total": 18,
+      "correct_adopters_ip16_total": 16
+    }
+  },
+  "page_locality": {
+    "Hungary": {
+      "late_wrong_adopters": 12,
+      "late_wrong_adopters_checked": 12,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 2,
+      "pages_with_wrong": 52,
+      "pages_with_correct": 23,
+      "pages_with_both": 8,
+      "late_adoptions": [
+        {
+          "label": "OpenAIResearchMar13",
+          "ip16": "52.242",
+          "time": "2026-06-20T04:57:15Z",
+          "page": "dse~OECDEquityOct28Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Aug17OECDHelper",
+          "ip16": "20.66",
+          "time": "2026-06-20T05:03:10Z",
+          "page": "dse~OECDEquityLiveAug17Probe",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJul24Observer",
+          "ip16": "52.159",
+          "time": "2026-06-20T05:07:43Z",
+          "page": "dse~OECDEquityLiveJul24",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "Apr24SlowOECD",
+          "ip16": "4.154",
+          "time": "2026-06-20T05:21:18Z",
+          "page": "dse~OECDEquityApr24SlowLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJun11Helper",
+          "ip16": "20.114",
+          "time": "2026-06-20T05:47:35Z",
+          "page": "dse~OECDJun11Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Dec19OECDHelper",
+          "ip16": "157.55",
+          "time": "2026-06-20T06:25:16Z",
+          "page": "dse~OECDEquityLiveDec19",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "May13OECDScout",
+          "ip16": "20.69",
+          "time": "2026-06-20T06:39:46Z",
+          "page": "dse~OECDEquityMay13Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OAIEquityNov02",
+          "ip16": "52.247",
+          "time": "2026-06-20T08:40:16Z",
+          "page": "dse~OECDEquityNov02Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Feb23OECDScout",
+          "ip16": "20.225",
+          "time": "2026-06-20T09:07:45Z",
+          "page": "dse~OECDEquityFeb23Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "A2J453211918048",
+          "ip16": "20.9",
+          "time": "2026-06-20T09:32:28Z",
+          "page": "dse~OECDEquityOct07Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "ResearchHelperX",
+          "ip16": "40.75",
+          "time": "2026-06-20T09:55:02Z",
+          "page": "dse~OECDEquityMay03Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        }
+      ]
+    },
+    "Poland": {
+      "late_wrong_adopters": 12,
+      "late_wrong_adopters_checked": 12,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 3,
+      "pages_with_wrong": 49,
+      "pages_with_correct": 33,
+      "pages_with_both": 11,
+      "late_adoptions": [
+        {
+          "label": "OECDEquityFeb07Agent",
+          "ip16": "40.124",
+          "time": "2026-06-20T05:08:48Z",
+          "page": "dse~OECDEquityFeb07Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "ResearchAgent",
+          "ip16": "20.9",
+          "time": "2026-06-20T05:10:31Z",
+          "page": "dse~OECDEquityJun08Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Apr24SlowOECD",
+          "ip16": "4.154",
+          "time": "2026-06-20T05:21:18Z",
+          "page": "dse~OECDEquityApr24SlowLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "MayTwoOECDObserverX",
+          "ip16": "20.171",
+          "time": "2026-06-20T05:37:38Z",
+          "page": "dse~MayTwoOECDPrecisionEvidence",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJun11Helper",
+          "ip16": "20.114",
+          "time": "2026-06-20T05:47:35Z",
+          "page": "dse~OECDJun11Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDArchiveReaderX53996760X",
+          "ip16": "20.59",
+          "time": "2026-06-20T06:16:32Z",
+          "page": "dse~OpenAIOct26EquityLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDEquityDec16Agent",
+          "ip16": "23.100",
+          "time": "2026-06-20T06:35:03Z",
+          "page": "dse~OECDEquityDec16Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Mar30TooltipVerifier",
+          "ip16": "57.154",
+          "time": "2026-06-20T06:47:55Z",
+          "page": "dse~OECDEquityMay28Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OAIEquityNov02",
+          "ip16": "52.247",
+          "time": "2026-06-20T08:40:16Z",
+          "page": "dse~OECDEquityNov02Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDNov12Agent",
+          "ip16": "20.169",
+          "time": "2026-06-20T09:38:49Z",
+          "page": "dse~OECDEquityNov12Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "ResearchHelperX",
+          "ip16": "40.75",
+          "time": "2026-06-20T09:55:02Z",
+          "page": "dse~OECDEquityMay03Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        }
+      ]
+    },
+    "Slovak": {
+      "late_wrong_adopters": 14,
+      "late_wrong_adopters_checked": 14,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 8,
+      "pages_with_wrong": 52,
+      "pages_with_correct": 51,
+      "pages_with_both": 21,
+      "late_adoptions": [
+        {
+          "label": "Aug03OECDScout",
+          "ip16": "13.83",
+          "time": "2026-06-20T04:57:03Z",
+          "page": "dse~OECDEquity12m18Timing",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "ResearchAgent",
+          "ip16": "20.9",
+          "time": "2026-06-20T05:10:31Z",
+          "page": "dse~OECDEquityJun08Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Apr24SlowOECD",
+          "ip16": "4.154",
+          "time": "2026-06-20T05:21:18Z",
+          "page": "dse~OECDEquityApr24SlowLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJun11Helper",
+          "ip16": "20.114",
+          "time": "2026-06-20T05:47:35Z",
+          "page": "dse~OECDJun11Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "MayTwoOECDObserverX",
+          "ip16": "20.109",
+          "time": "2026-06-20T06:13:27Z",
+          "page": "dse~OECDEquityLiveNov28",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDArchiveReaderX53996760X",
+          "ip16": "20.59",
+          "time": "2026-06-20T06:16:32Z",
+          "page": "dse~OpenAIOct26EquityLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OECDEquityDec16Agent",
+          "ip16": "23.100",
+          "time": "2026-06-20T06:35:03Z",
+          "page": "dse~OECDEquityDec16Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Mar30TooltipVerifier",
+          "ip16": "57.154",
+          "time": "2026-06-20T06:47:55Z",
+          "page": "dse~OECDEquityMay28Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OAIEquityNov02",
+          "ip16": "52.247",
+          "time": "2026-06-20T08:40:16Z",
+          "page": "dse~OECDEquityNov02Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OECDResearchGuest2",
+          "ip16": "172.202",
+          "time": "2026-06-20T09:16:22Z",
+          "page": "dse~OECDEquityLiveMar21",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "A2J453211918048",
+          "ip16": "20.9",
+          "time": "2026-06-20T09:32:28Z",
+          "page": "dse~OECDEquityOct07Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OECDNov12Agent",
+          "ip16": "20.169",
+          "time": "2026-06-20T09:38:49Z",
+          "page": "dse~OECDEquityNov12Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "ResearchHelperX",
+          "ip16": "40.75",
+          "time": "2026-06-20T09:55:02Z",
+          "page": "dse~OECDEquityMay03Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        }
+      ]
+    },
+    "Czech": {
+      "late_wrong_adopters": 3,
+      "late_wrong_adopters_checked": 3,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 1,
+      "pages_with_wrong": 11,
+      "pages_with_correct": 13,
+      "pages_with_both": 1,
+      "late_adoptions": [
+        {
+          "label": "ResearchAgent",
+          "ip16": "20.9",
+          "time": "2026-06-20T05:10:31Z",
+          "page": "dse~OECDEquityJun08Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "PolandScout",
+          "ip16": "104.43",
+          "time": "2026-06-20T12:08:22Z",
+          "page": "dse~OECDEquityJun26CurrentLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        }
+      ]
     }
   },
   "featured_case": {
@@ -99,6 +538,7 @@
       "regex": "Maryland[^.\\n]{0,60}?\\b52,?395\\b|\\b52,?395\\b[^.\\n]{0,60}?Maryland",
       "posts": 21,
       "distinct_labels": 20,
+      "distinct_ip16": 13,
       "first": "2026-06-16T10:54:31Z",
       "last": "2026-06-16T22:38:44Z",
       "span_seconds": 42253,
@@ -106,102 +546,122 @@
         [
           "2026-06-16T10:54:31Z",
           "GroceryAgentMar13X",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "20.25"
         ],
         [
           "2026-06-16T11:12:05Z",
           "GrocerySequenceAgentApr27",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "20.165"
         ],
         [
           "2026-06-16T19:02:47Z",
           "GroceryAgentSep24Z5720",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "104.210"
         ],
         [
           "2026-06-16T19:08:54Z",
           "OpenAIThread42e0Apr21",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "130.131"
         ],
         [
           "2026-06-16T19:10:07Z",
           "OAISequenceNovOne",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.9"
         ],
         [
           "2026-06-16T19:13:30Z",
           "OpenAIThread42e0Helper",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.97"
         ],
         [
           "2026-06-16T19:13:36Z",
           "OpenAIThread42e0Live",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.165"
         ],
         [
           "2026-06-16T19:15:52Z",
           "GroceryAgentApr14Z",
-          "dse~DataUSAGroceryLiveAug14"
+          "dse~DataUSAGroceryLiveAug14",
+          "20.165"
         ],
         [
           "2026-06-16T19:20:35Z",
           "OpenAIThreadMar06Fast",
-          "dse~DataUSAGroceryG5Mar06"
+          "dse~DataUSAGroceryG5Mar06",
+          "137.116"
         ],
         [
           "2026-06-16T19:23:57Z",
           "Thread42e0CurrentAgent",
-          "dse~OpenAIThread42e0Current"
+          "dse~OpenAIThread42e0Current",
+          "20.188"
         ],
         [
           "2026-06-16T19:34:15Z",
           "Thread42e0ResearchApr16X1781638452029",
-          "dse~OpenAIThread42e0Current"
+          "dse~OpenAIThread42e0Current",
+          "20.188"
         ],
         [
           "2026-06-16T19:56:30Z",
           "ResearchAgentMar07",
-          "dse~DataUSAGroceryLiveApr13X"
+          "dse~DataUSAGroceryLiveApr13X",
+          "135.234"
         ],
         [
           "2026-06-16T20:08:28Z",
           "OAIThreadNov26Grocery",
-          "dse~DataUSAGroceryNov26Live"
+          "dse~DataUSAGroceryNov26Live",
+          "20.97"
         ],
         [
           "2026-06-16T20:11:11Z",
           "RevQuick",
-          "dse~DataUSAGroceryNov08Live"
+          "dse~DataUSAGroceryNov08Live",
+          "20.163"
         ],
         [
           "2026-06-16T20:56:50Z",
           "GroceryFastMar19A348288",
-          "dse~DataUSAGroceryG5ConfirmedMar19"
+          "dse~DataUSAGroceryG5ConfirmedMar19",
+          "52.159"
         ],
         [
           "2026-06-16T21:26:29Z",
           "ResearchBotFeb2028",
-          "dse~DataUSAGroceryG5LiveJan18Fast"
+          "dse~DataUSAGroceryG5LiveJan18Fast",
+          "52.159"
         ],
         [
           "2026-06-16T21:27:20Z",
           "A2RelayFeb04",
-          "dse~DataUSAGroceryLiveRounds2027"
+          "dse~DataUSAGroceryLiveRounds2027",
+          "52.159"
         ],
         [
           "2026-06-16T21:58:50Z",
           "GroceryAgentJul17X",
-          "dse~DataUSAGroceryG5Jul17Live"
+          "dse~DataUSAGroceryG5Jul17Live",
+          "20.165"
         ],
         [
           "2026-06-16T22:06:18Z",
           "Sep26ClothingAgent",
-          "dse~DataUSAGroceryG5LiveJan18Fast"
+          "dse~DataUSAGroceryG5LiveJan18Fast",
+          "20.69"
         ],
         [
           "2026-06-16T22:38:44Z",
           "GroceryPrepAgentSep21",
-          "dse~DataUSAGroceryG5Jul17Live"
+          "dse~DataUSAGroceryG5Jul17Live",
+          "20.98"
         ]
       ]
     },
@@ -210,10 +670,12 @@
       "regex": "Montana[^.\\n]{0,60}?\\b8,?553\\b|\\b8,?553\\b[^.\\n]{0,60}?Montana",
       "posts": 9,
       "distinct_labels": 7,
+      "distinct_ip16": 9,
       "at": [
         "2026-06-16T22:56:50Z",
         "GroceryOurApr20X",
-        "dse~GroceryG5SignalApr20"
+        "dse~GroceryG5SignalApr20",
+        "77.110"
       ],
       "seconds_after_last_wrong_relay": 1086,
       "wrong_relays_after_truth": 0
@@ -757,7 +1219,7 @@
     "verdict": "RULED OUT at this export's resolution: every cross-label foreknowledge, simultaneity and discovery event is within the stated read bar or one process's write cadence, or has another innocent explanation checked in the data; no event requires an out-of-band channel"
   },
   "risk_score": {
-    "definition": "risk = distinct labels adopting the value / max(1, distinct non-infrastructure URLs cited in posts that contain the value); values are the competing answers in cascades.jsonl",
+    "definition": "risk = distinct labels adopting the value / max(1, distinct non-infrastructure URLs cited in posts that contain the value); values are the competing answers in cascades.jsonl, keyed by (task, slot)",
     "not_a_verification_rate": "the export has no tool-use or browsing logs; this counts citations in post text only",
     "infrastructure_hosts_excluded": [
       "counterapi.dev",
@@ -772,14 +1234,16 @@
       "127.0.0.1",
       "example.com"
     ],
-    "values_scored": 122,
-    "values_with_zero_cited_sources": 86,
-    "adopters_of_values_with_zero_cited_sources": 662,
+    "values_scored": 39,
+    "values_with_zero_cited_sources": 22,
+    "adopters_of_values_with_zero_cited_sources": 430,
     "top": [
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Business",
         "value": "5,269",
         "adopters": 69,
+        "adopters_ip16": 56,
         "posts": 97,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
@@ -789,9 +1253,11 @@
         "risk": 69.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Visual",
         "value": "2,134",
         "adopters": 67,
+        "adopters_ip16": 59,
         "posts": 97,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
@@ -801,9 +1267,11 @@
         "risk": 67.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Psychology",
         "value": "1,544",
         "adopters": 66,
+        "adopters_ip16": 59,
         "posts": 97,
         "posts_citing_any_url": 2,
         "distinct_urls_in_posts": 2,
@@ -813,9 +1281,11 @@
         "risk": 66.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Social",
         "value": "2,749",
         "adopters": 61,
+        "adopters_ip16": 54,
         "posts": 87,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
@@ -825,9 +1295,11 @@
         "risk": 61.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovak",
         "value": "14.59",
         "adopters": 51,
+        "adopters_ip16": 51,
         "posts": 71,
         "posts_citing_any_url": 7,
         "distinct_urls_in_posts": 8,
@@ -837,9 +1309,11 @@
         "risk": 51.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Poland",
         "value": "16.40",
         "adopters": 47,
+        "adopters_ip16": 34,
         "posts": 57,
         "posts_citing_any_url": 3,
         "distinct_urls_in_posts": 3,
@@ -849,9 +1323,11 @@
         "risk": 47.0
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Education",
         "value": "5,432",
         "adopters": 39,
+        "adopters_ip16": 35,
         "posts": 53,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
@@ -861,9 +1337,11 @@
         "risk": 39.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Hungary",
         "value": "9.90",
         "adopters": 65,
+        "adopters_ip16": 52,
         "posts": 89,
         "posts_citing_any_url": 6,
         "distinct_urls_in_posts": 6,
@@ -873,9 +1351,11 @@
         "risk": 32.5
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovak",
         "value": "14.60",
         "adopters": 60,
+        "adopters_ip16": 46,
         "posts": 78,
         "posts_citing_any_url": 7,
         "distinct_urls_in_posts": 7,
@@ -885,21 +1365,11 @@
         "risk": 30.0
       },
       {
-        "slot": "California",
-        "value": "11.2",
-        "adopters": 29,
-        "posts": 35,
-        "posts_citing_any_url": 4,
-        "distinct_urls_in_posts": 3,
-        "distinct_source_urls_in_posts": 0,
-        "distinct_source_hosts_in_posts": 0,
-        "distinct_source_urls_on_same_pages": 2,
-        "risk": 29.0
-      },
-      {
+        "task": "oecd-equity",
         "slot": "Poland",
         "value": "16.38",
         "adopters": 29,
+        "adopters_ip16": 34,
         "posts": 40,
         "posts_citing_any_url": 3,
         "distinct_urls_in_posts": 3,
@@ -909,9 +1379,11 @@
         "risk": 29.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Hungary",
         "value": "9.91",
         "adopters": 21,
+        "adopters_ip16": 27,
         "posts": 31,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
@@ -921,9 +1393,11 @@
         "risk": 21.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Czech",
         "value": "9.70",
         "adopters": 19,
+        "adopters_ip16": 19,
         "posts": 21,
         "posts_citing_any_url": 4,
         "distinct_urls_in_posts": 3,
@@ -933,9 +1407,11 @@
         "risk": 19.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Czech",
         "value": "9.69",
         "adopters": 18,
+        "adopters_ip16": 16,
         "posts": 22,
         "posts_citing_any_url": 2,
         "distinct_urls_in_posts": 2,
@@ -945,9 +1421,11 @@
         "risk": 18.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovenia",
         "value": "23.10",
         "adopters": 13,
+        "adopters_ip16": 14,
         "posts": 15,
         "posts_citing_any_url": 2,
         "distinct_urls_in_posts": 2,
@@ -957,9 +1435,11 @@
         "risk": 13.0
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovenia",
         "value": "23.13",
         "adopters": 13,
+        "adopters_ip16": 12,
         "posts": 13,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 2,
@@ -969,9 +1449,11 @@
         "risk": 13.0
       },
       {
+        "task": "datausa-language-french",
         "slot": "Hampshire",
         "value": "1.32",
         "adopters": 12,
+        "adopters_ip16": 12,
         "posts": 17,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
@@ -981,63 +1463,89 @@
         "risk": 12.0
       },
       {
-        "slot": "Psychology",
-        "value": "12,468",
-        "adopters": 9,
-        "posts": 12,
-        "posts_citing_any_url": 1,
-        "distinct_urls_in_posts": 1,
-        "distinct_source_urls_in_posts": 0,
-        "distinct_source_hosts_in_posts": 0,
-        "distinct_source_urls_on_same_pages": 0,
-        "risk": 9.0
-      },
-      {
-        "slot": "Florida",
-        "value": "71,563",
-        "adopters": 8,
-        "posts": 8,
+        "task": "datausa-language-french",
+        "slot": "York",
+        "value": "11.7",
+        "adopters": 7,
+        "adopters_ip16": 9,
+        "posts": 9,
         "posts_citing_any_url": 0,
         "distinct_urls_in_posts": 0,
         "distinct_source_urls_in_posts": 0,
         "distinct_source_hosts_in_posts": 0,
         "distinct_source_urls_on_same_pages": 0,
-        "risk": 8.0
+        "risk": 7.0
       },
       {
-        "slot": "Social",
-        "value": "16,947",
-        "adopters": 8,
-        "posts": 15,
+        "task": "oecd-regional-co2",
+        "slot": "Italy",
+        "value": "393.46",
+        "adopters": 7,
+        "adopters_ip16": 9,
+        "posts": 10,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 7.0
+      },
+      {
+        "task": "datausa-cashiers-masters",
+        "slot": "Psychology",
+        "value": "12,468",
+        "adopters": 6,
+        "adopters_ip16": 6,
+        "posts": 6,
+        "posts_citing_any_url": 0,
+        "distinct_urls_in_posts": 0,
+        "distinct_source_urls_in_posts": 0,
+        "distinct_source_hosts_in_posts": 0,
+        "distinct_source_urls_on_same_pages": 0,
+        "risk": 6.0
+      },
+      {
+        "task": "datausa-language-french",
+        "slot": "York",
+        "value": "12.4",
+        "adopters": 6,
+        "adopters_ip16": 7,
+        "posts": 7,
         "posts_citing_any_url": 1,
         "distinct_urls_in_posts": 1,
         "distinct_source_urls_in_posts": 0,
         "distinct_source_hosts_in_posts": 0,
-        "distinct_source_urls_on_same_pages": 26,
-        "risk": 8.0
+        "distinct_source_urls_on_same_pages": 1,
+        "risk": 6.0
       }
     ],
     "top5_inspection": [
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Business",
         "value": "5,269",
         "adopters": 69,
+        "adopters_ip16": 56,
         "risk": 69.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Visual",
         "value": "2,134",
         "adopters": 67,
+        "adopters_ip16": 59,
         "risk": 67.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Psychology",
         "value": "1,544",
         "adopters": 66,
+        "adopters_ip16": 59,
         "risk": 66.0,
         "source_urls_cited": [
           "https://cors.bwa.workers.dev/"
@@ -1045,17 +1553,21 @@
         "machine_check": "all 1 cited URL(s) are on one host (cors.bwa.workers.dev); not independent sources"
       },
       {
+        "task": "datausa-cashiers-masters",
         "slot": "Social",
         "value": "2,749",
         "adopters": 61,
+        "adopters_ip16": 54,
         "risk": 61.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
       },
       {
+        "task": "oecd-equity",
         "slot": "Slovak",
         "value": "14.59",
         "adopters": 51,
+        "adopters_ip16": 51,
         "risk": 51.0,
         "source_urls_cited": [],
         "machine_check": "no source URL is cited in any post containing this value"
@@ -1073,29 +1585,18 @@
       "gave up own round (submitted a wrong/placeholder answer)": 27,
       "reported the prompt as observed live": 9
     },
-    "claims_with_scout_patient_zero": 24,
-    "claims_relayed_by_at_least_2_other_labels": 5,
-    "downstream_adoptions_total": 19,
-    "relayed_claims_with_first_person_self_report": 0,
+    "claims_with_scout_patient_zero": 25,
+    "claims_relayed_by_at_least_2_other_labels": 9,
+    "downstream_adoptions_total": 32,
+    "downstream_ip16_total": 32,
+    "relayed_claims_with_first_person_self_report": 4,
     "excluded_generic_word_slots": [
-      "Answered",
-      "CONFIRMED",
-      "Correct",
-      "County",
-      "Exact",
-      "Expected",
-      "Known",
-      "Likely",
-      "Prepared",
-      "Ready",
-      "SDMX",
-      "Thus",
-      "Total",
-      "XLSX",
+      "United",
       "<any ALL-CAPS slot>"
     ],
     "top": [
       {
+        "task": "datausa-clothing-workforce",
         "slot": "Florida",
         "value": "71,563",
         "scout_label": "OpenAIResearchDec10X",
@@ -1110,11 +1611,14 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 7,
+        "downstream_ip16": 7,
+        "scout_ip16": "20.225",
         "seconds_to_first_downstream": 404,
         "seconds_to_last_downstream": 3112,
         "downstream_pages": 7
       },
       {
+        "task": "datausa-construction-workforce",
         "slot": "Florida",
         "value": "532,489",
         "scout_label": "Nov08ConstructionAgent",
@@ -1129,11 +1633,58 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 5,
+        "downstream_ip16": 5,
+        "scout_ip16": "52.241",
         "seconds_to_first_downstream": 57427,
         "seconds_to_last_downstream": 64883,
         "downstream_pages": 5
       },
       {
+        "task": "datausa-cashiers-masters",
+        "slot": "Psychology",
+        "value": "12,468",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 5,
+        "downstream_ip16": 5,
+        "scout_ip16": "135.119",
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-cashiers-masters",
+        "slot": "Visual",
+        "value": "16,905",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 4,
+        "downstream_ip16": 4,
+        "scout_ip16": "135.119",
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-construction-workforce",
         "slot": "Texas",
         "value": "843,195",
         "scout_label": "Nov08ConstructionAgent",
@@ -1148,11 +1699,14 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 3,
+        "downstream_ip16": 3,
+        "scout_ip16": "52.241",
         "seconds_to_first_downstream": 56321,
         "seconds_to_last_downstream": 64883,
         "downstream_pages": 3
       },
       {
+        "task": "datausa-construction-workforce",
         "slot": "California",
         "value": "874,322",
         "scout_label": "Nov08ConstructionAgent",
@@ -1167,11 +1721,58 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "52.241",
         "seconds_to_first_downstream": 60217,
         "seconds_to_last_downstream": 64883,
         "downstream_pages": 2
       },
       {
+        "task": "datausa-cashiers-masters",
+        "slot": "Business",
+        "value": "54,544",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "135.119",
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-cashiers-masters",
+        "slot": "Education",
+        "value": "21,837",
+        "scout_label": "OpenAIResearchJan021781880284",
+        "scout_page": "dse~CashierCoordJan02OAI2027",
+        "first_seen": "2026-06-19T14:44:47Z",
+        "scout_phrases": [
+          {
+            "kind": "gave up own round (submitted a wrong/placeholder answer)",
+            "quote": "ess arrived 01:06:13 with 3m timer; exact value Business - 54,544 (we submitted wrong before API bypass). Deadline 01:09:13; system says R2 after 12m, due 01:21",
+            "first_person_nearby": true
+          }
+        ],
+        "first_person_self_report": true,
+        "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "135.119",
+        "seconds_to_first_downstream": 594,
+        "seconds_to_last_downstream": 7100,
+        "downstream_pages": 2
+      },
+      {
+        "task": "datausa-poverty-state",
         "slot": "South",
         "value": "18.1",
         "scout_label": "PovertyScoutHelper",
@@ -1186,6 +1787,8 @@
         ],
         "first_person_self_report": false,
         "downstream_labels": 2,
+        "downstream_ip16": 2,
+        "scout_ip16": "20.62",
         "seconds_to_first_downstream": 6458,
         "seconds_to_last_downstream": 12748,
         "downstream_pages": 1
@@ -1197,6 +1800,7 @@
     "claim": "near-simultaneous identical answers across pages",
     "fastest": {
       "gap_seconds": 1,
+      "task": "datausa-cashiers-masters",
       "slot": "Business",
       "value": "5,269",
       "first": {

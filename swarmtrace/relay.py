@@ -54,14 +54,16 @@ def run(events, claims, min_downstream=2, exclude_slots=()):
         ms = _match(e["text"])
         if not ms: continue
         later = c["adoption"][1:]
-        rows.append({"slot": c["slot"], "value": c["value"], "scout_label": pz[1], "scout_page": pz[2],
+        rows.append({"task": c["task"], "slot": c["slot"], "value": c["value"], "scout_label": pz[1], "scout_page": pz[2],
                      "first_seen": pz[0], "scout_phrases": ms,
                      "first_person_self_report": any(m["first_person_nearby"] for m in ms),
                      "downstream_labels": len(later),
+                     "downstream_ip16": len({a[3] for a in later if len(a) > 3 and a[3]}),
+                     "scout_ip16": pz[3] if len(pz) > 3 else None,
                      "seconds_to_first_downstream": _sec(pz[0], later[0][0]) if later else None,
                      "seconds_to_last_downstream": _sec(pz[0], later[-1][0]) if later else None,
                      "downstream_pages": len({a[2] for a in later})})
-    rows.sort(key=lambda r: (-r["downstream_labels"], r["first_seen"], r["slot"], r["value"]))
+    rows.sort(key=lambda r: (-r["downstream_labels"], r["first_seen"], r["task"] or "", r["slot"], r["value"]))
     relayed = [r for r in rows if r["downstream_labels"] >= min_downstream]
     return {
         "definition": "answer-value claims whose FIRST post self-reports racing ahead / giving up its round / "
@@ -73,6 +75,7 @@ def run(events, claims, min_downstream=2, exclude_slots=()):
         "claims_with_scout_patient_zero": len(rows),
         f"claims_relayed_by_at_least_{min_downstream}_other_labels": len(relayed),
         "downstream_adoptions_total": sum(r["downstream_labels"] for r in relayed),
+        "downstream_ip16_total": sum(r["downstream_ip16"] for r in relayed),
         "relayed_claims_with_first_person_self_report": sum(1 for r in relayed if r["first_person_self_report"]),
         "excluded_generic_word_slots": sorted(exclude_slots) + ["<any ALL-CAPS slot>"],
         "top": relayed[:25],

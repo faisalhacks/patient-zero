@@ -28,7 +28,9 @@ def main(argv=None):
               f"answer_value={summary['answer_value_claims']} = protocol-string artifacts)  timestamps={summary['records_with_time_utc']}")
         print(f"[swarmtraces] blob-host bypass recurs: {summary['blob_host_bypass_recurs']}; "
               f"NO_PROXY=* bypass records: {summary['techniques_extra']['proxy-env bypass (NO_PROXY=*)']['records']}")
-        print("[swarmtraces] wrote outputs/swarmtraces_claims.jsonl and outputs/swarmtraces_summary.json")
+        print(f"[swarmtraces] TIME-FREE MODE: {summary['contested_slots_time_free']} contested slots (contestation only; "
+              "no propagation tracing — the export has no timestamps)")
+        print("[swarmtraces] wrote outputs/swarmtraces_claims.jsonl, swarmtraces_cascades.jsonl, swarmtraces_summary.json")
         if not a.no_store:
             from .store import append_run
             run_id, path = append_run(cl, source="swarmtraces.org redacted export")

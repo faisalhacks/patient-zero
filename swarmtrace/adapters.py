@@ -32,18 +32,33 @@ def events_from_swarmtraces(path):
 def build_untimed(bucket):
     """claims without a timeline: adoption is ordered by record id (explicitly NOT time)."""
     claims = []
-    for (kind, slot, value), evs in bucket.items():
+    for (kind, task, slot, value), evs in bucket.items():
         evs.sort(key=lambda e: e["source_rev"])
         firsts, adoption = {}, []
         for e in evs:
             if e["agent"] not in firsts:
                 firsts[e["agent"]] = e["source_rev"]; adoption.append([None, e["agent"], e["where"]])
-        claims.append({"claim_id": claim_id(kind, slot, value), "kind": kind, "slot": slot, "value": value,
+        claims.append({"claim_id": claim_id(kind, task, slot, value), "kind": kind, "task": task, "slot": slot, "value": value,
                        "first_seen": None, "patient_zero": None, "order": "record id, not time",
                        "n_posts": len(evs), "n_records": len(firsts), "n_agents": None,
                        "pages": sorted({e["where"] for e in evs}), "adoption": adoption})
     claims.sort(key=lambda c: (-c["n_records"], c["claim_id"]))
     return claims
+
+def contested_untimed(claims, min_records=2):
+    """TIME-FREE MODE: contestation only. A (task, slot) is contested when two or more values
+    were each posted in >= min_records records. No earliest / widest-vs-earliest / head start —
+    those need an adoption order, and this export has no timestamps."""
+    by = collections.defaultdict(list)
+    for c in claims:
+        if c["kind"] == "answer_value" and c["n_records"] >= min_records: by[(c["task"], c["slot"])].append(c)
+    out = []
+    for (task, slot), cs in sorted(by.items(), key=lambda kv: (kv[0][0] or "", kv[0][1])):
+        if len(cs) < 2: continue
+        out.append({"task": task, "slot": slot, "mode": "time-free (no timestamps): contestation only, no propagation order",
+                    "values": [{"value": c["value"], "n_records": c["n_records"]} for c in sorted(cs, key=lambda c: (-c["n_records"], c["value"]))],
+                    "false_consensus": None})
+    return out
 
 def run_swarmtraces(path="data/swarmtraces_redacted.jsonl.gz", outdir="outputs"):
     out = pathlib.Path(outdir); out.mkdir(exist_ok=True)
@@ -52,11 +67,12 @@ def run_swarmtraces(path="data/swarmtraces_redacted.jsonl.gz", outdir="outputs")
     for name, rx in TECH_EXTRA.items():
         cre = re.compile(rx, re.I)
         for e in events:
-            if cre.search(e["text"]): bucket[("technique", name, name)].append(e)
+            if cre.search(e["text"]): bucket[("technique", None, name, name)].append(e)
     claims = build_untimed(bucket)
+    contested = contested_untimed(claims)
     tech = {c["value"]: {"records": c["n_records"], "posts": c["n_posts"]} for c in claims if c["kind"] == "technique"}
     summary = {
-        "source": "swarmtraces.org redacted export", "records": len(events),
+        "source": "swarmtraces.org redacted export", "mode": "time-free", "records": len(events),
         "records_with_time_utc": sum(1 for e in events if e["time"]),
         "records_by_kind": dict(collections.Counter(e["kind"] for e in events)),
         "agent_identity": "redacted in source; n_records counts records, not agents",
@@ -70,8 +86,15 @@ def run_swarmtraces(path="data/swarmtraces_redacted.jsonl.gz", outdir="outputs")
         "techniques_extra": {name: tech.get(name, {"records": 0, "posts": 0}) for name in TECH_EXTRA},
         "blob_host_bypass_recurs": tech.get("blob-host NO_PROXY bypass", {"records": 0})["records"] > 0,
         "top_url_hosts": [{"host": c["value"], "records": c["n_records"]} for c in claims if c["kind"] == "url"][:10],
-        "cascades": "not computable: contested slots need an adoption order, and this export has no timestamps",
+        "contested_slots_time_free": len(contested),
+        "contested_slot_words": [c["slot"] for c in contested],
+        "contested_slots_note": "contestation only (two or more values each in >= 2 records); the slot words are HTTP/header tokens "
+                                "and incidental capitalised words, none a question-answering task; no patient zero, head start or "
+                                "adoption order is computable because the export has no timestamps",
+        "propagation_tracing": "not computable: no timestamps in the export",
     }
+    with open(out / "swarmtraces_cascades.jsonl", "w", encoding="utf-8", newline="\n") as f:
+        for c in contested: f.write(json.dumps(c) + "\n")
     with open(out / "swarmtraces_claims.jsonl", "w", encoding="utf-8", newline="\n") as f:
         for c in claims: f.write(json.dumps(c) + "\n")
     with open(out / "swarmtraces_summary.json", "w", encoding="utf-8", newline="\n") as f:
