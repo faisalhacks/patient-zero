@@ -50,6 +50,13 @@ def test_metrics():
     assert {k: v["new_wrong_ip16_after_correction"] for k, v in cl.items()} == \
            {"Hungary": 6, "Poland": 7, "Slovak": 6, "Czech": 3}, cl
     assert (cl["Poland"]["wrong_adopters_ip16_total"], cl["Slovak"]["wrong_adopters_ip16_total"], cl["Czech"]["wrong_adopters_ip16_total"]) == (34, 46, 19)
+    # STEP D: page locality — late wrong adoptions never happened on a page that already showed the correct value
+    pl = m["page_locality"]
+    assert {k: v["late_wrong_adopters_checked"] for k, v in pl.items()} == {"Hungary": 12, "Poland": 12, "Slovak": 14, "Czech": 3}, pl
+    assert all(v["late_adopters_whose_page_already_showed_correct"] == 0 for v in pl.values()), pl
+    assert all(v["late_adopters_whose_page_had_correct_posted_earlier"] == 0 for v in pl.values()), pl
+    assert {k: (v["pages_with_wrong"], v["pages_with_correct"], v["pages_with_both"]) for k, v in pl.items()} == \
+           {"Hungary": (52, 23, 8), "Poland": (49, 33, 11), "Slovak": (52, 51, 21), "Czech": (11, 13, 1)}, pl
     f = m["featured_case"]
     assert (f["wrong"]["distinct_labels"], f["wrong"]["posts"]) == (20, 21), f["wrong"]
     assert (f["wrong"]["distinct_ip16"], f["truth"]["distinct_labels"], f["truth"]["distinct_ip16"]) == (13, 7, 9), f

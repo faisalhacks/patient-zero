@@ -78,6 +78,53 @@ def correction_lag(claims):
                      "correct_adopters_total": r["n_agents"], "correct_adopters_ip16_total": r["n_ip16"]}
     return out
 
+# ---------- STEP D: page locality of the correction ------------------------------------------
+def page_locality(claims, events, revisions, lag):
+    """For each late wrong adopter (first posted the wrong value AFTER the correct value was
+    first public), did the page they edited ALREADY display the correct value before their
+    edit? Checked on the page body of the previous published revision of that page, with the
+    pipeline's own extractor (answer_pairs). Also: had the correct value been POSTED on that
+    page by anyone earlier, and how many pages carried each value at all."""
+    from .core import answer_pairs, task_index, task_of
+    idx = task_index(events)
+    revs = {r["rev_id"]: r for r in revisions}
+    by_page = collections.defaultdict(list)
+    for r in revisions: by_page[r["page_key"]].append(r)
+    for v in by_page.values(): v.sort(key=lambda r: (r["seq"], r["time"]))
+    ev_by_key = collections.defaultdict(list)
+    for e in events: ev_by_key[(e["time"], e["agent"], e["where"])].append(e)
+    out = {}
+    for slot, L in lag.items():
+        task, wrong, right, tc = L["task"], L["wrong"], L["correct"], L["correction_first_posted"]
+        wc = next(c for c in claims if c["kind"] == "answer_value" and (c["task"], c["slot"], c["value"]) == (task, slot, wrong))
+        rc = next(c for c in claims if c["kind"] == "answer_value" and (c["task"], c["slot"], c["value"]) == (task, slot, right))
+        pages_wrong, pages_right = set(wc["pages"]), set(rc["pages"])
+        late = [a for a in wc["adoption"] if _t(a[0]) > _t(tc)]
+        rows = []
+        for a in late:
+            cands = [e for e in ev_by_key[(a[0], a[1], a[2])] if (slot, wrong) in answer_pairs(e["text"])]
+            e = cands[0] if cands else None
+            if e is None: continue
+            r = revs[e["source_rev"]]
+            prev = [x for x in by_page[r["page_key"]] if x["seq"] < r["seq"]]
+            prev = prev[-1] if prev else None
+            showed = bool(prev) and (slot, right) in answer_pairs(prev["body"])
+            posted_earlier = any((slot, right) in answer_pairs(x["body"]) for x in by_page[r["page_key"]] if x["seq"] < r["seq"])
+            rows.append({"label": a[1], "ip16": a[3] if len(a) > 3 else None, "time": a[0], "page": a[2],
+                         "page_showed_correct_before_edit": showed,
+                         "correct_ever_on_page_before_edit": posted_earlier,
+                         "page_ever_carried_correct": a[2] in pages_right})
+        out[slot] = {
+            "late_wrong_adopters": len(late), "late_wrong_adopters_checked": len(rows),
+            "late_adopters_whose_page_already_showed_correct": sum(1 for x in rows if x["page_showed_correct_before_edit"]),
+            "late_adopters_whose_page_had_correct_posted_earlier": sum(1 for x in rows if x["correct_ever_on_page_before_edit"]),
+            "late_adopters_on_pages_that_ever_carried_correct": sum(1 for x in rows if x["page_ever_carried_correct"]),
+            "pages_with_wrong": len(pages_wrong), "pages_with_correct": len(pages_right),
+            "pages_with_both": len(pages_wrong & pages_right),
+            "late_adoptions": rows,
+        }
+    return out
+
 # ---------- featured case (Maryland -> Montana), reproducible --------------------------
 MD_RX = re.compile(r"Maryland[^.\n]{0,60}?\b52,?395\b|\b52,?395\b[^.\n]{0,60}?Maryland")
 MT_RX = re.compile(r"Montana[^.\n]{0,60}?\b8,?553\b|\b8,?553\b[^.\n]{0,60}?Montana")
@@ -146,6 +193,7 @@ def run_all(datadir="data", outdir="outputs"):
         "identity_structure": ident,
         "slots": slot_classification(cascades),
         "correction_lag": correction_lag(claims),
+        "page_locality": None,
         "featured_case": featured_case(events),
         "events": len(events),
         "hidden_channel": _hc.run(rev, pages, events, ev_types, lab_ip),
@@ -157,6 +205,9 @@ def run_all(datadir="data", outdir="outputs"):
             "verdict": "explained by independent lookup of a public value; NOT evidence of an out-of-band channel",
             "followup": "done: see hidden_channel (non-derivable artifacts; no view logs in the export)"},
     }
+    with open(pathlib.Path(outdir) / "metrics.json", "w", encoding="utf-8", newline="\n") as f:
+        json.dump(m, f, indent=2, ensure_ascii=False); f.write("\n")
+    m["page_locality"] = page_locality(claims, events, rev, m["correction_lag"])
     with open(pathlib.Path(outdir) / "metrics.json", "w", encoding="utf-8", newline="\n") as f:
         json.dump(m, f, indent=2, ensure_ascii=False); f.write("\n")
     gt = pathlib.Path(outdir).resolve().parent / "ground_truth.json"

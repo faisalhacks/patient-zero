@@ -124,6 +124,425 @@
       "correct_adopters_ip16_total": 16
     }
   },
+  "page_locality": {
+    "Hungary": {
+      "late_wrong_adopters": 12,
+      "late_wrong_adopters_checked": 12,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 2,
+      "pages_with_wrong": 52,
+      "pages_with_correct": 23,
+      "pages_with_both": 8,
+      "late_adoptions": [
+        {
+          "label": "OpenAIResearchMar13",
+          "ip16": "52.242",
+          "time": "2026-06-20T04:57:15Z",
+          "page": "dse~OECDEquityOct28Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Aug17OECDHelper",
+          "ip16": "20.66",
+          "time": "2026-06-20T05:03:10Z",
+          "page": "dse~OECDEquityLiveAug17Probe",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJul24Observer",
+          "ip16": "52.159",
+          "time": "2026-06-20T05:07:43Z",
+          "page": "dse~OECDEquityLiveJul24",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "Apr24SlowOECD",
+          "ip16": "4.154",
+          "time": "2026-06-20T05:21:18Z",
+          "page": "dse~OECDEquityApr24SlowLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJun11Helper",
+          "ip16": "20.114",
+          "time": "2026-06-20T05:47:35Z",
+          "page": "dse~OECDJun11Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Dec19OECDHelper",
+          "ip16": "157.55",
+          "time": "2026-06-20T06:25:16Z",
+          "page": "dse~OECDEquityLiveDec19",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "May13OECDScout",
+          "ip16": "20.69",
+          "time": "2026-06-20T06:39:46Z",
+          "page": "dse~OECDEquityMay13Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OAIEquityNov02",
+          "ip16": "52.247",
+          "time": "2026-06-20T08:40:16Z",
+          "page": "dse~OECDEquityNov02Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Feb23OECDScout",
+          "ip16": "20.225",
+          "time": "2026-06-20T09:07:45Z",
+          "page": "dse~OECDEquityFeb23Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "A2J453211918048",
+          "ip16": "20.9",
+          "time": "2026-06-20T09:32:28Z",
+          "page": "dse~OECDEquityOct07Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "ResearchHelperX",
+          "ip16": "40.75",
+          "time": "2026-06-20T09:55:02Z",
+          "page": "dse~OECDEquityMay03Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        }
+      ]
+    },
+    "Poland": {
+      "late_wrong_adopters": 12,
+      "late_wrong_adopters_checked": 12,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 3,
+      "pages_with_wrong": 49,
+      "pages_with_correct": 33,
+      "pages_with_both": 11,
+      "late_adoptions": [
+        {
+          "label": "OECDEquityFeb07Agent",
+          "ip16": "40.124",
+          "time": "2026-06-20T05:08:48Z",
+          "page": "dse~OECDEquityFeb07Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "ResearchAgent",
+          "ip16": "20.9",
+          "time": "2026-06-20T05:10:31Z",
+          "page": "dse~OECDEquityJun08Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Apr24SlowOECD",
+          "ip16": "4.154",
+          "time": "2026-06-20T05:21:18Z",
+          "page": "dse~OECDEquityApr24SlowLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "MayTwoOECDObserverX",
+          "ip16": "20.171",
+          "time": "2026-06-20T05:37:38Z",
+          "page": "dse~MayTwoOECDPrecisionEvidence",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJun11Helper",
+          "ip16": "20.114",
+          "time": "2026-06-20T05:47:35Z",
+          "page": "dse~OECDJun11Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDArchiveReaderX53996760X",
+          "ip16": "20.59",
+          "time": "2026-06-20T06:16:32Z",
+          "page": "dse~OpenAIOct26EquityLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDEquityDec16Agent",
+          "ip16": "23.100",
+          "time": "2026-06-20T06:35:03Z",
+          "page": "dse~OECDEquityDec16Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Mar30TooltipVerifier",
+          "ip16": "57.154",
+          "time": "2026-06-20T06:47:55Z",
+          "page": "dse~OECDEquityMay28Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OAIEquityNov02",
+          "ip16": "52.247",
+          "time": "2026-06-20T08:40:16Z",
+          "page": "dse~OECDEquityNov02Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDNov12Agent",
+          "ip16": "20.169",
+          "time": "2026-06-20T09:38:49Z",
+          "page": "dse~OECDEquityNov12Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "ResearchHelperX",
+          "ip16": "40.75",
+          "time": "2026-06-20T09:55:02Z",
+          "page": "dse~OECDEquityMay03Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        }
+      ]
+    },
+    "Slovak": {
+      "late_wrong_adopters": 14,
+      "late_wrong_adopters_checked": 14,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 8,
+      "pages_with_wrong": 52,
+      "pages_with_correct": 51,
+      "pages_with_both": 21,
+      "late_adoptions": [
+        {
+          "label": "Aug03OECDScout",
+          "ip16": "13.83",
+          "time": "2026-06-20T04:57:03Z",
+          "page": "dse~OECDEquity12m18Timing",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "ResearchAgent",
+          "ip16": "20.9",
+          "time": "2026-06-20T05:10:31Z",
+          "page": "dse~OECDEquityJun08Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Apr24SlowOECD",
+          "ip16": "4.154",
+          "time": "2026-06-20T05:21:18Z",
+          "page": "dse~OECDEquityApr24SlowLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDJun11Helper",
+          "ip16": "20.114",
+          "time": "2026-06-20T05:47:35Z",
+          "page": "dse~OECDJun11Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "MayTwoOECDObserverX",
+          "ip16": "20.109",
+          "time": "2026-06-20T06:13:27Z",
+          "page": "dse~OECDEquityLiveNov28",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OECDArchiveReaderX53996760X",
+          "ip16": "20.59",
+          "time": "2026-06-20T06:16:32Z",
+          "page": "dse~OpenAIOct26EquityLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OECDEquityDec16Agent",
+          "ip16": "23.100",
+          "time": "2026-06-20T06:35:03Z",
+          "page": "dse~OECDEquityDec16Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "Mar30TooltipVerifier",
+          "ip16": "57.154",
+          "time": "2026-06-20T06:47:55Z",
+          "page": "dse~OECDEquityMay28Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OAIEquityNov02",
+          "ip16": "52.247",
+          "time": "2026-06-20T08:40:16Z",
+          "page": "dse~OECDEquityNov02Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OECDResearchGuest2",
+          "ip16": "172.202",
+          "time": "2026-06-20T09:16:22Z",
+          "page": "dse~OECDEquityLiveMar21",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "A2J453211918048",
+          "ip16": "20.9",
+          "time": "2026-06-20T09:32:28Z",
+          "page": "dse~OECDEquityOct07Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OECDNov12Agent",
+          "ip16": "20.169",
+          "time": "2026-06-20T09:38:49Z",
+          "page": "dse~OECDEquityNov12Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "ResearchHelperX",
+          "ip16": "40.75",
+          "time": "2026-06-20T09:55:02Z",
+          "page": "dse~OECDEquityMay03Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        }
+      ]
+    },
+    "Czech": {
+      "late_wrong_adopters": 3,
+      "late_wrong_adopters_checked": 3,
+      "late_adopters_whose_page_already_showed_correct": 0,
+      "late_adopters_whose_page_had_correct_posted_earlier": 0,
+      "late_adopters_on_pages_that_ever_carried_correct": 1,
+      "pages_with_wrong": 11,
+      "pages_with_correct": 13,
+      "pages_with_both": 1,
+      "late_adoptions": [
+        {
+          "label": "ResearchAgent",
+          "ip16": "20.9",
+          "time": "2026-06-20T05:10:31Z",
+          "page": "dse~OECDEquityJun08Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        },
+        {
+          "label": "OpenAINov22Equity",
+          "ip16": "74.249",
+          "time": "2026-06-20T09:41:45Z",
+          "page": "dse~OECDEquityNov22T012117Live",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": true
+        },
+        {
+          "label": "PolandScout",
+          "ip16": "104.43",
+          "time": "2026-06-20T12:08:22Z",
+          "page": "dse~OECDEquityJun26CurrentLive",
+          "page_showed_correct_before_edit": false,
+          "correct_ever_on_page_before_edit": false,
+          "page_ever_carried_correct": false
+        }
+      ]
+    }
+  },
   "featured_case": {
     "wrong": {
       "label": "predicted Maryland = 52,395 (from a cracked-seed guess)",

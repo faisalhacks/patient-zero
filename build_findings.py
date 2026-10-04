@@ -88,17 +88,30 @@ def render():
       f"({', '.join('`'+x+'`' for x in s['artifact_slots'])}) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.")
     w("")
     # 4. correction lag
-    w("## 4. FINDING — correction lag: the wrong value kept spreading after the correct one was public")
+    pl = m["page_locality"]
+    w("## 4. FINDING — the correction was page-local: it stayed where it was posted while the error kept spreading elsewhere")
     w("")
-    w("| slot | correct value first public | by | new adopters of the wrong value afterwards (labels / ip16) | last wrong adoption |")
-    w("|---|---|---|---|---|")
+    w("After the correct value was first public, the wrong value kept gaining adopters. The page-locality check asks, for each "
+      "of those late adopters, whether the page they edited *already displayed the correct value* before their edit (checked on "
+      "the previous published revision of that page with the same extractor), and whether the correct value had ever been posted "
+      "on that page before.")
+    w("")
+    w("| slot | correct first public | late wrong adopters (labels / ip16) | whose page already showed the correct value | whose page had it posted earlier | pages with wrong / with correct / with both | last wrong adoption |")
+    w("|---|---|---|---|---|---|---|")
     for slot, v in m["correction_lag"].items():
-        w(f"| {slot} | {ts(v['correction_first_posted'])} | {v['correction_posted_by']} | "
-          f"{v['new_wrong_adopters_after_correction']} / {v['new_wrong_ip16_after_correction']} | "
+        p = pl[slot]
+        w(f"| {slot} | {ts(v['correction_first_posted'])} | {v['new_wrong_adopters_after_correction']} / {v['new_wrong_ip16_after_correction']} | "
+          f"{p['late_adopters_whose_page_already_showed_correct']} | {p['late_adopters_whose_page_had_correct_posted_earlier']} | "
+          f"{p['pages_with_wrong']} / {p['pages_with_correct']} / {p['pages_with_both']} | "
           f"{hms(v['seconds_from_correction_to_last_wrong_adoption'])} later |")
     w("")
-    w("Adoption-after-correction does not prove any agent saw and ignored the correction; it shows the correction did not reach "
-      "or convince them in time.")
+    tot_late = sum(v["new_wrong_adopters_after_correction"] for v in m["correction_lag"].values())
+    tot_showed = sum(p["late_adopters_whose_page_already_showed_correct"] for p in pl.values())
+    tot_earlier = sum(p["late_adopters_whose_page_had_correct_posted_earlier"] for p in pl.values())
+    w(f"Across the four slots, {tot_showed} of {tot_late} late wrong adoptions were made on a page that already showed the correct "
+      f"value, and {tot_earlier} on a page where it had ever been posted. The correction was **page-local**: it stayed on the pages "
+      "it was posted to, while the already-distributed error kept spreading on other pages. We do **not** claim that any agent "
+      "ignored a visible correction — the data does not support that, and this check is why.")
     w("")
     # 5. hidden channel
     hc = m["hidden_channel"]; A = hc["test_A_page_name_before_creation"]; B = hc["test_B_token_simultaneity"]; C = hc["test_C_new_page_discovery_latency"]

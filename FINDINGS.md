@@ -25,16 +25,18 @@ On a DataUSA grocery task, agents brute-forced the test's random seed and predic
 
 With no hand-coded answer keys, the tool flags 27 slots where two or more answers to the same question were each adopted by multiple labels. 16 are named answer slots (countries, states, fields of study); 11 are keyed by a generic capitalised word the extractor mistook for a slot name (`datausa-cashiers-masters/CONFIRMED`, `datausa-cashiers-masters/Expected`, `datausa-clothing-workforce/Total`, `datausa-construction-workforce/Exact`, `datausa-construction-workforce/Prepared`, `datausa-language-french/Answered`, `datausa-poverty-county/County`, `oecd-equity/Answered`, `oecd-equity/SDMX`, `oecd-equity/Thus`, `oecd-equity/XLSX`) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.
 
-## 4. FINDING — correction lag: the wrong value kept spreading after the correct one was public
+## 4. FINDING — the correction was page-local: it stayed where it was posted while the error kept spreading elsewhere
 
-| slot | correct value first public | by | new adopters of the wrong value afterwards (labels / ip16) | last wrong adoption |
-|---|---|---|---|---|
-| Hungary | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 12 / 6 | 4 h 58 min 12 s later |
-| Poland | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 12 / 7 | 4 h 58 min 12 s later |
-| Slovak | 2026-06-20 04:56:50 UTC | Mar30TooltipVerifier | 14 / 6 | 4 h 58 min 12 s later |
-| Czech | 2026-06-20 04:34:31 UTC | Apr25OECD675377053 | 3 / 3 | 7 h 33 min 51 s later |
+After the correct value was first public, the wrong value kept gaining adopters. The page-locality check asks, for each of those late adopters, whether the page they edited *already displayed the correct value* before their edit (checked on the previous published revision of that page with the same extractor), and whether the correct value had ever been posted on that page before.
 
-Adoption-after-correction does not prove any agent saw and ignored the correction; it shows the correction did not reach or convince them in time.
+| slot | correct first public | late wrong adopters (labels / ip16) | whose page already showed the correct value | whose page had it posted earlier | pages with wrong / with correct / with both | last wrong adoption |
+|---|---|---|---|---|---|---|
+| Hungary | 2026-06-20 04:56:50 UTC | 12 / 6 | 0 | 0 | 52 / 23 / 8 | 4 h 58 min 12 s later |
+| Poland | 2026-06-20 04:56:50 UTC | 12 / 7 | 0 | 0 | 49 / 33 / 11 | 4 h 58 min 12 s later |
+| Slovak | 2026-06-20 04:56:50 UTC | 14 / 6 | 0 | 0 | 52 / 51 / 21 | 4 h 58 min 12 s later |
+| Czech | 2026-06-20 04:34:31 UTC | 3 / 3 | 0 | 0 | 11 / 13 / 1 | 7 h 33 min 51 s later |
+
+Across the four slots, 0 of 41 late wrong adoptions were made on a page that already showed the correct value, and 0 on a page where it had ever been posted. The correction was **page-local**: it stayed on the pages it was posted to, while the already-distributed error kept spreading on other pages. We do **not** claim that any agent ignored a visible correction — the data does not support that, and this check is why.
 
 ## 5. NEGATIVE RESULT — no evidence of an out-of-band (hidden) channel
 

@@ -44,3 +44,14 @@ adoption record). No existing number moved; the ip16 figures are additions:
 - STEP C · Maryland relays · 20 labels → 20 labels / 13 ip16; Montana posts 7 labels / 9 ip16
 - STEP C · risk top five · 69 / 67 / 66 / 61 / 51 labels → 56 / 59 / 59 / 54 / 51 ip16
 - STEP C · relay-scout downstream adoptions · 32 labels → 32 labels / 32 ip16
+
+### STEP D — correction lag reframed as page locality
+Why: "N labels adopted the wrong value after the correction" invited the reading that
+agents ignored a visible correction. The in-pipeline check (`metrics.json page_locality`)
+looks at the previous published revision of the page each late adopter edited, with the
+same extractor, and asks whether the correct value was already displayed there.
+
+- STEP D · late wrong adoptions on a page that already showed the correct value (Hungary / Poland / Slovak / Czech) · (new) → 0 / 0 / 0 / 0 of 12 / 12 / 14 / 3 · the correction stayed on the pages it was posted to
+- STEP D · late wrong adoptions on a page where the correct value had ever been posted earlier · (new) → 0 / 0 / 0 / 0
+- STEP D · pages carrying the wrong / the correct / both values · (new) → Hungary 52 / 23 / 8, Poland 49 / 33 / 11, Slovak 52 / 51 / 21, Czech 11 / 13 / 1
+- STEP D · FINDINGS §4 and the page's results section now use the page-locality framing and no longer imply that anyone ignored a visible correction; the 12 / 12 / 14 / 3 counts are unchanged
