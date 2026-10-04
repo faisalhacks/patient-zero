@@ -12,21 +12,11 @@
     "value": 1.0
   },
   "precision_contested_slots": {
-    "named": 16,
-    "flagged": 27,
-    "value": 0.593,
+    "named": 15,
+    "flagged": 16,
+    "value": 0.938,
     "artifact_slots": [
-      "datausa-cashiers-masters/CONFIRMED",
-      "datausa-cashiers-masters/Expected",
-      "datausa-clothing-workforce/Total",
-      "datausa-construction-workforce/Exact",
-      "datausa-construction-workforce/Prepared",
-      "datausa-language-french/Answered",
-      "datausa-poverty-county/County",
-      "oecd-equity/Answered",
-      "oecd-equity/SDMX",
-      "oecd-equity/Thus",
-      "oecd-equity/XLSX"
+      "oecd-equity/United"
     ]
   },
   "definitions": {

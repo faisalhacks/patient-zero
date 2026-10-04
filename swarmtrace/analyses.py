@@ -170,15 +170,18 @@ def simultaneous_answers(claims, events):
     return best
 
 # ---------- slot hygiene: which of the 42 flagged slots are named answer slots ----------
-GENERIC_SLOT_WORDS = {"Answered", "Expected", "CONFIRMED", "Exact", "Thus", "Correct", "Prepared", "Total",
-                      "Ready", "County", "Likely", "Known", "XLSX", "SDMX"}
+# STEP E moved the generic status/format tokens into core.STOP; what remains here are slot words that
+# are real but ambiguous: a truncated multi-word name that merges two questions ("United" = United
+# Kingdom 38.3 and United States 24.2 on the OECD task). Listed, not hidden; counted against precision.
+GENERIC_SLOT_WORDS = {"United"}
 def slot_classification(cascades):
     generic = sorted(f"{c['task']}/{c['slot']}" for c in cascades if c["slot"] in GENERIC_SLOT_WORDS)
     named = sorted(f"{c['task']}/{c['slot']}" for c in cascades if c["slot"] not in GENERIC_SLOT_WORDS)
     return {"flagged": len(cascades), "named_slots": len(named), "generic_word_artifacts": len(generic),
             "artifact_slots": generic, "named_slot_list": named,
-            "note": "the extractor keys a slot by the capitalised word before a number; generic words are "
-                    "regex artifacts and are listed, not hidden, so the headline count stays honest"}
+            "note": "the extractor keys a slot by (task, capitalised word before a number); generic status/format "
+                    "tokens are stopped in core.STOP (STEP E); the artifacts listed here are truncated multi-word "
+                    "names that merge two questions, listed rather than hidden so the headline count stays honest"}
 
 # ---------- writer --------------------------------------------------------------------------
 def run_all(datadir="data", outdir="outputs"):

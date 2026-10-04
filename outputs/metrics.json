@@ -10,21 +10,11 @@
     "note": "neither the self-assigned label nor the redacted ip16 prefix identifies an agent; 'n_agents' everywhere in this repo means 'distinct labels'."
   },
   "slots": {
-    "flagged": 27,
-    "named_slots": 16,
-    "generic_word_artifacts": 11,
+    "flagged": 16,
+    "named_slots": 15,
+    "generic_word_artifacts": 1,
     "artifact_slots": [
-      "datausa-cashiers-masters/CONFIRMED",
-      "datausa-cashiers-masters/Expected",
-      "datausa-clothing-workforce/Total",
-      "datausa-construction-workforce/Exact",
-      "datausa-construction-workforce/Prepared",
-      "datausa-language-french/Answered",
-      "datausa-poverty-county/County",
-      "oecd-equity/Answered",
-      "oecd-equity/SDMX",
-      "oecd-equity/Thus",
-      "oecd-equity/XLSX"
+      "oecd-equity/United"
     ],
     "named_slot_list": [
       "datausa-cashiers-masters/Business",
@@ -41,10 +31,9 @@
       "oecd-equity/Poland",
       "oecd-equity/Slovak",
       "oecd-equity/Slovenia",
-      "oecd-equity/United",
       "oecd-regional-co2/Italy"
     ],
-    "note": "the extractor keys a slot by the capitalised word before a number; generic words are regex artifacts and are listed, not hidden, so the headline count stays honest"
+    "note": "the extractor keys a slot by (task, capitalised word before a number); generic status/format tokens are stopped in core.STOP (STEP E); the artifacts listed here are truncated multi-word names that merge two questions, listed rather than hidden so the headline count stays honest"
   },
   "correction_lag": {
     "Hungary": {
@@ -1245,9 +1234,9 @@
       "127.0.0.1",
       "example.com"
     ],
-    "values_scored": 69,
-    "values_with_zero_cited_sources": 45,
-    "adopters_of_values_with_zero_cited_sources": 502,
+    "values_scored": 39,
+    "values_with_zero_cited_sources": 22,
+    "adopters_of_values_with_zero_cited_sources": 430,
     "top": [
       {
         "task": "datausa-cashiers-masters",
@@ -1596,26 +1585,13 @@
       "gave up own round (submitted a wrong/placeholder answer)": 27,
       "reported the prompt as observed live": 9
     },
-    "claims_with_scout_patient_zero": 28,
+    "claims_with_scout_patient_zero": 25,
     "claims_relayed_by_at_least_2_other_labels": 9,
     "downstream_adoptions_total": 32,
     "downstream_ip16_total": 32,
     "relayed_claims_with_first_person_self_report": 4,
     "excluded_generic_word_slots": [
-      "Answered",
-      "CONFIRMED",
-      "Correct",
-      "County",
-      "Exact",
-      "Expected",
-      "Known",
-      "Likely",
-      "Prepared",
-      "Ready",
-      "SDMX",
-      "Thus",
-      "Total",
-      "XLSX",
+      "United",
       "<any ALL-CAPS slot>"
     ],
     "top": [

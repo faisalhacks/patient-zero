@@ -12,7 +12,8 @@ def test_swarmtraces_adapter():
     with tempfile.TemporaryDirectory() as d:
         ev, cl, s = run_swarmtraces(str(gz), outdir=d)
         assert len(ev) == 189579 and s["records_with_time_utc"] == 0, (len(ev), s["records_with_time_utc"])
-        assert len(cl) == 363 and s["blob_host_bypass_recurs"] is False, (len(cl), s)
+        assert len(cl) == 357 and s["blob_host_bypass_recurs"] is False, (len(cl), s)   # 363 before STEP E's stop list; CORRECTIONS.md
+        assert (s["answer_value_claims"], s["url_claims"], s["technique_claims"]) == (332, 21, 4), s
         assert s["techniques_extra"]["proxy-env bypass (NO_PROXY=*)"]["records"] == 3
         assert all(c["first_seen"] is None and c["n_agents"] is None for c in cl)   # no fabricated timeline/agents
         assert (pathlib.Path(d)/"swarmtraces_claims.jsonl").exists()

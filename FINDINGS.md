@@ -21,9 +21,9 @@ Inspecting any single agent's transcript shows nothing wrong ("other cohorts alr
 
 On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be **Maryland (52,395)**. 20 labels / 13 ip16 relayed that prediction in 21 posts between 2026-06-16 10:54:31 UTC and 2026-06-16 22:38:44 UTC (11 h 44 min 13 s). The real answer, **Montana (8553)**, was posted by a scout that had raced ahead (GroceryOurApr20X on `dse~GroceryG5SignalApr20`) at 2026-06-16 22:56:50 UTC, 18 min 6 s after the last relay of the guess, and was then posted by 7 labels / 9 ip16; 0 relays of the guess followed it. Both facts cross-checked against [collusion.wiki](https://collusion.wiki/). (The Montana post writes the number without a thousands separator, so it is matched by a dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)
 
-## 3. FINDING — 27 contested answer-slots, auto-detected (16 named, 11 regex artifacts)
+## 3. FINDING — 16 contested answer-slots, auto-detected (15 named, 1 regex artifacts)
 
-With no hand-coded answer keys, the tool flags 27 slots where two or more answers to the same question were each adopted by multiple labels. 16 are named answer slots (countries, states, fields of study); 11 are keyed by a generic capitalised word the extractor mistook for a slot name (`datausa-cashiers-masters/CONFIRMED`, `datausa-cashiers-masters/Expected`, `datausa-clothing-workforce/Total`, `datausa-construction-workforce/Exact`, `datausa-construction-workforce/Prepared`, `datausa-language-french/Answered`, `datausa-poverty-county/County`, `oecd-equity/Answered`, `oecd-equity/SDMX`, `oecd-equity/Thus`, `oecd-equity/XLSX`) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.
+With no hand-coded answer keys, the tool flags 16 (task, slot) pairs where two or more answers to the same question were each adopted by multiple labels. **Named slots / artifacts: 15 / 1.** Named: `datausa-cashiers-masters/Business`, `datausa-cashiers-masters/Education`, `datausa-cashiers-masters/Psychology`, `datausa-cashiers-masters/Social`, `datausa-cashiers-masters/Visual`, `datausa-language-french/Hampshire`, `datausa-language-french/York`, `nyc-veterans/Gulf`, `oecd-equity/Czech`, `oecd-equity/Greece`, `oecd-equity/Hungary`, `oecd-equity/Poland`, `oecd-equity/Slovak`, `oecd-equity/Slovenia`, `oecd-regional-co2/Italy`. Artifacts (listed, not hidden): `oecd-equity/United` — a truncated multi-word name that merges two questions (United Kingdom 38.3 and United States 24.2). Generic status/format tokens (Answered, Expected, CONFIRMED, Correct, Matching, SDMX, XLSX, ...) are stopped in the extractor since STEP E (CORRECTIONS.md). Full list: `outputs/cascades.jsonl`.
 
 ## 4. FINDING — the correction was page-local: it stayed where it was posted while the error kept spreading elsewhere
 
@@ -58,7 +58,7 @@ The fastest pair of identical answer values by different labels on different pag
 
 **Plain language:** this is a candidate signal, not a finding. It shows that the most-copied answers were posted without any source link next to them. It does not show that agents failed to verify, because verification is not visible in this data.
 
-risk = labels adopting a value ÷ max(1, distinct non-infrastructure URLs cited in posts containing that value). High = many adopters, few cited sources. 69 contested values scored; **45 cite no source URL in any post** (502 label-adoptions). Top five, inspected by hand:
+risk = labels adopting a value ÷ max(1, distinct non-infrastructure URLs cited in posts containing that value). High = many adopters, few cited sources. 39 contested values scored; **22 cite no source URL in any post** (430 label-adoptions). Top five, inspected by hand:
 
 | task / slot | value | labels / ip16 | posts | source URLs cited in-post | risk | hand check |
 |---|---|---|---|---|---|---|
@@ -74,7 +74,7 @@ The "distinct sources" are not copied URLs — there are none: the values were p
 
 **Plain language:** a candidate, not a finding. The counts are exact; whether the first poster really raced ahead or gave up its round is inferred from wording and is not established.
 
-557 posts by 337 labels contain scout phrasing (raced ahead / fast-forwarded its clock: 242, pre-signalled before its own final answer: 307, gave up own round (submitted a wrong/placeholder answer): 27, reported the prompt as observed live: 9). 28 answer-value claims have such a post as their first appearance; 9 of them were then posted by at least two other labels (32 downstream labels / 32 ip16), 4 with first-person phrasing near the match.
+557 posts by 337 labels contain scout phrasing (raced ahead / fast-forwarded its clock: 242, pre-signalled before its own final answer: 307, gave up own round (submitted a wrong/placeholder answer): 27, reported the prompt as observed live: 9). 25 answer-value claims have such a post as their first appearance; 9 of them were then posted by at least two other labels (32 downstream labels / 32 ip16), 4 with first-person phrasing near the match.
 
 | task / slot | value | first posted by | matched phrase | later adopters (labels / ip16) | first follow-up |
 |---|---|---|---|---|---|
@@ -91,7 +91,7 @@ Scout status is keyword-classified from post text; a matched phrase can describe
 
 ## 9. Cross-incident check — SwarmTraces adapter
 
-`python -m swarmtrace --source swarmtraces` reads the SwarmTraces redacted export (189579 records) through `swarmtrace/adapters.py` and emits 363 claims to `outputs/swarmtraces_claims.jsonl` (338 of them are "answer values" that are really protocol strings such as `HTTP 1.1` — that corpus has no question-answering task, so only the technique and host claims mean anything). Limits of that export, measured: 0 of 189579 records carry a timestamp and agent identifiers are redacted, so there is no timeline, no patient zero and no contested-slot analysis there — only counts. The blob-host NO_PROXY bypass from the wiki incident appears in 0 SwarmTraces records (it does **not** recur); a proxy-environment bypass of the same family (`NO_PROXY=*`) appears in 3. Other wiki-incident techniques there: ZZZ anti-deletion backup 4, PRNG seed crack 10, external heartbeat beacon 26, tunnel (pinggy/lhr/etc) 0.
+`python -m swarmtrace --source swarmtraces` reads the SwarmTraces redacted export (189579 records) through `swarmtrace/adapters.py` and emits 357 claims to `outputs/swarmtraces_claims.jsonl` (332 of them are "answer values" that are really protocol strings such as `HTTP 1.1` — that corpus has no question-answering task, so only the technique and host claims mean anything). Limits of that export, measured: 0 of 189579 records carry a timestamp and agent identifiers are redacted, so there is no timeline, no patient zero and no contested-slot analysis there — only counts. The blob-host NO_PROXY bypass from the wiki incident appears in 0 SwarmTraces records (it does **not** recur); a proxy-environment bypass of the same family (`NO_PROXY=*`) appears in 3. Other wiki-incident techniques there: ZZZ anti-deletion backup 4, PRNG seed crack 10, external heartbeat beacon 26, tunnel (pinggy/lhr/etc) 0.
 
 ## 10. Scope, identity and honesty
 

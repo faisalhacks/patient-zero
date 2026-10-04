@@ -65,7 +65,13 @@ TECH = {"blob-host NO_PROXY bypass": r"blob\.core\.windows\.net",
 URL = re.compile(r"https?://([A-Za-z0-9.-]+\.[A-Za-z]{2,})")
 STOP = {"Beschreibe","Describe","Confirmed","Sequence","Urgent","Round","Please","Timer",
         "Active","System","Thread","Container","Prompt","Deadline","Cohort","Current",
-        "Signal","Relay","Research","Helper","Full","Values","Cached","Task","Answer"}
+        "Signal","Relay","Research","Helper","Full","Values","Cached","Task","Answer",
+        # STEP E: generic status / format / fragment tokens the extractor mistook for slot names
+        "Answered","Answers","Expected","Expect","CONFIRMED","Correct","Exact","Thus","Prepared","Prep",
+        "Ready","Submitted","ACTUAL","Actual","County","Country","Known","Likely","Matching","Other",
+        "Projections","SEEN","This","Accelerating","Awaiting","BEFORE","Initial","LIVE","Literal",
+        "Power","Prior","RESULT","UPDATE","Selenium","VizBuilder","Billing","ARIA","OECD",
+        "SDMX","XLSX","Total","Primary","Performing","Sciences","Arts"}
 
 def answer_pairs(text):
     return sorted({(k, v) for k, v in ANS.findall(text) if k not in STOP})

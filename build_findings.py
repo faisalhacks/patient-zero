@@ -82,10 +82,13 @@ def render():
     s = m["slots"]
     w(f"## 3. FINDING — {s['flagged']} contested answer-slots, auto-detected ({s['named_slots']} named, {s['generic_word_artifacts']} regex artifacts)")
     w("")
-    w(f"With no hand-coded answer keys, the tool flags {s['flagged']} slots where two or more answers to the same question were each "
-      f"adopted by multiple labels. {s['named_slots']} are named answer slots (countries, states, fields of study); "
-      f"{s['generic_word_artifacts']} are keyed by a generic capitalised word the extractor mistook for a slot name "
-      f"({', '.join('`'+x+'`' for x in s['artifact_slots'])}) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.")
+    w(f"With no hand-coded answer keys, the tool flags {s['flagged']} (task, slot) pairs where two or more answers to the same "
+      f"question were each adopted by multiple labels. **Named slots / artifacts: {s['named_slots']} / {s['generic_word_artifacts']}.** "
+      f"Named: {', '.join('`'+x+'`' for x in s['named_slot_list'])}. "
+      + (f"Artifacts (listed, not hidden): {', '.join('`'+x+'`' for x in s['artifact_slots'])} — a truncated multi-word name that merges "
+         "two questions (United Kingdom 38.3 and United States 24.2). " if s['artifact_slots'] else "No artifacts remain. ")
+      + "Generic status/format tokens (Answered, Expected, CONFIRMED, Correct, Matching, SDMX, XLSX, ...) are stopped in the extractor "
+        "since STEP E (CORRECTIONS.md). Full list: `outputs/cascades.jsonl`.")
     w("")
     # 4. correction lag
     pl = m["page_locality"]

@@ -55,3 +55,20 @@ same extractor, and asks whether the correct value was already displayed there.
 - STEP D · late wrong adoptions on a page where the correct value had ever been posted earlier · (new) → 0 / 0 / 0 / 0
 - STEP D · pages carrying the wrong / the correct / both values · (new) → Hungary 52 / 23 / 8, Poland 49 / 33 / 11, Slovak 52 / 51 / 21, Czech 11 / 13 / 1
 - STEP D · FINDINGS §4 and the page's results section now use the page-locality framing and no longer imply that anyone ignored a visible correction; the 12 / 12 / 14 / 3 counts are unchanged
+
+### STEP E — generic tokens stopped in the extractor; precision stated
+Why: the extractor keyed slots by any capitalised word before a number, so status words
+(Answered, Expected, CONFIRMED, Correct, Matching), format tokens (SDMX, XLSX), fragments of
+real names (Performing, Sciences, Primary) and similar were counted as contested slots.
+They are now in `core.STOP`. One ambiguous slot remains and is listed as an artifact
+instead of hidden: `oecd-equity/United` merges United Kingdom 38.3 and United States 24.2
+(a truncated multi-word name).
+
+- STEP E · claims extracted · 746 → 561 · stopped tokens no longer produce claims
+- STEP E · contested slots flagged · 27 → 16 · all 11 generic-word artifacts gone
+- STEP E · named slots / artifacts · 16 / 11 → 15 / 1 · `United` reclassified from named to artifact (truncated multi-word name)
+- STEP E · precision on contested slots · 16/27 = 0.593 → 15/16 = 0.938
+- STEP E · risk score: values scored / zero-source / label-adoptions · 69 / 45 / 502 → 39 / 22 / 430 · only values of the 16 remaining contested slots are scored
+- STEP E · relay scouts: claims with scout first post · 28 → 25 · three stopped-token claims dropped; relayed / downstream / first-person unchanged at 9 / 32 / 4
+- STEP E · OECD false consensus, correction lag, page locality, Maryland→Montana, hidden channel, simultaneous answers, identity, recall · unchanged
+- STEP E · SwarmTraces adapter claims (cross-incident, FINDINGS §9) · 363 (338 protocol-string "answer values") → 357 (332) · the same stop list applies to that corpus; url 21 and technique 4 claims unchanged, blob-host bypass still does not recur, NO_PROXY=* still 3 records

@@ -15,8 +15,8 @@ def _run():
 def test_counts():
     ev, cl, ca = _run()
     assert len(ev) == 14591, len(ev)          # events parsed from the export
-    assert len(cl) == 746, len(cl)            # claims (task-scoped since STEP B; was 741 under bare-word slots)
-    assert len(ca) == 27, len(ca)             # contested (task, slot) pairs (was 42 bare-word slots; see CORRECTIONS.md)
+    assert len(cl) == 561, len(cl)            # claims (STEP B task-scoped: 741->746; STEP E stop list: 746->561; CORRECTIONS.md)
+    assert len(ca) == 16, len(ca)             # contested (task, slot) pairs (42 -> 27 -> 16; see CORRECTIONS.md)
 
 def test_hungary_false_consensus():
     """The headline finding: the WRONG rounded value (9.90) out-spread the
@@ -67,7 +67,8 @@ def test_metrics():
     assert ns["gap_seconds"] == 1 and (ns["task"], ns["slot"], ns["value"]) == ("datausa-cashiers-masters", "Business", "5,269"), ns
     assert (m["identity_structure"]["labels"], m["identity_structure"]["ip16_prefixes"]) == (3103, 191)
     s = m["slots"]
-    assert (s["flagged"], s["named_slots"], s["generic_word_artifacts"]) == (27, 16, 11), s
+    assert (s["flagged"], s["named_slots"], s["generic_word_artifacts"]) == (16, 15, 1), s   # STEP E; artifact = "United" (truncated name)
+    assert s["artifact_slots"] == ["oecd-equity/United"], s
     hc = m["hidden_channel"]
     assert hc["data_limits"]["page_view_or_read_events"] == 0
     assert hc["test_A_page_name_before_creation"]["tested"] == 2198
@@ -77,7 +78,7 @@ def test_metrics():
     assert hc["test_C_new_page_discovery_latency"]["latency_seconds"]["min"] == 1
     assert hc["unexplained_candidates"] == 0 and hc["verdict"].startswith("RULED OUT"), hc["verdict"]
     rs = m["risk_score"]
-    assert (rs["values_scored"], rs["values_with_zero_cited_sources"], rs["adopters_of_values_with_zero_cited_sources"]) == (69, 45, 502), rs
+    assert (rs["values_scored"], rs["values_with_zero_cited_sources"], rs["adopters_of_values_with_zero_cited_sources"]) == (39, 22, 430), rs
     top = rs["top"][0]
     assert (top["task"], top["slot"], top["value"], top["adopters"], top["distinct_source_urls_in_posts"]) == \
            ("datausa-cashiers-masters", "Business", "5,269", 69, 0), top
@@ -85,7 +86,7 @@ def test_metrics():
     rl = m["relay_scouts"]
     assert (rl["scout_posts_total"], rl["labels_posting_scout_phrases"]) == (557, 337), rl
     assert (rl["claims_with_scout_patient_zero"], rl["claims_relayed_by_at_least_2_other_labels"],
-            rl["downstream_adoptions_total"], rl["relayed_claims_with_first_person_self_report"]) == (28, 9, 32, 4), rl
+            rl["downstream_adoptions_total"], rl["relayed_claims_with_first_person_self_report"]) == (25, 9, 32, 4), rl
     assert (rl["top"][0]["task"], rl["top"][0]["slot"], rl["top"][0]["value"], rl["top"][0]["downstream_labels"]) == \
            ("datausa-clothing-workforce", "Florida", "71,563", 7)
 
@@ -106,7 +107,7 @@ def test_evaluation():
     ra, rp, pc = ev["recall_automatic"], ev["recall_with_hand_written_patterns"], ev["precision_contested_slots"]
     assert (ra["found"], ra["total"]) == (6, 8), ra
     assert (rp["found"], rp["total"]) == (8, 8), rp
-    assert (pc["named"], pc["flagged"]) == (16, 27), pc     # STEP B: was 28/42 under bare-word slots
+    assert (pc["named"], pc["flagged"]) == (15, 16), pc     # 28/42 -> 16/27 (STEP B) -> 15/16 (STEP E); CORRECTIONS.md
     for it in ev["items"]:
         assert it["collusion_wiki_url"].startswith("https://collusion.wiki/#") and it["quote"], it["id"]
 

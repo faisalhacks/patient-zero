@@ -8,8 +8,8 @@
     "recovered_text": 75534
   },
   "agent_identity": "redacted in source; n_records counts records, not agents",
-  "claims": 363,
-  "answer_value_claims": 338,
+  "claims": 357,
+  "answer_value_claims": 332,
   "answer_value_note": "that corpus has no question-answering task; its 'answer values' are protocol strings (e.g. 'HTTP 1.1') matched by the generic extractor and carry no meaning",
   "url_claims": 21,
   "technique_claims": 4,
