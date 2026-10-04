@@ -1,0 +1,36 @@
+{
+  "correction_lag": {
+    "Hungary": {
+      "correct": "9.91",
+      "wrong": "9.90",
+      "new_wrong_adopters_after_correction": 12,
+      "hours": 5.0
+    },
+    "Poland": {
+      "correct": "16.38",
+      "wrong": "16.40",
+      "new_wrong_adopters_after_correction": 12,
+      "hours": 5.0
+    },
+    "Slovak": {
+      "correct": "14.59",
+      "wrong": "14.60",
+      "new_wrong_adopters_after_correction": 14,
+      "hours": 5.0
+    },
+    "Czech": {
+      "correct": "9.69",
+      "wrong": "9.70",
+      "new_wrong_adopters_after_correction": 3,
+      "hours": 5.0
+    }
+  },
+  "negative_result_hidden_channel": {
+    "claim": "near-simultaneous identical answers across pages",
+    "fastest_seconds": 6,
+    "verdict": "explained by independent lookup of a public value; NOT evidence of an out-of-band channel",
+    "followup": "re-run simultaneity on non-derivable artifacts (page-discovery timing in events.jsonl)"
+  },
+  "source": "collusion.wiki redacted export",
+  "reproduce": "python -m swarmtrace"
+}

@@ -1,0 +1,2 @@
+# Patient Zero runs on the Python 3.9+ standard library only.
+# No third-party packages required to reproduce every finding.

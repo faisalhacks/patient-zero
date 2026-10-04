@@ -1,0 +1,15 @@
+# Build state
+- [x] Core engine (ingest/extract/contradict/cascade) — reproduces 42 contested slots
+- [x] Reproducibility gate (tests/test_reproduces.py)
+- [x] Correction-lag finding (metrics.json, FINDINGS.md §4) — verified
+- [x] Negative result: near-simultaneous answers are NOT a hidden channel (FINDINGS §5)
+- [x] ROADMAP.md — records why tool-use/"slop score" was refused (no data for it)
+- [x] Results page v1 (patient_zero.html)
+- [ ] T1-hidden-channel (events.jsonl; CANDIDATE unless it clears the bar)
+- [ ] T1-risk-score (consensus-without-corroboration; validate top 5)
+- [ ] T1-relay-scouts (sacrificial scouts + beneficiaries)
+- [ ] T1-findings (regenerate with the above)
+- [ ] T2-adapter (SwarmTraces, cross-incident)
+- [ ] T2-store (growing store + query CLI)
+- [ ] T3-graph / T3-a11y / T3-ci
+- [ ] T-FINALIZE (refresh outputs -> rebuild page -> gate green)

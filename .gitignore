@@ -1,0 +1,5 @@
+data/*.jsonl
+data/*.zip
+data/*.json
+__pycache__/
+*.pyc
