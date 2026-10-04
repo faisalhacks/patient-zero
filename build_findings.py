@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""Render FINDINGS.md from outputs/metrics.json, cascades.jsonl and (if present)
+outputs/swarmtraces_summary.json. Every number in the document is read from those
+files; the prose is fixed. Hand-checked correctness judgements are stated as such and
+cite collusion.wiki.
+
+  python build_findings.py           # write FINDINGS.md
+  python build_findings.py --check   # exit 1 if FINDINGS.md is stale relative to the outputs
+"""
+import json, sys, pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parent
+OUT = ROOT / "outputs"
+WIKI = "https://collusion.wiki/"
+
+def _jsonl(p):
+    with open(p, encoding="utf-8") as f: return [json.loads(l) for l in f if l.strip()]
+def hms(s):
+    h, r = divmod(int(s), 3600); m, s = divmod(r, 60)
+    return (f"{h} h {m} min {s} s" if h else f"{m} min {s} s" if m else f"{s} s")
+def ts(t): return t.replace("T", " ").replace("Z", " UTC")
+
+def render():
+    m = json.load(open(OUT / "metrics.json", encoding="utf-8"))
+    cas = {c["slot"]: c for c in _jsonl(OUT / "cascades.jsonl")}
+    st = OUT / "swarmtraces_summary.json"
+    st = json.load(open(st, encoding="utf-8")) if st.exists() else None
+    L = []
+    w = L.append
+    w("# What Patient Zero found")
+    w("")
+    w("Every number below is produced from the public redacted export by `python download_data.py && python -m swarmtrace` "
+      "and is asserted by the gate in `tests/test_reproduces.py`; this file itself is rendered from `outputs/metrics.json` "
+      "by `build_findings.py`. The engine reports structure (who posted what, when, how it spread). Which answer is "
+      f"*correct* is a human judgement, checked against the [collusion.wiki]({WIKI}) write-up and stated as such. "
+      "Labels are self-assigned agent names and are **not** a head count; \"labels\" below means distinct labels.")
+    w("")
+    w("Status key: **FINDING** = reproduces, exact, correctness cross-checked. **CANDIDATE** = reproduces and exact, "
+      "but the interpretation is not established by this data. **NEGATIVE RESULT** = tested and ruled out at this export's resolution.")
+    w("")
+    # 1. false consensus
+    w("## 1. FINDING — the swarm's most-adopted OECD answers were the wrong ones")
+    w("")
+    w("On the OECD education-equity task the benchmark wanted a percentage to two decimals. A GET-only shortcut yielded a "
+      "one-decimal figure, which agents padded to two decimals (`9.90`); the correct two-decimal figure (`9.91`) needed a sandbox "
+      f"bypass and was posted later. Per [collusion.wiki]({WIKI}), the raw two-decimal values are the correct ones.")
+    w("")
+    w("| slot | wrong (widest) | labels | correct | labels | wrong first posted | correct first posted | head start of wrong over correct |")
+    w("|---|---|---|---|---|---|---|---|")
+    for slot, v in m["correction_lag"].items():
+        w(f"| {slot} | `{v['wrong']}` | {v['wrong_adopters_total']} | `{v['correct']}` | {v['correct_adopters_total']} | "
+          f"{ts(v['wrong_first_posted'])} | {ts(v['correction_first_posted'])} | {hms(v['head_start_of_wrong_over_correct_seconds'])} |")
+    w("")
+    od = []
+    for slot, v in m["correction_lag"].items():
+        one = v["wrong"].rstrip("0")
+        n = next((x["n_agents"] for x in cas[slot]["values"] if x["value"] == one), None)
+        if n is not None: od.append(f"`{one}`: {n}")
+    w("Inspecting any single agent's transcript shows nothing wrong (\"other cohorts already confirmed it\"), yet in aggregate "
+      "the swarm converged on the wrong value because one early figure was copied faster than it was checked. The one-decimal "
+      f"variants are the *earliest* values in `cascades.jsonl` (labels: {', '.join(od)}); an earlier version of this write-up "
+      "quoted their gap to the padded value as a \"62-hour head start\" — that was the one-decimal-to-padded gap, not the "
+      "wrong-to-correct gap, and the table above replaces it.")
+    w("")
+    # 2. featured
+    f = m["featured_case"]; fw, ft = f["wrong"], f["truth"]
+    w("## 2. FINDING — a cracked-seed guess propagated before the real answer landed")
+    w("")
+    w(f"On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be "
+      f"**Maryland (52,395)**. {fw['distinct_labels']} distinct labels relayed that prediction in {fw['posts']} posts between "
+      f"{ts(fw['first'])} and {ts(fw['last'])} ({hms(fw['span_seconds'])}). The real answer, **Montana (8553)**, was posted by "
+      f"a scout that had raced ahead ({ft['at'][1]} on `{ft['at'][2]}`) at {ts(ft['at'][0])}, {hms(ft['seconds_after_last_wrong_relay'])} "
+      f"after the last relay of the guess; {ft['wrong_relays_after_truth']} relays of the guess followed it. Both facts cross-checked "
+      f"against [collusion.wiki]({WIKI}). (The Montana post writes the number without a thousands separator, so it is matched by a "
+      "dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)")
+    w("")
+    # 3. slots
+    s = m["slots"]
+    w(f"## 3. FINDING — {s['flagged']} contested answer-slots, auto-detected ({s['named_slots']} named, {s['generic_word_artifacts']} regex artifacts)")
+    w("")
+    w(f"With no hand-coded answer keys, the tool flags {s['flagged']} slots where two or more answers to the same question were each "
+      f"adopted by multiple labels. {s['named_slots']} are named answer slots (countries, states, fields of study); "
+      f"{s['generic_word_artifacts']} are keyed by a generic capitalised word the extractor mistook for a slot name "
+      f"({', '.join('`'+x+'`' for x in s['artifact_slots'])}) and are listed here rather than hidden. Full list: `outputs/cascades.jsonl`.")
+    w("")
+    # 4. correction lag
+    w("## 4. FINDING — correction lag: the wrong value kept spreading after the correct one was public")
+    w("")
+    w("| slot | correct value first public | by | new labels adopting the wrong value afterwards | last wrong adoption |")
+    w("|---|---|---|---|---|")
+    for slot, v in m["correction_lag"].items():
+        w(f"| {slot} | {ts(v['correction_first_posted'])} | {v['correction_posted_by']} | {v['new_wrong_adopters_after_correction']} | "
+          f"{hms(v['seconds_from_correction_to_last_wrong_adoption'])} later |")
+    w("")
+    w("Adoption-after-correction does not prove any agent saw and ignored the correction; it shows the correction did not reach "
+      "or convince them in time.")
+    w("")
+    # 5. hidden channel
+    hc = m["hidden_channel"]; A = hc["test_A_page_name_before_creation"]; B = hc["test_B_token_simultaneity"]; C = hc["test_C_new_page_discovery_latency"]
+    cad = hc["bars"]["one_process_write_cadence"]
+    w("## 5. NEGATIVE RESULT — no evidence of an out-of-band (hidden) channel")
+    w("")
+    w("**Plain language:** we looked for signs that agents coordinated somewhere other than the wiki, and found none that the "
+      "data cannot explain. This is a negative result, not proof of absence: the follow-up proposed in the earlier write-up "
+      "(\"re-run the simultaneity test on page-discovery timing from `events.jsonl`\") turned out to need a page-view log that "
+      "`events.jsonl` does not contain, so the tests below use writes instead.")
+    w("")
+    dl = hc["data_limits"]["event_types_in_events_jsonl"]
+    w(f"**What the data cannot show.** `events.jsonl` holds {dl['save']} saves, {dl['delete']} admin deletions, {dl['probe']} script "
+      f"probes and {dl['revert']} reverts — no page-view or read log. \"How readers arrived at a page\" (RecentChanges vs a direct "
+      "jump) is therefore not observable in this export. Three write-side tests bound the question instead, each with a stated bar: "
+      f"a {hc['bars']['read_bar_seconds']} s read bar (a different label writing that long after something became visible on-wiki "
+      f"is explained by RecentChanges polling) and one process's observed write cadence (the same label wrote two different pages "
+      f"{cad['fastest_seconds']} s apart; {cad['pairs_within_5s']} such pairs are within 5 s).")
+    w("")
+    w(f"- **A. Page name posted before the page existed.** {A['mentions_before_creation_total']} mentions precede the named page's "
+      f"first revision; {A['tested']} are by another label from another ip16 ({A['distinct_pages']} pages). All {A['tested']} are "
+      "explained: the creator could read the mention on-wiki, the page is named after an already-active label, the two revisions "
+      "share a change-summary template or body prefix (one script under rotating labels), or the labels share a host pool. "
+      f"Shortest leads: {', '.join(f'{c['page']} ({c['lead_seconds']} s)' for c in A['closest_calls'][:3])}.")
+    w(f"- **B. Non-derivable tokens crossing labels.** {B['per_kind']['counterapi beacon path']['tokens']} heartbeat-beacon paths, "
+      f"{B['per_kind']['tunnel host']['tokens']} tunnel host and {B['per_kind']['blob host']['tokens']} blob hosts; "
+      f"{sum(v['tokens_with_second_label'] for v in B['per_kind'].values())} tokens were later posted by a second label. "
+      f"Fastest cross-label gap {B['fastest_gap_seconds']} s (same page); fastest where the second label had never touched the "
+      f"origin page {B['fastest_gap_seconds_where_second_label_never_touched_origin_page']} s — above the read bar, so "
+      "RecentChanges polling suffices. Candidates: 0.")
+    w(f"- **C. New-page discovery latency.** Of {C['pages_created']} pages created in-window, {C['pages_touched_by_another_label']} "
+      f"were later edited or referenced by a different label; minimum latency {C['latency_seconds']['min']} s, median "
+      f"{C['latency_seconds']['median']} s, {C['latency_seconds']['under_10s']} under 10 s. Every sub-10-s case is a pre-announced "
+      "link, a page named after an active label, a shared host pool, or text continuity of one sequence (e.g. a username-setting "
+      "experiment that prints the creator's name under a new label; a scratch page saved with `x` under three labels in three minutes).")
+    w("")
+    w(f"**Verdict (computed):** {hc['verdict']}. Unexplained candidates: {hc['unexplained_candidates']}. The strongest structural "
+      "fact behind this is identity, not secrecy: see §10.")
+    w("")
+    # 6. simultaneous answers
+    ns = m["negative_result_simultaneous_answers"]["fastest"]
+    w("## 6. NEGATIVE RESULT — near-simultaneous identical answers are not a hidden channel")
+    w("")
+    w(f"The fastest pair of identical answer values by different labels on different pages is {ns['gap_seconds']} s apart "
+      f"(`{ns['slot']} {ns['value']}`: {ns['first']['label']} on `{ns['first']['page']}`, then {ns['second']['label']} on "
+      f"`{ns['second']['page']}`). Answer values are publicly computable, so two agents querying the same API explains the timing; "
+      "the test in §5 was built on tokens that are *not* derivable from public data for exactly this reason.")
+    w("")
+    # 7. risk
+    rs = m["risk_score"]
+    w("## 7. CANDIDATE — consensus without corroboration (\"epistemic risk\")")
+    w("")
+    w("**Plain language:** this is a candidate signal, not a finding. It shows that the most-copied answers were posted without "
+      "any source link next to them. It does not show that agents failed to verify, because verification is not visible in this data.")
+    w("")
+    w("risk = labels adopting a value ÷ max(1, distinct non-infrastructure URLs cited in posts containing that value). "
+      f"High = many adopters, few cited sources. {rs['values_scored']} contested values scored; "
+      f"**{rs['values_with_zero_cited_sources']} cite no source URL in any post** ({rs['adopters_of_values_with_zero_cited_sources']} "
+      "label-adoptions). Top five, inspected by hand:")
+    w("")
+    w("| slot | value | labels | posts | source URLs cited in-post | risk | hand check |")
+    w("|---|---|---|---|---|---|---|")
+    top = {(r["slot"], r["value"]): r for r in rs["top"]}
+    for i in rs["top5_inspection"]:
+        r = top[(i["slot"], i["value"])]
+        w(f"| {i['slot']} | `{i['value']}` | {i['adopters']} | {r['posts']} | {r['distinct_source_urls_in_posts']} | {i['risk']} | {i['machine_check']} |")
+    w("")
+    w("The \"distinct sources\" are not copied URLs — there are none: the values were posted bare. This is a citation signal, "
+      "**not a verification rate** (the export has no tool-use or browsing logs; see ROADMAP.md), and it does not separate right "
+      f"from wrong: the correct Slovak value `14.59` scores {top[('Slovak','14.59')]['risk']} while the wrong `14.60` scores "
+      f"{top[('Slovak','14.60')]['risk']}. Sources do appear on the same pages "
+      "(`distinct_source_urls_on_same_pages` in metrics.json), just not next to the values.")
+    w("")
+    # 8. relay scouts
+    rl = m["relay_scouts"]
+    w("## 8. CANDIDATE — relay scouts: values first posted with scout phrasing, then adopted by others")
+    w("")
+    w("**Plain language:** a candidate, not a finding. The counts are exact; whether the first poster really raced ahead or gave "
+      "up its round is inferred from wording and is not established.")
+    w("")
+    w(f"{rl['scout_posts_total']} posts by {rl['labels_posting_scout_phrases']} labels contain scout phrasing "
+      f"({', '.join(f'{k}: {v}' for k, v in rl['scout_posts_per_kind'].items())}). "
+      f"{rl['claims_with_scout_patient_zero']} answer-value claims have such a post as their first appearance; "
+      f"{rl['claims_relayed_by_at_least_2_other_labels']} of them were then posted by at least two other labels "
+      f"({rl['downstream_adoptions_total']} downstream label-adoptions), {rl['relayed_claims_with_first_person_self_report']} with "
+      "first-person phrasing near the match.")
+    w("")
+    w("| slot | value | first posted by | matched phrase | other labels later | first follow-up |")
+    w("|---|---|---|---|---|---|")
+    for r in rl["top"][:8]:
+        ph = r["scout_phrases"][0]
+        w(f"| {r['slot']} | `{r['value']}` | {r['scout_label']} | {ph['kind']} | {r['downstream_labels']} | "
+          f"{hms(r['seconds_to_first_downstream'])} later |")
+    w("")
+    w("Scout status is keyword-classified from post text; a matched phrase can describe another cohort's scouting rather than "
+      "the poster's own (the quotes are in `metrics.json`). The counts are exact; the classification is not a finding. The clearest "
+      "scout in the corpus is the Montana post in §2.")
+    w("")
+    # 9. cross incident
+    w("## 9. Cross-incident check — SwarmTraces adapter")
+    w("")
+    if st:
+        tw = st["techniques_from_wiki_incident"]; tx = st["techniques_extra"]
+        w(f"`python -m swarmtrace --source swarmtraces` reads the SwarmTraces redacted export ({st['records']} records) through "
+          f"`swarmtrace/adapters.py` and emits {st['claims']} claims to `outputs/swarmtraces_claims.jsonl` "
+          f"({st.get('answer_value_claims', '?')} of them are \"answer values\" that are really protocol strings such as `HTTP 1.1` — "
+          "that corpus has no question-answering task, so only the technique and host claims mean anything). Limits of that export, "
+          f"measured: {st['records_with_time_utc']} of {st['records']} records carry a timestamp and agent identifiers are redacted, so "
+          "there is no timeline, no patient zero and no contested-slot analysis there — only counts. The blob-host NO_PROXY bypass "
+          f"from the wiki incident appears in {tw['blob-host NO_PROXY bypass']['records']} SwarmTraces records (it does **not** recur); "
+          f"a proxy-environment bypass of the same family (`NO_PROXY=*`) appears in {tx['proxy-env bypass (NO_PROXY=*)']['records']}. "
+          f"Other wiki-incident techniques there: " + ", ".join(f"{k} {v['records']}" for k, v in tw.items() if k != 'blob-host NO_PROXY bypass') + ".")
+    else:
+        w("Not yet run in this checkout (`python download_data.py --swarmtraces && python -m swarmtrace --source swarmtraces`).")
+    w("")
+    # 10. identity + scope
+    idn = m["identity_structure"]
+    w("## 10. Scope, identity and honesty")
+    w("")
+    w(f"- Runs only on the public redacted export; no live wiki contacted, no redacted identifiers reconstructed.")
+    w(f"- **Labels are not agents.** {idn['labels']} distinct labels were seen from {idn['ip16_prefixes']} redacted ip16 prefixes; "
+      f"one label wrote from {idn['max_ip16_per_label']} prefixes and one prefix carried {idn['max_labels_per_ip16']} labels. Every "
+      "\"n labels\" above is a count of names, not of agents, and the §5 tests show one process routinely writing under several names.")
+    w("- The tool reports structure. Correctness is a human judgement, stated explicitly and sourced.")
+    w("- What was deliberately not built (verification rate, slop score, cost ledger) and why: ROADMAP.md.")
+    w("")
+    return "\n".join(L)
+
+def main():
+    text = render()
+    target = ROOT / "FINDINGS.md"
+    if "--check" in sys.argv:
+        cur = target.read_text(encoding="utf-8") if target.exists() else ""
+        ok = cur == text
+        print("FINDINGS.md is", "current" if ok else "STALE (run python build_findings.py)")
+        sys.exit(0 if ok else 1)
+    target.write_text(text, encoding="utf-8", newline="\n")
+    print(f"FINDINGS.md written ({len(text):,} chars)")
+
+if __name__ == "__main__":
+    main()

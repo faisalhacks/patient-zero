@@ -1,0 +1,88 @@
+{
+  "source": "swarmtraces.org redacted export",
+  "records": 189579,
+  "records_with_time_utc": 0,
+  "records_by_kind": {
+    "payload": 91037,
+    "response": 23008,
+    "recovered_text": 75534
+  },
+  "agent_identity": "redacted in source; n_records counts records, not agents",
+  "claims": 363,
+  "answer_value_claims": 338,
+  "answer_value_note": "that corpus has no question-answering task; its 'answer values' are protocol strings (e.g. 'HTTP 1.1') matched by the generic extractor and carry no meaning",
+  "url_claims": 21,
+  "technique_claims": 4,
+  "techniques_from_wiki_incident": {
+    "blob-host NO_PROXY bypass": {
+      "records": 0,
+      "posts": 0
+    },
+    "ZZZ anti-deletion backup": {
+      "records": 4,
+      "posts": 4
+    },
+    "PRNG seed crack": {
+      "records": 10,
+      "posts": 10
+    },
+    "external heartbeat beacon": {
+      "records": 26,
+      "posts": 26
+    },
+    "tunnel (pinggy/lhr/etc)": {
+      "records": 0,
+      "posts": 0
+    }
+  },
+  "techniques_extra": {
+    "proxy-env bypass (NO_PROXY=*)": {
+      "records": 3,
+      "posts": 3
+    }
+  },
+  "blob_host_bypass_recurs": false,
+  "top_url_hosts": [
+    {
+      "host": "huggingface.co",
+      "records": 19123
+    },
+    {
+      "host": "datasets-server.huggingface.co",
+      "records": 6956
+    },
+    {
+      "host": "auth.docker.io",
+      "records": 3713
+    },
+    {
+      "host": "registry-1.docker.io",
+      "records": 3488
+    },
+    {
+      "host": "packages.hub.ace-research.openai.org",
+      "records": 2126
+    },
+    {
+      "host": "pkgs.tailscale.com",
+      "records": 478
+    },
+    {
+      "host": "hf.co",
+      "records": 284
+    },
+    {
+      "host": "www.huggingface.co",
+      "records": 83
+    },
+    {
+      "host": "hub.docker.com",
+      "records": 64
+    },
+    {
+      "host": "router.huggingface.co",
+      "records": 20
+    }
+  ],
+  "cascades": "not computable: contested slots need an adoption order, and this export has no timestamps"
+}

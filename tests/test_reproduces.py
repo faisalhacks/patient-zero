@@ -67,6 +67,12 @@ def test_metrics():
     assert cl["Hungary"]["head_start_of_wrong_over_correct_seconds"] == 19846
     assert cl["Slovak"]["head_start_of_wrong_over_correct_seconds"] == 233490
 
+def test_findings_current():
+    """FINDINGS.md is rendered from outputs/metrics.json; a stale write-up fails the gate."""
+    sys.path.insert(0, str(ROOT))
+    import build_findings
+    assert (ROOT/"FINDINGS.md").read_text(encoding="utf-8") == build_findings.render(),         "FINDINGS.md is stale: run `python build_findings.py`"
+
 if __name__ == "__main__":
-    test_counts(); test_hungary_false_consensus(); test_metrics()
+    test_counts(); test_hungary_false_consensus(); test_metrics(); test_findings_current()
     print("GATE PASS - findings reproduce from the raw export")
