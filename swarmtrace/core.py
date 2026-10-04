@@ -51,7 +51,7 @@ def extract(events):
         for name, rx in TECH.items():
             if re.search(rx, txt, re.I):
                 bucket[("technique", name, name)].append(e)
-        for host in set(m.lower() for m in URL.findall(txt)):
+        for host in sorted(set(m.lower() for m in URL.findall(txt))):
             bucket[("url", host, host)].append(e)
     return bucket
 
@@ -73,7 +73,7 @@ def build(bucket):
                        "patient_zero": evs[0]["agent"], "n_posts": len(evs),
                        "n_agents": len(first_by_agent), "agents": list(first_by_agent),
                        "pages": sorted({e["where"] for e in evs}), "adoption": adoption})
-    claims.sort(key=lambda c: -c["n_agents"])
+    claims.sort(key=lambda c: (-c["n_agents"], c["first_seen"], c["claim_id"]))  # deterministic
     by_slot = collections.defaultdict(list)
     for c in claims:
         if c["kind"] == "answer_value": by_slot[c["slot"]].append(c)
