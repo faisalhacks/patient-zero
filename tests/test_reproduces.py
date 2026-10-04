@@ -54,6 +54,11 @@ def test_metrics():
     assert hc["test_C_new_page_discovery_latency"]["pages_created"] == 4562
     assert hc["test_C_new_page_discovery_latency"]["latency_seconds"]["min"] == 1
     assert hc["unexplained_candidates"] == 0 and hc["verdict"].startswith("RULED OUT"), hc["verdict"]
+    rs = m["risk_score"]
+    assert (rs["values_scored"], rs["values_with_zero_cited_sources"], rs["adopters_of_values_with_zero_cited_sources"]) == (122, 86, 662), rs
+    top = rs["top"][0]
+    assert (top["slot"], top["value"], top["adopters"], top["distinct_source_urls_in_posts"]) == ("Business", "5,269", 69, 0), top
+    assert all(i["machine_check"].startswith(("no source URL", "all 1 cited")) for i in rs["top5_inspection"])
 
 if __name__ == "__main__":
     test_counts(); test_hungary_false_consensus(); test_metrics()
