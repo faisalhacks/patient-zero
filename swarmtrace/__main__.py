@@ -12,8 +12,12 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.source == "swarmtraces":
         from .adapters import run_swarmtraces
-        ev, cl, ca = run_swarmtraces(a.path or "data/swarmtraces_redacted.jsonl.gz")
-        print(f"[swarmtraces] events={len(ev)}  claims={len(cl)}  contested_slots={len(ca)}")
+        ev, cl, summary = run_swarmtraces(a.path or "data/swarmtraces_redacted.jsonl.gz")
+        print(f"[swarmtraces] records={len(ev)}  claims={len(cl)} (url={summary['url_claims']}, technique={summary['technique_claims']}, "
+              f"answer_value={summary['answer_value_claims']} = protocol-string artifacts)  timestamps={summary['records_with_time_utc']}")
+        print(f"[swarmtraces] blob-host bypass recurs: {summary['blob_host_bypass_recurs']}; "
+              f"NO_PROXY=* bypass records: {summary['techniques_extra']['proxy-env bypass (NO_PROXY=*)']['records']}")
+        print("[swarmtraces] wrote outputs/swarmtraces_claims.jsonl and outputs/swarmtraces_summary.json")
         return
     ev, cl, ca = run(a.path or "data/revisions.jsonl")
     print(f"events={len(ev)}  claims={len(cl)}  contested_slots={len(ca)}")
