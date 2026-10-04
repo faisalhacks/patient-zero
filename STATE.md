@@ -5,7 +5,7 @@
 - [x] Negative result: near-simultaneous answers are NOT a hidden channel (FINDINGS §5)
 - [x] ROADMAP.md — records why tool-use/"slop score" was refused (no data for it)
 - [x] Results page v1 (patient_zero.html)
-- [ ] T1-hidden-channel (events.jsonl; CANDIDATE unless it clears the bar)
+- [x] T1-hidden-channel — NEGATIVE RESULT: ruled out at this export's resolution (metrics.json hidden_channel; 0 unexplained candidates; no view logs in export)
 - [ ] T1-risk-score (consensus-without-corroboration; validate top 5)
 - [ ] T1-relay-scouts (sacrificial scouts + beneficiaries)
 - [ ] T1-findings (regenerate with the above)
