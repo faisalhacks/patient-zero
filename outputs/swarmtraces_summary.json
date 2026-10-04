@@ -1,5 +1,6 @@
 {
   "source": "swarmtraces.org redacted export",
+  "mode": "time-free",
   "records": 189579,
   "records_with_time_utc": 0,
   "records_by_kind": {
@@ -84,5 +85,34 @@
       "records": 20
     }
   ],
-  "cascades": "not computable: contested slots need an adoption order, and this export has no timestamps"
+  "contested_slots_time_free": 25,
+  "contested_slot_words": [
+    "ADDRESS",
+    "Academy",
+    "Accept",
+    "Authorization",
+    "Blob",
+    "CREDENTIAL",
+    "California",
+    "Connections",
+    "ENCODED",
+    "EXTINF",
+    "Gecko",
+    "HEAD",
+    "HTTP",
+    "Infra",
+    "KHTML",
+    "Linux",
+    "Nathaniel",
+    "POST",
+    "REDACTED",
+    "Record",
+    "True",
+    "Type",
+    "Ubuntu",
+    "User",
+    "WORK"
+  ],
+  "contested_slots_note": "contestation only (two or more values each in >= 2 records); the slot words are HTTP/header tokens and incidental capitalised words, none a question-answering task; no patient zero, head start or adoption order is computable because the export has no timestamps",
+  "propagation_tracing": "not computable: no timestamps in the export"
 }

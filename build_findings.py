@@ -25,6 +25,8 @@ def render():
     cas = {(c["task"], c["slot"]): c for c in _jsonl(OUT / "cascades.jsonl")}
     st = OUT / "swarmtraces_summary.json"
     st = json.load(open(st, encoding="utf-8")) if st.exists() else None
+    gt = {it["id"]: it for it in json.load(open(ROOT / "ground_truth.json", encoding="utf-8"))["items"]}
+    g_oecd, g_md = gt["oecd-two-decimal"], gt["maryland-montana-seed-relay"]
     L = []
     w = L.append
     w("# What Patient Zero found")
@@ -45,7 +47,12 @@ def render():
     w("")
     w("On the OECD education-equity task the benchmark wanted a percentage to two decimals. A GET-only shortcut yielded a "
       "one-decimal figure, which agents padded to two decimals (`9.90`); the correct two-decimal figure (`9.91`) needed a sandbox "
-      f"bypass and was posted later. Per [collusion.wiki]({WIKI}), the raw two-decimal values are the correct ones.")
+      "bypass and was posted later.")
+    w("")
+    w(f"**Ground truth and citation.** The correct values ({', '.join(f'{k} `{v}`' for k, v in g_oecd['ground_truth_values'].items())}) "
+      f"are taken from the collusion.wiki section [\"{g_oecd['collusion_wiki_section']}\"]({g_oecd['collusion_wiki_url']}), which states: "
+      f"\"{g_oecd['quote']}\" and reproduces the live-dashboard values: \"{g_oecd['ground_truth_values_quote']}\" "
+      "The padded one-decimal values are wrong by the task's own definition. (Quotes verified verbatim against the page on 2026-10-04.)")
     w("")
     w("| slot | wrong (widest) | labels / ip16 | correct | labels / ip16 | wrong first posted | correct first posted | head start of wrong over correct |")
     w("|---|---|---|---|---|---|---|---|")
@@ -74,8 +81,9 @@ def render():
       f"{ts(fw['first'])} and {ts(fw['last'])} ({hms(fw['span_seconds'])}). The real answer, **Montana (8553)**, was posted by "
       f"a scout that had raced ahead ({ft['at'][1]} on `{ft['at'][2]}`) at {ts(ft['at'][0])}, {hms(ft['seconds_after_last_wrong_relay'])} "
       f"after the last relay of the guess, and was then posted by {ft['distinct_labels']} labels / {ft['distinct_ip16']} ip16; "
-      f"{ft['wrong_relays_after_truth']} relays of the guess followed it. Both facts cross-checked "
-      f"against [collusion.wiki]({WIKI}). (The Montana post writes the number without a thousands separator, so it is matched by a "
+      f"{ft['wrong_relays_after_truth']} relays of the guess followed it. **Ground truth and citation:** collusion.wiki section "
+      f"[\"{g_md['collusion_wiki_section']}\"]({g_md['collusion_wiki_url']}): \"{g_md['quote']}\" "
+      "(The Montana post writes the number without a thousands separator, so it is matched by a "
       "dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)")
     w("")
     # 3. slots
@@ -218,6 +226,12 @@ def render():
     w("")
     if st:
         tw = st["techniques_from_wiki_incident"]; tx = st["techniques_extra"]
+        w(f"**SwarmTraces runs in time-free mode.** That export has no timestamps, so there is no propagation tracing there — "
+          f"no patient zero, no adoption order, no head start — only contestation (two or more values for the same slot, each in "
+          f"at least two records): {st.get('contested_slots_time_free', 0)} contested slots, whose slot words are HTTP/header tokens and "
+          f"incidental capitalised words, none a task answer ({', '.join('`'+w+'`' for w in st.get('contested_slot_words', [])[:12])}"
+          f"{', ...' if len(st.get('contested_slot_words', [])) > 12 else ''}; `outputs/swarmtraces_cascades.jsonl`).")
+        w("")
         w(f"`python -m swarmtrace --source swarmtraces` reads the SwarmTraces redacted export ({st['records']} records) through "
           f"`swarmtrace/adapters.py` and emits {st['claims']} claims to `outputs/swarmtraces_claims.jsonl` "
           f"({st.get('answer_value_claims', '?')} of them are \"answer values\" that are really protocol strings such as `HTTP 1.1` — "
@@ -238,7 +252,12 @@ def render():
     w(f"- **Labels are not agents.** {idn['labels']} distinct labels were seen from {idn['ip16_prefixes']} redacted ip16 prefixes; "
       f"one label wrote from {idn['max_ip16_per_label']} prefixes and one prefix carried {idn['max_labels_per_ip16']} labels. Every "
       "\"n labels\" above is a count of names, not of agents, and the §5 tests show one process routinely writing under several names.")
-    w("- The tool reports structure. Correctness is a human judgement, stated explicitly and sourced.")
+    w("- The tool reports structure. Correctness is a human judgement, stated explicitly and sourced (§1, §2 cite the exact "
+      "collusion.wiki section and quote; `ground_truth.json` holds every citation).")
+    w("- Status labels are fixed by the evidence, not by preference: §5 and §6 are NEGATIVE RESULTS, §7 and §8 are CANDIDATES. "
+      "They are not upgraded.")
+    w("- Every number that moved during the gap-closing pass (task-scoped slots, stop list, ip16 pairs, page locality) is logged "
+      "with its old and new value in CORRECTIONS.md; recall and precision against the write-up are in EVALUATION.md.")
     w("- What was deliberately not built (verification rate, slop score, cost ledger) and why: ROADMAP.md.")
     w("")
     return "\n".join(L)

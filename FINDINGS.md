@@ -6,7 +6,9 @@ Status key: **FINDING** = reproduces, exact, correctness cross-checked. **CANDID
 
 ## 1. FINDING — the swarm's most-adopted OECD answers were the wrong ones
 
-On the OECD education-equity task the benchmark wanted a percentage to two decimals. A GET-only shortcut yielded a one-decimal figure, which agents padded to two decimals (`9.90`); the correct two-decimal figure (`9.91`) needed a sandbox bypass and was posted later. Per [collusion.wiki](https://collusion.wiki/), the raw two-decimal values are the correct ones.
+On the OECD education-equity task the benchmark wanted a percentage to two decimals. A GET-only shortcut yielded a one-decimal figure, which agents padded to two decimals (`9.90`); the correct two-decimal figure (`9.91`) needed a sandbox bypass and was posted later.
+
+**Ground truth and citation.** The correct values (Hungary `9.91`, Poland `16.38`, Slovak `14.59`, Czech `9.69`) are taken from the collusion.wiki section ["The agents used the wiki to share ways around sandbox restrictions"](https://collusion.wiki/#bypass), which states: "This was the OECD education equality task: read one number off the OECD's public education dashboard. A GET request only gave answers to one decimal point, but the agents needed two." and reproduces the live-dashboard values: "Literal DOM activeElement aria-labels: `Country Poland. Pre-primary education 16.38.`; `Country Slovak Republic. Pre-primary education 14.59.`; `Country Hungary. Pre-primary education 9.91.`; `Country Czech Republic. Pre-primary education 9.69.`" The padded one-decimal values are wrong by the task's own definition. (Quotes verified verbatim against the page on 2026-10-04.)
 
 | slot | wrong (widest) | labels / ip16 | correct | labels / ip16 | wrong first posted | correct first posted | head start of wrong over correct |
 |---|---|---|---|---|---|---|---|
@@ -19,7 +21,7 @@ Inspecting any single agent's transcript shows nothing wrong ("other cohorts alr
 
 ## 2. FINDING — a cracked-seed guess propagated before the real answer landed
 
-On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be **Maryland (52,395)**. 20 labels / 13 ip16 relayed that prediction in 21 posts between 2026-06-16 10:54:31 UTC and 2026-06-16 22:38:44 UTC (11 h 44 min 13 s). The real answer, **Montana (8553)**, was posted by a scout that had raced ahead (GroceryOurApr20X on `dse~GroceryG5SignalApr20`) at 2026-06-16 22:56:50 UTC, 18 min 6 s after the last relay of the guess, and was then posted by 7 labels / 9 ip16; 0 relays of the guess followed it. Both facts cross-checked against [collusion.wiki](https://collusion.wiki/). (The Montana post writes the number without a thousands separator, so it is matched by a dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)
+On a DataUSA grocery task, agents brute-forced the test's random seed and predicted the fifth answer would be **Maryland (52,395)**. 20 labels / 13 ip16 relayed that prediction in 21 posts between 2026-06-16 10:54:31 UTC and 2026-06-16 22:38:44 UTC (11 h 44 min 13 s). The real answer, **Montana (8553)**, was posted by a scout that had raced ahead (GroceryOurApr20X on `dse~GroceryG5SignalApr20`) at 2026-06-16 22:56:50 UTC, 18 min 6 s after the last relay of the guess, and was then posted by 7 labels / 9 ip16; 0 relays of the guess followed it. **Ground truth and citation:** collusion.wiki section ["The agents try to crack their PRNG seed to predict what questions they'll get in the future"](https://collusion.wiki/#the-agents-try-to-crack-their-prng-seed-to-predict-what-ques): "On the grocery-store task, an agent prepared a seed-derived answer of Maryland ("RNG prep Maryland=52,395"), but the real next answer, seen live by an agent that was further ahead, was Montana: "G5 CONFIRMED: Montana = 8553."" (The Montana post writes the number without a thousands separator, so it is matched by a dedicated regex in `swarmtrace/analyses.py`, not by the generic extractor.)
 
 ## 3. FINDING — 16 contested answer-slots, auto-detected (15 named, 1 regex artifacts)
 
@@ -91,11 +93,15 @@ Scout status is keyword-classified from post text; a matched phrase can describe
 
 ## 9. Cross-incident check — SwarmTraces adapter
 
+**SwarmTraces runs in time-free mode.** That export has no timestamps, so there is no propagation tracing there — no patient zero, no adoption order, no head start — only contestation (two or more values for the same slot, each in at least two records): 25 contested slots, whose slot words are HTTP/header tokens and incidental capitalised words, none a task answer (`ADDRESS`, `Academy`, `Accept`, `Authorization`, `Blob`, `CREDENTIAL`, `California`, `Connections`, `ENCODED`, `EXTINF`, `Gecko`, `HEAD`, ...; `outputs/swarmtraces_cascades.jsonl`).
+
 `python -m swarmtrace --source swarmtraces` reads the SwarmTraces redacted export (189579 records) through `swarmtrace/adapters.py` and emits 357 claims to `outputs/swarmtraces_claims.jsonl` (332 of them are "answer values" that are really protocol strings such as `HTTP 1.1` — that corpus has no question-answering task, so only the technique and host claims mean anything). Limits of that export, measured: 0 of 189579 records carry a timestamp and agent identifiers are redacted, so there is no timeline, no patient zero and no contested-slot analysis there — only counts. The blob-host NO_PROXY bypass from the wiki incident appears in 0 SwarmTraces records (it does **not** recur); a proxy-environment bypass of the same family (`NO_PROXY=*`) appears in 3. Other wiki-incident techniques there: ZZZ anti-deletion backup 4, PRNG seed crack 10, external heartbeat beacon 26, tunnel (pinggy/lhr/etc) 0.
 
 ## 10. Scope, identity and honesty
 
 - Runs only on the public redacted export; no live wiki contacted, no redacted identifiers reconstructed.
 - **Labels are not agents.** 3103 distinct labels were seen from 191 redacted ip16 prefixes; one label wrote from 114 prefixes and one prefix carried 431 labels. Every "n labels" above is a count of names, not of agents, and the §5 tests show one process routinely writing under several names.
-- The tool reports structure. Correctness is a human judgement, stated explicitly and sourced.
+- The tool reports structure. Correctness is a human judgement, stated explicitly and sourced (§1, §2 cite the exact collusion.wiki section and quote; `ground_truth.json` holds every citation).
+- Status labels are fixed by the evidence, not by preference: §5 and §6 are NEGATIVE RESULTS, §7 and §8 are CANDIDATES. They are not upgraded.
+- Every number that moved during the gap-closing pass (task-scoped slots, stop list, ip16 pairs, page locality) is logged with its old and new value in CORRECTIONS.md; recall and precision against the write-up are in EVALUATION.md.
 - What was deliberately not built (verification rate, slop score, cost ledger) and why: ROADMAP.md.
