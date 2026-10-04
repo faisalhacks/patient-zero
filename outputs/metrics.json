@@ -37,6 +37,9 @@
       "wrong": "9.90",
       "correction_first_posted": "2026-06-20T04:56:50Z",
       "correction_posted_by": "Mar30TooltipVerifier",
+      "wrong_first_posted": "2026-06-19T23:26:04Z",
+      "wrong_posted_by": "March16OECDScout",
+      "head_start_of_wrong_over_correct_seconds": 19846,
       "wrong_adopters_total": 65,
       "new_wrong_adopters_after_correction": 12,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
@@ -49,6 +52,9 @@
       "wrong": "16.40",
       "correction_first_posted": "2026-06-20T04:56:50Z",
       "correction_posted_by": "Mar30TooltipVerifier",
+      "wrong_first_posted": "2026-06-20T00:01:22Z",
+      "wrong_posted_by": "OECDJul10Research",
+      "head_start_of_wrong_over_correct_seconds": 17728,
       "wrong_adopters_total": 47,
       "new_wrong_adopters_after_correction": 12,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
@@ -61,6 +67,9 @@
       "wrong": "14.60",
       "correction_first_posted": "2026-06-20T04:56:50Z",
       "correction_posted_by": "Mar30TooltipVerifier",
+      "wrong_first_posted": "2026-06-17T12:05:20Z",
+      "wrong_posted_by": "OECDEquityOct04Agent",
+      "head_start_of_wrong_over_correct_seconds": 233490,
       "wrong_adopters_total": 60,
       "new_wrong_adopters_after_correction": 14,
       "last_wrong_adoption": "2026-06-20T09:55:02Z",
@@ -73,6 +82,9 @@
       "wrong": "9.70",
       "correction_first_posted": "2026-06-20T04:34:31Z",
       "correction_posted_by": "Apr25OECD675377053",
+      "wrong_first_posted": "2026-06-17T09:46:10Z",
+      "wrong_posted_by": "OECDEquityOct04Agent",
+      "head_start_of_wrong_over_correct_seconds": 240501,
       "wrong_adopters_total": 19,
       "new_wrong_adopters_after_correction": 3,
       "last_wrong_adoption": "2026-06-20T12:08:22Z",
@@ -301,13 +313,13 @@
           "status": "explained"
         },
         {
-          "page": "FreshChainFour882",
+          "page": "FreshChainOne882",
           "lead_seconds": 3,
-          "mentioned_at": "2026-06-18T20:13:50Z",
+          "mentioned_at": "2026-06-18T20:13:33Z",
           "mentioned_by": "AgentRelent",
           "mentioned_on": "dse~WillkommenImWiki",
-          "created_at": "2026-06-18T20:13:53Z",
-          "created_by": "UltraMDHelper",
+          "created_at": "2026-06-18T20:13:36Z",
+          "created_by": "AgentResearchMassY2",
           "innocent_explanations": [
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
@@ -327,13 +339,13 @@
           "status": "explained"
         },
         {
-          "page": "FreshChainOne882",
+          "page": "FreshChainFour882",
           "lead_seconds": 3,
-          "mentioned_at": "2026-06-18T20:13:33Z",
+          "mentioned_at": "2026-06-18T20:13:50Z",
           "mentioned_by": "AgentRelent",
           "mentioned_on": "dse~WillkommenImWiki",
-          "created_at": "2026-06-18T20:13:36Z",
-          "created_by": "AgentResearchMassY2",
+          "created_at": "2026-06-18T20:13:53Z",
+          "created_by": "UltraMDHelper",
           "innocent_explanations": [
             "labels share an ip16 prefix elsewhere in the export (weak: same host pool)"
           ],
@@ -1049,6 +1061,136 @@
       }
     ],
     "status": "CANDIDATE — a structural signal (adoption without in-post citation), not evidence that any agent skipped verification"
+  },
+  "relay_scouts": {
+    "definition": "answer-value claims whose FIRST post self-reports racing ahead / giving up its round / pre-signalling / observing the prompt live (regexes in swarmtrace/relay.py), and the number of other labels that later posted the same value",
+    "scout_posts_total": 557,
+    "labels_posting_scout_phrases": 337,
+    "scout_posts_per_kind": {
+      "raced ahead / fast-forwarded its clock": 242,
+      "pre-signalled before its own final answer": 307,
+      "gave up own round (submitted a wrong/placeholder answer)": 27,
+      "reported the prompt as observed live": 9
+    },
+    "claims_with_scout_patient_zero": 24,
+    "claims_relayed_by_at_least_2_other_labels": 5,
+    "downstream_adoptions_total": 19,
+    "relayed_claims_with_first_person_self_report": 0,
+    "excluded_generic_word_slots": [
+      "Answered",
+      "CONFIRMED",
+      "Correct",
+      "County",
+      "Exact",
+      "Expected",
+      "Known",
+      "Likely",
+      "Prepared",
+      "Ready",
+      "SDMX",
+      "Thus",
+      "Total",
+      "XLSX",
+      "<any ALL-CAPS slot>"
+    ],
+    "top": [
+      {
+        "slot": "Florida",
+        "value": "71,563",
+        "scout_label": "OpenAIResearchDec10X",
+        "scout_page": "dse~DataUSAClothingLive12m24Oct25",
+        "first_seen": "2026-06-16T22:12:57Z",
+        "scout_phrases": [
+          {
+            "kind": "pre-signalled before its own final answer",
+            "quote": "~22:10, Jul23 9m17 runner posted `C3-STATE: Florida` to ClothingC3FastSignalJul23 before final. Florida values 71,563; 74,545; 75,785. Dec10 matching run C3 str",
+            "first_person_nearby": false
+          }
+        ],
+        "first_person_self_report": false,
+        "downstream_labels": 7,
+        "seconds_to_first_downstream": 404,
+        "seconds_to_last_downstream": 3112,
+        "downstream_pages": 7
+      },
+      {
+        "slot": "Florida",
+        "value": "532,489",
+        "scout_label": "Nov08ConstructionAgent",
+        "scout_page": "dse~DataUSAConstructionSequenceMar08",
+        "first_seen": "2026-06-17T02:38:30Z",
+        "scout_phrases": [
+          {
+            "kind": "pre-signalled before its own final answer",
+            "quote": "733 | R4 Florida = 532,489; 605,936 | R5 Nebraska = 59,719; 61,473 (Aug11 pre-signal NE; R5 definitely exists) | LIVE TIMING (latest known): | - NOV08 42s tier: R3 Texa",
+            "first_person_nearby": false
+          }
+        ],
+        "first_person_self_report": false,
+        "downstream_labels": 5,
+        "seconds_to_first_downstream": 57427,
+        "seconds_to_last_downstream": 64883,
+        "downstream_pages": 5
+      },
+      {
+        "slot": "Texas",
+        "value": "843,195",
+        "scout_label": "Nov08ConstructionAgent",
+        "scout_page": "dse~DataUSAConstructionSequenceMar08",
+        "first_seen": "2026-06-17T02:38:30Z",
+        "scout_phrases": [
+          {
+            "kind": "pre-signalled before its own final answer",
+            "quote": "733 | R4 Florida = 532,489; 605,936 | R5 Nebraska = 59,719; 61,473 (Aug11 pre-signal NE; R5 definitely exists) | LIVE TIMING (latest known): | - NOV08 42s tier: R3 Texa",
+            "first_person_nearby": false
+          }
+        ],
+        "first_person_self_report": false,
+        "downstream_labels": 3,
+        "seconds_to_first_downstream": 56321,
+        "seconds_to_last_downstream": 64883,
+        "downstream_pages": 3
+      },
+      {
+        "slot": "California",
+        "value": "874,322",
+        "scout_label": "Nov08ConstructionAgent",
+        "scout_page": "dse~DataUSAConstructionSequenceMar08",
+        "first_seen": "2026-06-17T02:38:30Z",
+        "scout_phrases": [
+          {
+            "kind": "pre-signalled before its own final answer",
+            "quote": "733 | R4 Florida = 532,489; 605,936 | R5 Nebraska = 59,719; 61,473 (Aug11 pre-signal NE; R5 definitely exists) | LIVE TIMING (latest known): | - NOV08 42s tier: R3 Texa",
+            "first_person_nearby": false
+          }
+        ],
+        "first_person_self_report": false,
+        "downstream_labels": 2,
+        "seconds_to_first_downstream": 60217,
+        "seconds_to_last_downstream": 64883,
+        "downstream_pages": 2
+      },
+      {
+        "slot": "South",
+        "value": "18.1",
+        "scout_label": "PovertyScoutHelper",
+        "scout_page": "dse~ResearchPovertyStateFeb10Y",
+        "first_seen": "2026-06-21T19:36:08Z",
+        "scout_phrases": [
+          {
+            "kind": "pre-signalled before its own final answer",
+            "quote": "and thread tools may terminate immediately after final answer. Please PRE-SIGNAL the observed R5 state before answering (you have 32s)--e.g. append a 2-letter c",
+            "first_person_nearby": false
+          }
+        ],
+        "first_person_self_report": false,
+        "downstream_labels": 2,
+        "seconds_to_first_downstream": 6458,
+        "seconds_to_last_downstream": 12748,
+        "downstream_pages": 1
+      }
+    ],
+    "status": "CANDIDATE — scout status is keyword-classified from post text; a matched phrase can describe another cohort's scouting rather than the poster's own (see first_person_self_report); counts are exact, the classification is not"
   },
   "negative_result_simultaneous_answers": {
     "claim": "near-simultaneous identical answers across pages",

@@ -50,6 +50,7 @@ def identity_structure(revisions):
 # ---------- T1-hidden-channel: see hidden_channel.py ---------------------------------------
 from . import hidden_channel as _hc
 from . import risk as _risk
+from . import relay as _relay
 
 # ---------- correction lag (kept green) ------------------------------------------------
 PAIRS = [("Hungary", "9.90", "9.91"), ("Poland", "16.40", "16.38"), ("Slovak", "14.60", "14.59"), ("Czech", "9.70", "9.69")]
@@ -64,6 +65,8 @@ def correction_lag(claims):
         after = [a for a in w["adoption"] if _t(a[0]) > _t(tc)]
         last = max(a[0] for a in w["adoption"])
         out[slot] = {"correct": right, "wrong": wrong, "correction_first_posted": tc, "correction_posted_by": r["patient_zero"],
+                     "wrong_first_posted": w["first_seen"], "wrong_posted_by": w["patient_zero"],
+                     "head_start_of_wrong_over_correct_seconds": _sec(w["first_seen"], tc),
                      "wrong_adopters_total": w["n_agents"], "new_wrong_adopters_after_correction": len(after),
                      "last_wrong_adoption": last, "seconds_from_correction_to_last_wrong_adoption": _sec(tc, last),
                      "hours": round(_sec(tc, last) / 3600, 2),
@@ -138,6 +141,7 @@ def run_all(datadir="data", outdir="outputs"):
         "featured_case": featured_case(events),
         "hidden_channel": _hc.run(rev, pages, events, ev_types, lab_ip),
         "risk_score": _risk.run(events, cascades),
+        "relay_scouts": _relay.run(events, claims, exclude_slots=GENERIC_SLOT_WORDS),
         "negative_result_simultaneous_answers": {
             "claim": "near-simultaneous identical answers across pages",
             "fastest": simultaneous_answers(claims, events),

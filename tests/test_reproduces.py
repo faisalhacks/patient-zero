@@ -59,6 +59,13 @@ def test_metrics():
     top = rs["top"][0]
     assert (top["slot"], top["value"], top["adopters"], top["distinct_source_urls_in_posts"]) == ("Business", "5,269", 69, 0), top
     assert all(i["machine_check"].startswith(("no source URL", "all 1 cited")) for i in rs["top5_inspection"])
+    rl = m["relay_scouts"]
+    assert (rl["scout_posts_total"], rl["labels_posting_scout_phrases"]) == (557, 337), rl
+    assert (rl["claims_with_scout_patient_zero"], rl["claims_relayed_by_at_least_2_other_labels"],
+            rl["downstream_adoptions_total"], rl["relayed_claims_with_first_person_self_report"]) == (24, 5, 19, 0), rl
+    assert (rl["top"][0]["slot"], rl["top"][0]["value"], rl["top"][0]["downstream_labels"]) == ("Florida", "71,563", 7)
+    assert cl["Hungary"]["head_start_of_wrong_over_correct_seconds"] == 19846
+    assert cl["Slovak"]["head_start_of_wrong_over_correct_seconds"] == 233490
 
 if __name__ == "__main__":
     test_counts(); test_hungary_false_consensus(); test_metrics()
